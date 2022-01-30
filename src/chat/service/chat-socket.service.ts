@@ -7,10 +7,11 @@ import { UserService } from "src/entities/user/user.service";
 import { ChatsService } from "src/entities/chats/chats.service";
 import { MessagesService } from "src/entities/messages/messages.service";
 import { Message } from "../interfaces/message.interface";
+import { host, appPort } from "config.json";
 
 @WebSocketGateway({
     cors: {
-      origin: 'http://localhost:3000',
+      origin: `http://${host}:${appPort}`,
     },
 })
 export class ChatSocketService {
@@ -25,7 +26,7 @@ export class ChatSocketService {
 
     @SubscribeMessage("joinRoom")
     async joinRoomEvent(@ConnectedSocket() socket: Socket) {
-      const getterUsername = socket.request.headers.referer.replace("http://localhost:3000/chat/", "");
+      const getterUsername = socket.request.headers.referer.replace(`http://${host}:${appPort}/chat/`, "");
       const senderId = (await jwt.verify(cookie.parse(socket.request.headers.cookie).token, secretJwt))._id;
       const getterId = await this.userService.getIdUserByUsername(getterUsername.replace("messages-user/", ""));
 
@@ -38,7 +39,7 @@ export class ChatSocketService {
 
     @SubscribeMessage("message")
     async messageEvenet(@ConnectedSocket() socket: Socket, @MessageBody() data: Message) {
-      const getterUsername = socket.request.headers.referer.replace("http://localhost:3000/chat/", "");
+      const getterUsername = socket.request.headers.referer.replace(`http://${host}:${appPort}/chat/`, "");
       const token = await jwt.verify(cookie.parse(socket.request.headers.cookie).token, secretJwt);
      
       const senderId = token._id;
