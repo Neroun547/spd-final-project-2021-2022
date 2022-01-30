@@ -1,0 +1,128 @@
+.account__settings-block {
+    margin-top: 150px;
+    margin-bottom: 70px;
+}
+
+.account__settings-block-item {
+    max-width: 800px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 20px;
+    word-wrap: break-word;
+}
+
+.account__settings-block-item a {
+    color: #fff;
+    text-decoration: none;
+    transition: .2s;
+}
+
+.account__settings-block-item a:hover {
+    color: #e8e8e8;
+    text-decoration: none;
+    transition: .2s;
+}
+
+.add-avatar-btn {
+    display: block;
+    width: 120px;
+    height: 40px;
+    border: none;
+    margin: 0 auto;
+    margin-top: 50px;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: #000;
+    color: #fff;
+    border-radius: 5px;
+    transition: .2s;
+}
+
+.add-avatar-btn:hover {
+    background-color: #242424;
+    transition: .2s;
+}
+
+.account__settings-form {
+    margin-top: 50px;
+}
+
+.account__settings-avatar {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+
+.account__settings-avatar img {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+}
+
+.account__settings-upload-avatar-btn {
+    display: block;
+    border: none;
+    width: 200px;
+    height: 50px;
+    border-radius: 5px;
+    margin: 0 auto;
+    margin-top: 50px;
+    cursor: pointer;
+} 
+
+.btn-change-password {
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+@media screen and (max-width: 1060px) {
+    .account__settings-avatar {
+        width: 200px;
+        height: 200px;
+    }
+
+    .account__settings-avatar img {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .account__settings-block-item {
+        font-size: 18px;
+    }
+
+    .account__settings-block-item h2 {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .account__settings-block-item {
+        font-size: 16px;
+    }
+
+    .account__settings-block-item h2 {
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .account__settings-avatar {
+        width: 150px;
+        height: 150px;
+    }
+
+    .account__settings-avatar img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .account__settings-block-item {
+        display: flex;
+        flex-direction: column;
+    }
+}

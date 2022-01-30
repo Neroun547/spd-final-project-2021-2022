@@ -1,0 +1,35 @@
+<h2 class="mb-10 ml-10 mt-10">
+    Count friends: 
+    <span id="count-friends" data-count="{{countFriends}}">
+        {{countFriends}}
+    </span>
+</h2>
+<div class="wrapper__about">
+    {{#if friends}}
+        {{#each friends}}
+            <div class="wrapper__item-invite mb-5">
+                <div class="wrapper__item-invite-username-avatar">
+                    {{#if this.idAvatar}}
+                        <img src="/account-settings/avatar/{{this.idAvatar}}">
+                    {{else}}
+                        <img src="/img/user.png">
+                    {{/if}}
+                    
+                    <a href="/user/{{this.username}}">{{this.username}}</a>
+                </div>
+                    
+                <div class="wrapper__item-invite-send-message-delete">
+                    <a href="/chat/{{this.username}}">
+                        <button class="button primary send-message-btn"><img src="/img/send-message.png"></button>
+                    </a>
+                    <button class="button alert mb-5 mt-5 delete-friend border-radius" id="{{this._id}}">&#10006;</button>
+                </div>
+            </div>
+        {{/each}}
+    {{else}}
+        <h2>No friends now ...</h2>
+    {{/if}}
+</div>
+{{#if loadMoreFriends}}
+    <button class="button dark load-more-friends-btn">Load more friends</button>
+{{/if}}

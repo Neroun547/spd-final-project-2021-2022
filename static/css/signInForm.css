@@ -1,0 +1,48 @@
+.wrapper__form {
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 80px;
+}
+
+.wrapper__form form {
+    border-radius: 5px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    background-color: #f2f2f2;
+}
+
+.wrapper__form form button {
+    width: 200px;
+    height: 40px;
+    margin: 0 auto;
+    margin-top: 50px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #000;
+    color: #fff;
+}
+
+
+.wrapper__form input {
+    background-color: transparent;
+    margin-top: 30px;
+    outline: none;
+    font-size: 18px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+
+.wrapper__form input::placeholder {
+    color: #000;
+}
+
+.wrapper__message-signup {
+    display: none;
+    margin: 0 auto;
+    padding: 10px;
+    max-width: 600px;
+    text-align: center;
+}

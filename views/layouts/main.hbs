@@ -1,0 +1,19 @@
+{{>head}}
+<body>
+    <div class="nav__block">
+        {{>nav}}
+    </div>
+    <div class="content__block">
+         {{{body}}}
+    </div>
+    <div class="footer__block">
+        {{>footer}}
+    </div>
+    
+    <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
+    <script src="/js/burger-menu.js" type="module"></script>
+    <script src="/js/modules/createElement.js" type="module"></script>
+    <script src="/js/services/api-call.service.js" type="module"></script>
+    <script src="{{script}}" type="module"></script>
+</body>
+</html>

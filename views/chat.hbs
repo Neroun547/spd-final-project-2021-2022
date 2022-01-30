@@ -1,0 +1,76 @@
+<div class="wrapper__chat">
+    {{#if chats}}
+        {{#if selectChat}}
+            <div class="wrapper__list-friend-chat-active">
+                <ul data-role="listview" data-view="content" data-select-node="true">
+                    {{#each chats}}
+                        <a href="/chat/messages-user/{{this.username}}">
+                            <li>{{this.username}}</li>
+                        </a>
+                    {{/each}}
+                </ul>
+            </div>
+        {{else}}
+            <div class="wrapper__list-friend">
+                <ul data-role="listview" data-view="content" data-select-node="true">
+                    {{#each chats}}
+                        <a href="/chat/messages-user/{{this.username}}">
+                            <li>{{this.username}}</li>
+                        </a>
+                    {{/each}}
+                </ul>
+            </div>
+    {{/if}}
+    
+    {{#if selectChat}}
+    
+        <div class="wrapper__messages-chat-active">
+            {{#if loadMoreMessages}}
+                <button class="load-more-messages button primary w-25">Load more</button>
+            {{/if}}
+            <div class="wrapper__messages-content-single">
+                {{#if messages}}
+                    {{#each messages}}
+                        {{#if this.sender}}
+                            <div class="message-right" id="{{this.idMessage}}">
+                                <span>{{this.message}}</span>
+                                <button class="delete-message-btn">&#10006;</button>
+                            </div>
+                        {{else}}
+                            <div class="message-left" id="{{this.idMessage}}">
+                                <span>{{this.message}}</span>
+                            </div>
+                        {{/if}}
+                    {{/each}}
+            
+                {{else}}
+                    <h2 class="no-message-logo mt-10">No messages now ...</h2>
+                {{/if}}
+            </div>
+
+            <div class="wrapper__send-message">
+                <form class="wrapper__send-message-form">
+                    <input type="text" class="metro-input" placeholder="Message:" id="message-content-input" required>
+                    <button class="button" id="send-message-btn">
+                        <img src="/img/send-message-chat.png">
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    {{else}}
+        <div class="wrapper__messages">
+            <div>
+                <div class="wrapper__messages-content">
+                    <h2>Select chat if you want start read/write message</h2>
+                </div>  
+            </div>
+        </div>
+    {{/if}}
+
+    {{else}}
+        <div class="wrapper__about">
+            <h2>No chats now ...</h2>
+        </div>
+    {{/if}}
+</div>

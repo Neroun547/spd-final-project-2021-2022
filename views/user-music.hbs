@@ -1,0 +1,60 @@
+<strong class="username-active-user">{{activeUser}}</strong>
+<div class="wrapper__about">
+    <div class="wrapper__another-user-avatar">
+        {{#if avatarAnotherUser}}
+            <img src="/account-settings/avatar/{{avatarAnotherUser}}" />
+        {{else}}
+            <img src="/img/user.png">
+        {{/if}}
+
+        {{#if auth}}
+            <a href="/chat/{{activeUser}}">
+                <button class="button primary">Send message</button>
+            </a>
+            {{#if pendingFriend}}
+                <div>Friend request pending ...</div>
+            {{else}}
+        
+            {{#if alreadyFriend}}
+                <div>Already friend</div>
+            {{else}}
+                <a href="/user/add-friend/{{activeUser}}">
+                    <button class="button primary">Add to friends</button>
+                </a>
+            {{/if}}
+
+            {{/if}}
+        {{/if}}
+    </div>
+
+    <div class="wrapper__nav-another-user">
+        <a href="/user/{{activeUser}}">
+            <img src="/img/photo.png">
+        </a>
+        <a href="/user/music-user/{{activeUser}}">
+            <img src="/img/music.png">
+        </a>
+        <a href="/user/video-user/{{activeUser}}">
+            <img src="/img/video.png">
+        </a>
+    </div>
+    {{#if music}}
+    <div class="wrapper__musics mt-10">
+        {{#each music}}
+            <div class="wrapper__musics-item" id="{{this.idMusic}}">
+                <div class="wrapper__musics-item-author-name mt-5 mb-5">
+                    {{this.author}} - {{this.name}}
+                </div>
+                <audio data-role="audio-player" data-src="/my-musics/{{this.idMusic}}" class="light"></audio>
+            </div>
+        {{/each}}
+    </div>
+
+    {{else}}
+    <h2>{{activeUser}} don't have music</h2>
+    {{/if}}
+
+    {{#if loadMoreMusic}}
+        <button class="load-more-musics-btn button dark mt-10" id="{{activeUser}}" >Load more musics</button>
+    {{/if}}
+</div>

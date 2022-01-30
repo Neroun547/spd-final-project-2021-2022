@@ -1,0 +1,84 @@
+.wrapper__item-invite {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 600px;
+    width: 100%;
+    background-color: #fafafa;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+.wrapper__item-invite img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.wrapper__item-invite a {
+    color: #000;
+}
+
+.load-more-invites {
+    display: block;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.load-more-friends-btn {
+    display: block;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.wrapper__item-invite-send-message-delete {
+    max-width: 150px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wrapper__item-invite-send-message-delete img {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+}
+
+.send-message-btn {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.wrapper__item-invite-username-avatar {
+    display: flex;
+    max-width: 150px;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media screen and (max-width: 450px) {
+    .wrapper__item-invite-send-message-delete {
+        max-width: 100px;
+    }
+    .send-message-btn {
+        width: 35px;
+        height: 35px;
+    }
+
+    .wrapper__item-invite-send-message-delete img {
+        width: 25px;
+        height: 25px;
+    }
+
+    .delete-friend {
+        width: 35px;
+        height: 35px;
+    }
+}

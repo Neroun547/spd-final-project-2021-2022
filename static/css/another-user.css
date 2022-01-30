@@ -1,0 +1,69 @@
+@import url("/css/my-photo.css");
+@import url("/css/my-video.css");
+@import url("/css/my-musics.css");
+
+.wrapper__another-user-avatar {
+    display: flex;
+    max-width: 500px;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wrapper__another-user-avatar img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
+.wrapper__nav-another-user {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.wrapper__nav-another-user img {
+    width: 50px;
+    height: 50px;
+} 
+
+.wrapper__nav-another-user a {
+    text-decoration: none;
+}
+
+.username-active-user {
+    position: absolute;
+    left: 80px;
+    top: 20px;
+    font-size: 20px;
+}
+
+.wrapper__username-name {
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (max-width: 1100px) {
+    .username-active-user {
+        top: 10px;
+        left: 10px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .wrapper__another-user-avatar {
+        flex-direction: column;
+    }
+
+    .wrapper__another-user-avatar button {
+        margin-top: 50px;
+        max-width: 300px;
+        width: 100%;
+    }
+
+    .wrapper__another-user-avatar a {
+        max-width: 300px;
+        width: 100%;
+    }
+}

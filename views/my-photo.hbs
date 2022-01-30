@@ -1,0 +1,43 @@
+<div class="wrapper__about">
+    <div class="wrapper__user-info-photo">
+        <a href="/account-settings" class="user__info-avatar">
+            {{#if idAvatar}}
+                <img src="/account-settings/avatar/{{idAvatar}}"/>
+            {{else}}
+                <img src="/img/user.png">
+            {{/if}}
+        </a>
+
+        <div class="wrapper__add-photo">
+            <a href="/my-photo/upload-new-photo-form">
+                <button class="button upload-video-btn"><img src="/img/upload.png"></button>
+            </a>
+        </div>
+    </div>
+</div>
+{{#if photo}}
+    <div class="wrapper__columns-photo">
+        {{#each photo}}
+            <div class="columns__photo-item" id='{{this.idPhoto}}'>
+                <img src="/my-photo/photo/{{this.idPhoto}}" class="wrapper__column-photo-img" id="{{this.idPhoto}}">
+                <div class="columns__photo-theme">Theme: {{this.theme}}</div>
+                {{#if this.description}}
+                <button class="columns__photo-description-toggle-btn button primary">Show description</button>
+                <div class="columns__photo-description">
+                    {{this.description}}
+                </div>
+                {{/if}}
+            </div>
+        {{/each}}
+    </div>
+    
+    {{#if loadMore}}
+    <button class="load-more-photo-btn button dark">Load more photo</button>
+    {{/if}}
+
+    {{else}}
+
+    <div class="wrapper__about">
+        <h2 class="wrapper__about-no-photo">No photo now ... :(</h2>
+    </div>
+{{/if}}

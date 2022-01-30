@@ -1,0 +1,36 @@
+<div class="wrapper__messages-chat-active">
+    <div class="wrapper__user-info">
+        <strong>{{activeUser}}</strong>
+    </div>
+    {{#if loadMoreMessages}}
+        <button class="load-more-messages button primary w-25">Load more</button>
+    {{/if}}
+    <div class="wrapper__messages-content-single">
+        {{#if messages}}
+            {{#each messages}}
+                {{#if this.sender}}
+                    <div class="message-right" id="{{this.idMessage}}">
+                        <span>{{this.message}}</span>
+                            <button class="delete-message-btn">&#10006;</button>
+                    </div>
+                {{else}}
+                    <div class="message-left" id="{{this.idMessage}}">
+                        <span>{{this.message}}</span>
+                    </div>
+                {{/if}}
+            {{/each}}
+            
+        {{else}}
+            <h2 class="no-message-logo mt-10">No messages now ...</h2>
+        {{/if}}
+            </div>
+
+    <div class="wrapper__send-message">
+        <form class="wrapper__send-message-form">
+            <input type="text" class="metro-input" placeholder="Message:" id="message-content-input" required>
+                <button class="button" id="send-message-btn">
+                    <img src="/img/send-message-chat.png">
+                </button>
+        </form>
+    </div>
+</div>

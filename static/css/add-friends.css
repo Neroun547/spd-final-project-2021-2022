@@ -1,0 +1,47 @@
+.wrapper__about {
+    margin-top: 100px;
+}
+
+.wrapper__item-invite {
+    word-wrap: break-word;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 600px;
+    width: 100%;
+    background-color: #fafafa;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+.wrapper__item-invite span {
+    max-width: 200px;
+    word-wrap: break-word;
+}
+
+.wrapper__item-invite img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.load-more-invites {
+    display: block;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+@media screen and (max-width: 450px) {
+    .wrapper__item-invite {
+        font-size: 14px;
+    }
+    .wrapper__item-invite button {
+        font-size: 14px;
+    }
+    .wrapper__item-invite img {
+        width: 45px;
+        height: 45px;
+    }
+}

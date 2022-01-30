@@ -1,0 +1,159 @@
+.wrapper__chat {
+    display: flex;
+    justify-content: space-between;
+}
+
+.wrapper__list-friend {
+    max-width: 400px;
+    width: 100%;
+}
+
+.wrapper__list-friend-chat-active {
+    max-width: 400px;
+    width: 100%;
+}
+
+.wrapper__list-friend li {
+    font-size: 18px !important;
+}
+
+.wrapper__list-friend-chat-active li {
+    font-size: 18px !important;
+}
+
+.wrapper__messages {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-left: 1px solid #ccc;
+}
+
+.wrapper__messages-chat-active {
+    padding: 10px;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-left: 1px solid #ccc;
+}
+
+.wrapper__messages-content {
+    flex: 10;
+}
+
+.wrapper__messages-content h2 {
+    margin-left: 300px;
+    margin-top: 50px;
+}
+
+.wrapper__send-message-form {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 20px;
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+}
+
+#send-message-btn img {
+    width: 70px;
+    height: 30px;
+}
+
+.wrapper__messages-content-single {
+    flex: 10;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    overflow: auto;
+}
+
+.message-right {
+    position: relative;
+    margin-left: auto;
+    margin-top: 20px;
+    max-width: 400px;
+    width: fit-content;
+    background-color: #42096e;
+    color: #fff;
+    border-radius: 5px;   
+    padding: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+    font-size: 16px; 
+}
+
+.message-left {
+    margin-top: 20px;
+    max-width: 400px;
+    width: fit-content;
+    background-color: #ccc;
+    border-radius: 5px;   
+    padding: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+    font-size: 16px; 
+}
+
+.wrapper__user-info {
+    position: absolute;
+    top: 0px;
+    left: 10px;
+}
+
+.wrapper__user-info strong {
+    font-size: 20px;
+}
+
+.load-more-messages {
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+.delete-message-btn {
+    display: none;
+    position: absolute;
+    right: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    top: 10px;
+    background-color: transparent;
+    border: none;
+}
+
+@media screen and (max-width: 1060px) {
+    .wrapper__messages {
+        display: none;
+    }
+
+    .wrapper__messages-chat-active {
+        border-left: none;
+    }
+
+    .wrapper__list-friend-chat-active {
+        display: none;
+    }
+
+    .wrapper__list-friend {
+        max-width: 100%;
+        text-align: center;
+    }
+}
+
+@media  screen and (max-width: 650px) {
+    .load-more-messages {
+        font-size: 12px;
+    }
+
+    .wrapper__user-info strong {
+        font-size: 16px;
+    }
+}
+
+@media  screen and (max-width: 450px) {
+    .load-more-messages {
+        font-size: 11px;
+    }
+}

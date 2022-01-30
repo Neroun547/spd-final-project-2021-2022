@@ -1,0 +1,23 @@
+<div class="wrapper__about">
+    {{#if invites}}
+        {{#each invites}}
+            <div class="wrapper__item-invite mb-10 mt-10">
+                {{#if this.idAvatar}}
+                    <img src="/account-settings/avatar/{{this.idAvatar}}">
+                {{else}}
+                    <img src="/img/user.png">
+                {{/if}}
+                <span>{{this.username}}</span>
+                <a href="/add-friend/accept-invite/{{this.username}}">
+                    <button class="button primary border-radius">Accept invite</button>
+                </a>
+            </div>
+        {{/each}}
+    {{else}}
+        <h2>No invite to friend now ...</h2>
+    {{/if}}
+</div>
+
+{{#if loadMoreInvites}}
+    <button class="button dark load-more-invites">Load more invites</button>
+{{/if}}

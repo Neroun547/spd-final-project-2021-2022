@@ -1,0 +1,46 @@
+<div class="wrapper__nav">
+    <div class="wrapper__nav-burger-btn">
+        <div class="burger__btn-decoration-1"></div>
+        <div class="burger__btn-decoration-2"></div>
+        <div class="burger__btn-decoration-3"></div>
+    </div>
+    {{#if auth}}
+        <div class="notifications__block">
+            <div>
+                <a href="/chat"><img src="/img/messages.png" alt="Messages"></a>
+            </div>
+            <div>
+                <a href="/add-friend"><img src="/img/add-friend.png" alt="Add friend"></a>
+            </div>
+            <div>
+                <a href="/my-friends"><img src="/img/friends.png" alt="Friends"></a>
+            </div>
+        </div>
+    <nav class="nav">
+        <a href="/">Main</a>
+        <a href="/my-photo">My photo</a>
+        <a href="/my-video">My video</a>
+        <a href="/my-musics">My musics</a>
+        <a href="/exit">Exit</a>
+    </nav>
+    {{#if idAvatar}}
+        <div class="wrapper__account-settings-link">
+            <a href="/account-settings" class="account-settings-link">
+                <img src="/account-settings/avatar/{{idAvatar}}"/>
+            </a>
+        </div>
+    {{else}}
+        <div class="wrapper__account-settings-link">
+            <a href="/account-settings" class="account-settings-link">
+                <img src="/img/user.png">
+            </a>
+        </div>
+    {{/if}}
+    {{else}}
+        <nav class="nav-center nav">
+            <a href="/">Main</a>
+            <a href="/signin/">Sign in</a>
+            <a href="/signup/">Sign up</a>
+        </nav>
+    {{/if}}
+</div>

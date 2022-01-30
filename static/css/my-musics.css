@@ -1,0 +1,18 @@
+.wrapper__musics {
+    margin-bottom: 100px;
+}
+
+.wrapper__musics-item {
+    margin-top: 30px;
+}
+
+.load-more-musics-btn {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+
+.wrapper__musics-item-author-name {
+    display: flex;
+    justify-content: space-between;
+}

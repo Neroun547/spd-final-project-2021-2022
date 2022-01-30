@@ -1,0 +1,14 @@
+.wrapper__footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--nav-bg);
+    border-top: 1px solid #e8e8e8;
+    height: 75px;
+    color: var(--text-color);
+}
+
+.wrapper__footer footer {
+    display: flex;
+    height: min-content;
+}

@@ -1,0 +1,150 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* Maybe todo -_- */
+
+:root.light {
+    --nav-bg:#fafafa;
+    --text-color:#000;
+    --text-color-hover:#242424;
+    --content-background-color:#fff;
+}
+
+:root.dark {
+    --nav-bg:#000;
+    --text-color:#fff;
+    --text-color-hover:#ccc;
+    --content-background-color:#121212;
+}
+
+/* ---- */
+
+.nav__block {
+    background-color: #fafafa;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.content__block {
+    background-color: var(--content-background-color);
+    flex: 10;
+    padding: 10px;
+}
+
+.footer__block {
+    flex: 1;
+}
+
+.wrapper__about {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.wrapper__about p {
+    margin-top: 10px;
+}
+
+.wrapper__about-search {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper__about-search form {
+    margin-top: 80px;
+    max-width: 800px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+} 
+
+.wrapper__about-search form input {
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #ccc;
+    font-size: 20px;
+    width: 400px;
+}
+
+.wrapper__about-search button {
+    width: 130px;
+    border: none;
+    font-size: 16px;
+    height: 36px;
+    cursor: pointer;
+}
+
+.wrapper__find-user-item {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    border-radius: 5px;
+    height: 60px;
+}
+
+.sub__wrapper-user-item {
+    margin: 0 auto;
+    cursor: pointer;
+    max-width: 500px;
+    width: 100%;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    padding: 10px;
+    transition: .2s;
+}
+
+.sub__wrapper-user-item:hover {
+    transition: .2s;
+    background-color: #e8e8e8;
+    border-radius: 5px;
+}
+
+.wrapper__find-user-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.wrapper__find-user-link {
+    color: #000;
+}
+
+.not-found-user-logo {
+    font-size: 32px;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.load-more-users {
+    display: block;
+    margin: 0 auto;
+}
+
+.upload-video-btn {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fafafa;
+}
+
+.upload-video-btn img {
+    width: 80px;
+    height: 80px;
+    position: absolute
+}
+

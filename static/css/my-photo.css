@@ -1,0 +1,114 @@
+.wrapper__user-info-photo {
+    display: flex;
+    justify-content: space-between;
+    max-width: 400px;
+    width: 100%;
+}
+
+.user__info-avatar img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.list__friends-photo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.wrapper__add-photo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.upload-new-photo-file-input {
+    margin-top: 50px;
+}
+
+.wrapper__columns-photo {
+    max-width: 1300px;
+    margin: 0 auto;
+    margin-top: 100px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 300px));
+    grid-column-gap: 30px;
+    justify-content: center;
+}
+
+.wrapper__columns-photo img {
+    max-height: 300px;
+}
+
+.columns__photo-theme {
+    display: block;
+    margin-left: auto;
+    width: min-content;
+    font-size: 12px;
+}
+
+.columns__photo-description {
+    opacity: 0;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    transition: .3s all;
+    overflow-wrap: break-word;
+}
+
+.columns__photo-description-toggle-btn {
+    display: block;
+    margin: 0 auto;
+}
+
+.show-description {
+    opacity: 1;
+    transition: .3s all;
+}
+
+.load-more-photo-btn {
+    display: block;
+    margin: 0 auto;
+}
+
+.dialog {
+    width: 800px !important;
+    top: 10% !important;
+}
+
+.dialog img {
+    margin-top: 30px;
+    display: block;
+    max-height: 500px;
+    margin: 0 auto;
+}
+
+.wrapper__about-no-photo {
+    margin-top: 100px !important;
+}
+
+@media screen and (max-width: 450px) {
+    .upload-video-btn {
+        width: 60px;
+        height: 60px;
+    }
+
+    .upload-video-btn img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .user__info-avatar img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .user__info-avatar {
+        width: 100px;
+        height: 100px;
+    }
+
+    .wrapper__video-content h2 {
+        font-size: 18px;
+    }
+}

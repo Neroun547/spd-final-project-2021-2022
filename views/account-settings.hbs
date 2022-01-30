@@ -1,0 +1,33 @@
+<div class="wrapper__account-settings wrapper__about">
+    <div class="account__settings-avatar">
+        {{#if idAvatar}}
+            <img src="/account-settings/avatar/{{idAvatar}}">
+        {{else}}
+            <img src="/img/user.png">
+        {{/if}}
+    </div> 
+    <form action="/account-settings/upload-avatar" method="POST" enctype="multipart/form-data" class="account__settings-form">
+        <input type="file" name="file" data-role="file" data-button-title="<span class='mif-folder'></span>">
+        <button type="submit" class="account__settings-upload-avatar-btn">Upload avatar</button>
+    </form>
+    <div class="account__settings-block">
+        <div class="account__settings-block-item">
+            <h2>Name user: </h2>
+            <span>{{name}}</span>
+            <button class="button dark"><a href="/account-settings/change-name">Change</a></button>
+        </div>
+        <div class="account__settings-block-item">
+            <h2>Username: </h2>
+            <span>{{username}}</span>
+            <button class="button dark"><a href="/account-settings/change-username">Change</a></button>
+        </div>
+        <div class="account__settings-block-item">
+            <h2>Email: </h2>
+            <span>{{email}}</span>
+            <button class="button dark"><a href="/account-settings/change-email">Change</a></button>
+        </div>
+        <div class="account__settings-block-item">
+            <button class="button dark btn-change-password"><a href="/account-settings/change-password">Change password</a></button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="wrapper__video">
+    <div class="wrapper__add-photo">
+        <a href="/my-video/upload-new-video-form">
+            <button class="button upload-video-btn"><img src="/img/upload.png"></button>
+        </a>
+    </div>
+
+    <div class="wrapper__video-content">
+        {{#if video}}
+        {{#each video}}
+            <div class="wrapper__video-content-item" id="{{this.idVideo}}">
+                <button class="delete-video-btn button alert mb-5">Delete</button>
+                <video data-role="video-player" data-src="/my-video/{{this.idVideo}}" preload="metadata">
+                </video>
+                {{#if this.description}}
+                    <button class="columns__photo-description-toggle-btn mt-2 w-100 button primary">Show description</button>
+                    <div class="columns__photo-description">
+                        {{this.description}}
+                    </div>
+                {{/if}}
+            </div>
+        {{/each}}
+        {{else}}
+        <h2 class="mt-10">You don't have video :(</h2>
+        {{/if}}
+    </div>
+
+    {{#if loadMore}}
+    <button class="load-more-video-btn button dark">Load more video</button>
+    {{/if}}
+</div>

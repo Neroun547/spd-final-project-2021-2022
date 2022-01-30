@@ -1,0 +1,67 @@
+<strong class="username-active-user">{{activeUser}}</strong>
+<div class="wrapper__about">
+    <div class="wrapper__another-user-avatar">
+        {{#if avatarAnotherUser}}
+            <img src="/account-settings/avatar/{{avatarAnotherUser}}" />
+        {{else}}
+            <img src="/img/user.png">
+        {{/if}}
+        
+        {{#if auth}}
+            <a href="/chat/{{activeUser}}">
+                <button class="button primary">Send message</button>
+            </a>
+        
+            {{#if pendingFriend}}
+                <div>Friend request pending ...</div>
+            {{else}}
+                {{#if alreadyFriend}}
+                    <div>Already friend</div>
+                {{else}}
+                    <a href="/user/add-friend/{{activeUser}}">
+                        <button class="button primary">Add to friends</button>
+                    </a>
+                {{/if}}
+            {{/if}}
+        {{/if}}
+    </div>
+
+    <div class="wrapper__nav-another-user">
+        <a href="/user/{{activeUser}}">
+            <img src="/img/photo.png">
+        </a>
+        <a href="/user/music-user/{{activeUser}}">
+            <img src="/img/music.png">
+        </a>
+        <a href="/user/video-user/{{activeUser}}">
+            <img src="/img/video.png">
+        </a>
+    </div>
+</div>
+
+{{#if photo}}
+    <div class="wrapper__columns-photo">
+        {{#each photo}}
+        <div class="columns__photo-item" id='{{this.idPhoto}}'>
+            <img src="/my-photo/photo/{{this.idPhoto}}" id="{{this.idPhoto}}" class="wrapper__column-photo-img">
+            <div class="columns__photo-theme">Theme: {{this.theme}}</div>
+            {{#if this.description}}
+                <button class="columns__photo-description-toggle-btn button primary">Show description</button>
+                <div class="columns__photo-description">
+                    {{this.description}}
+                </div>
+            {{/if}}
+        </div>
+        {{/each}}
+    </div>
+
+    {{#if loadMore}}
+    <button class="load-more-photo-btn button dark" id="{{activeUser}}">Load more photo</button>
+    {{/if}}
+
+    {{else}}
+
+    <div class="wrapper__about">
+        <h2 class="wrapper__about-no-photo">{{activeUser}} don't have photo</h2>
+    </div>
+{{/if}}

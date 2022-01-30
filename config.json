@@ -1,0 +1,15 @@
+{
+    "email": "ADMIN",
+    "passwordEmail": "ADMIN",
+    "hostDB": "localhost",
+    "portDB": 3306,
+    "usernameDB": "gosha",
+    "passwordDB": "MyPasswd",
+    "database": "spdFinal",
+    "synchronize": true,
+    "autoLoadEntities": true,
+    "appPort": 3000,
+    "secretJwt": "sfpwevcv7234dvsdvdfw34",
+    "secretCookie": "hsdfsdg434nk2wp3ekrm",
+    "host": "localhost"
+}
