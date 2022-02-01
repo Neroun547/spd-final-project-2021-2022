@@ -21,8 +21,8 @@ export class MyPhotoService {
         });
     }
 
-    async loadPhoto(username: string) {
-        const photo = await this.photoService.findPhotoByUsername(username);
+    async loadPhoto(id: string) {
+        const photo = await this.photoService.findPhotoById(id);
         const filterData = photo.map((el) => ({
             theme: el.theme,
             description: el.description,
@@ -43,13 +43,12 @@ export class MyPhotoService {
         res.sendStatus(404);
     }
 
-    async loadMorePhoto(username: string, skip: number) {
-        const data = await this.photoService.loadMorePhoto(username, skip, 4);
+    async loadMorePhoto(id: string, skip: number) {
+        const data = await this.photoService.loadMorePhoto(id, skip, 4);
         
         return data.map((el) => ({ 
             idPhoto: el.idPhoto,
             theme: el.theme,
-            author: el.author,
             description: el.description
         }));
     }

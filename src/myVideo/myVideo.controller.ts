@@ -12,8 +12,8 @@ export class MyVideoController {
 
     @Get()
     async myVideoPage(@Req() req: Request, @Res() res: Response) {
-        const video = await this.myVideoService.getVideoId(req["user"].username, 2, 0);
-        const countVideo = await this.myVideoService.getCountVideo(req["user"].username);
+        const video = await this.myVideoService.getVideoId(req["user"]._id, 2, 0);
+        const countVideo = await this.myVideoService.getCountVideo(req["user"]._id);
         
         res.render("my-video", {
             auth: true,
@@ -58,7 +58,7 @@ export class MyVideoController {
         await this.myVideoService.uploadNewVideo({ 
             name: body.name,
             video: req.file.filename,
-            publicateUser: req["user"].username,
+            publicateUser: req["user"]._id,
             idVideo: uuidv4(),
             description: body.description
         });
@@ -68,13 +68,13 @@ export class MyVideoController {
 
     @Post("load-more")
     async loadMoreVideo(@Req() req: Request) {
-        return await this.myVideoService.getVideoId(req["user"].username, 2, req.body.skip);
+        return await this.myVideoService.getVideoId(req["user"]._id, 2, req.body.skip);
     }
 
     @Delete("delete/:id")
     async deleteVideo(@Req() req: Request, @Res() res: Response) {
         try {
-            await this.myVideoService.deleteVideo(req.params["id"], req["user"].username);
+            await this.myVideoService.deleteVideo(req.params["id"], req["user"]._id);
         
             res.sendStatus(200);
         } catch(e) {

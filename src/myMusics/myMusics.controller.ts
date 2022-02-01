@@ -13,8 +13,8 @@ export class MyMusicsController {
 
     @Get()
     async musicPage(@Req() req: Request, @Res() res: Response) {
-        const musics = await this.myMusicsService.getMusicsId(0, 5, req["user"].username); 
-        const countMusics = await this.myMusicsService.getCount(req["user"].username);
+        const musics = await this.myMusicsService.getMusicsId(0, 5, req["user"]._id); 
+        const countMusics = await this.myMusicsService.getCount(req["user"]._id);
 
         res.render("my-musics", {
             auth: true,
@@ -61,7 +61,7 @@ export class MyMusicsController {
             name: body.name,
             author: body.author,
             music: file.filename,
-            publicateUser: req["user"].username 
+            publicateUser: req["user"]._id 
         });
 
         res.redirect("/my-musics");        
@@ -69,14 +69,14 @@ export class MyMusicsController {
 
     @Post("load-more-musics")
     async loadMoreMusics(@Req() req: Request, @Res() res: Response) {
-        const musics = await this.myMusicsService.getMusicsId(req.body.skip, 5, req["user"].username); 
+        const musics = await this.myMusicsService.getMusicsId(req.body.skip, 5, req["user"]._id); 
 
         res.send(musics);
     }
 
     @Delete("delete/:id")
     async deleteMusic(@Req() req: Request, @Res() res: Response) {   
-        await this.myMusicsService.deleteMusic(req.params["id"], req["user"].username);
+        await this.myMusicsService.deleteMusic(req.params["id"], req["user"]._id);
         res.sendStatus(200);
     }
 

@@ -15,7 +15,7 @@ export class MusicsService {
         });
     }
 
-    async saveMusic(music:IMusics) {
+    async saveMusic(music: IMusics) {
         await this.musicsRepository.save(music);
     }
 

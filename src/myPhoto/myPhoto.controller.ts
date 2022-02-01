@@ -12,8 +12,8 @@ export class MyPhotoController {
 
     @Get()
     async myPhotoPage(@Req() req:Request, @Res() res:Response){
-        const photo = await this.service.loadPhoto(req["user"].username);
-        const countPhoto = await this.service.getCountPhoto(req["user"].username);
+        const photo = await this.service.loadPhoto(req["user"]._id);
+        const countPhoto = await this.service.getCountPhoto(req["user"]._id);
 
         res.render("my-photo", {
             auth: true,
@@ -51,7 +51,7 @@ export class MyPhotoController {
             file: file,
             theme: body.theme.trim(),
             description: body.description.trim(),
-            author:req["user"].username
+            author:req["user"]._id
         });
 
         res.redirect("/my-photo");
@@ -60,8 +60,8 @@ export class MyPhotoController {
     @Get("upload-new-photo-form")
     uploadNewPhotoForm(@Req() req:Request, @Res() res:Response){
         res.render("upload-photo-form", {
-            auth:true,
-            idAvatar:req["user"].idAvatar,
+            auth: true,
+            idAvatar: req["user"].idAvatar,
             style: "/css/signInForm.css"
         });
     }
@@ -73,13 +73,13 @@ export class MyPhotoController {
 
     @Post("load-more-photo")
     async loadMorePhoto(@Req() req:Request, @Res() res:Response) {
-        const photos = await this.service.loadMorePhoto(req["user"].username, req.body.skip);     
+        const photos = await this.service.loadMorePhoto(req["user"]._id, req.body.skip);     
         res.send(photos);
     }
 
     @Delete("delete-photo/:id")
     async deletePhoto(@Req() req:Request, @Res() res:Response) {
-        await this.service.deletePhoto(req.params["id"], req["user"].username);
+        await this.service.deletePhoto(req.params["id"], req["user"]._id);
         res.sendStatus(200);
     }
 }

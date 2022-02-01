@@ -23,7 +23,8 @@ export class AnotherUserService {
     }
 
     async getPhotoId(username: string) {
-        const dataUserPhoto = await this.photoService.findPhotoByUsername(username);
+        const user = await this.userService.findUserByUsername(username); 
+        const dataUserPhoto = await this.photoService.findPhotoById(String(user._id));
 
         return dataUserPhoto.filter((el) => ({
             idPhoto: el.idPhoto,
@@ -33,7 +34,8 @@ export class AnotherUserService {
     }
 
     async getMusicUserId(username: string) {
-        const dataUserMusic = await this.musicsService.getMusics(0, 5, username);
+        const user = await this.userService.findUserByUsername(username); 
+        const dataUserMusic = await this.musicsService.getMusics(0, 5, String(user._id));
 
         return dataUserMusic.filter((el) => ({
             idMusic: el.idMusic,
@@ -43,7 +45,8 @@ export class AnotherUserService {
     }
 
     async getVideoId(username: string) {
-        const dataUserVideo = await this.videoService.getVideo(username, 2, 0);
+        const user = await this.userService.findUserByUsername(username); 
+        const dataUserVideo = await this.videoService.getVideo(String(user._id), 2, 0);
 
         return dataUserVideo.filter((el) => ({
             idVideo: el.idVideo,
@@ -84,7 +87,8 @@ export class AnotherUserService {
     }
 
     async loadMorePhoto(username: string, skip: number) {
-        return (await this.photoService.loadMorePhoto(username, skip, 4)).filter((el) => ({
+        const user = await this.userService.findUserByUsername(username); 
+        return (await this.photoService.loadMorePhoto(String(user._id), skip, 4)).filter((el) => ({
             idPhoto: el.idPhoto,
             description: el.description,
             theme: el.theme
@@ -92,11 +96,14 @@ export class AnotherUserService {
     }
 
     async getCountVideo(username: string) {
-        return await this.videoService.getCountVideo(username);
+        const user = await this.userService.findUserByUsername(username); 
+        return await this.videoService.getCountVideo(String(user._id));
     }
 
     async loadMoreVideoId(username: string, skip: number) {
-        return (await this.videoService.getVideo(username, 2, skip)).filter(el => ({
+        const user = await this.userService.findUserByUsername(username); 
+        
+        return (await this.videoService.getVideo(String(user._id), 2, skip)).filter(el => ({
             idVideo: el.idVideo,
             name: el.name,
             description: el.description
@@ -104,7 +111,9 @@ export class AnotherUserService {
     }
 
     async loadMoreMusicId(username: string, skip: number) {
-        const musics = await this.musicsService.getMusics(skip, 5, username);
+        const user = await this.userService.findUserByUsername(username); 
+        const musics = await this.musicsService.getMusics(skip, 5, String(user._id));
+        
         return musics.filter((el) => ({
             idMusic: el.idMusic,
             author: el.author,
@@ -113,10 +122,14 @@ export class AnotherUserService {
     }
 
     async getCountMusic(username: string) {
-        return await this.musicsService.getCountMusics(username);
+        const user = await this.userService.findUserByUsername(username); 
+        
+        return await this.musicsService.getCountMusics(String(user._id)); 
     }
 
     async getCountPhoto(author: string) {
-        return await this.photoService.getCountPhoto(author);
+        const user = await this.userService.findUserByUsername(author); 
+
+        return await this.photoService.getCountPhoto(String(user._id));
     }
 }

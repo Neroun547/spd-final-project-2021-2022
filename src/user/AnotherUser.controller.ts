@@ -14,7 +14,7 @@ export class UserController {
 
         if(req["user"]) {
 
-            if(req["user"].username === req.params["username"]){
+            if(req["user"].username === req.params["username"]) {
                 res.redirect("/my-photo");
                 return;
             }
