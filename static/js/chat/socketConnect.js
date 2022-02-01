@@ -1,6 +1,6 @@
-import { protocol, host, port } from "../config.json";
+import { config } from "../config/config.js";
 
-const socket = io(`${protocol}://${host}:${port}`);
+const socket = io(`${config.protocol}://${config.host}:${config.port}`);
 
 socket.on('connect', function () {
   socket.emit("joinRoom");

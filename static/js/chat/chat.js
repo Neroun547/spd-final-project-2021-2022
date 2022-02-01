@@ -1,6 +1,6 @@
 import { createElement } from "../modules/createElement.js";
 import { ApiService } from "../services/api-call.service.js";
-import { protocol, host, port } from "../config.json";
+import { config } from "../config/config.js";
 
 const wrapperMessageContent = document.querySelector(".wrapper__messages-content-single");
 const noMessageLogo = document.querySelector(".no-message-logo");
@@ -81,7 +81,7 @@ if (loadMoreMessages) {
         if(count < 0) {
             count = 0;
         }
-        const chatUser = document.location.href.replace(`${protocol}://${host}:${port}/chat/`, "").replace("messages-user/", "");
+        const chatUser = document.location.href.replace(`${config.protocol}://${config.host}:${config.port}/chat/`, "").replace("messages-user/", "");
         const api = await apiService.apiCall("/chat/load-more-messages", "POST", JSON.stringify({ getter: chatUser, skip: count }));
 
         const messages = await api.json();
