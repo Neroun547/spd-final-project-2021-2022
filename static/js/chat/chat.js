@@ -1,5 +1,6 @@
 import { createElement } from "../modules/createElement.js";
 import { ApiService } from "../services/api-call.service.js";
+import { socket } from "./socketConnect";
 import { config } from "../config/config.js";
 
 const wrapperMessageContent = document.querySelector(".wrapper__messages-content-single");

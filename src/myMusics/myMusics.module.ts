@@ -1,5 +1,5 @@
 import { Module } from "@nestjs/common";
-import { MyMusicsController } from "./myMysics.controller";
+import { MyMusicsController } from "./myMusics.controller";
 import { MyMusicsService } from "./service/myMusics.service";
 import { MusicsEntityModule } from "../../entities/musics/musics.module";
 

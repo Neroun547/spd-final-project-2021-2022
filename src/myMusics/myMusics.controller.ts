@@ -69,7 +69,7 @@ export class MyMusicsController {
 
     @Post("load-more-musics")
     async loadMoreMusics(@Req() req: Request, @Res() res: Response) {
-        const musics = await this.myMusicsService.getMusicsId(req.body.skip, 4, req["user"].username); 
+        const musics = await this.myMusicsService.getMusicsId(req.body.skip, 5, req["user"].username); 
 
         res.send(musics);
     }
