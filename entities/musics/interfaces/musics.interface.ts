@@ -3,5 +3,5 @@ export interface IMusics {
     author: string;
     music: string;
     idMusic: string;
-    publicateUser: string;
+    publicateUser: number;
 }

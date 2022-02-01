@@ -15,7 +15,7 @@ export class MyMusicsService {
         await this.musicsService.saveMusic({ ...infoMusic, idMusic: uuidv4() });
     }
 
-    async getMusicsId(skip: number, countMusic: number, publicateUser: string) {
+    async getMusicsId(skip: number, countMusic: number, publicateUser: number) {
         const musics = await this.musicsService.getMusics(skip, countMusic, publicateUser);
         
         return musics.map((el) => ({
@@ -58,11 +58,11 @@ export class MyMusicsService {
         createReadStream(resolve("video/"+filename.music)).pipe(res);
     }
 
-    async getCount(publicateUser: string) {
+    async getCount(publicateUser: number) {
         return await this.musicsService.getCountMusics(publicateUser);
     }
 
-    async deleteMusic(idMusic: string, publicateUser: string) {
+    async deleteMusic(idMusic: string, publicateUser: number) {
         const deleteMusic = await this.musicsService.deleteMusic(idMusic, publicateUser);
         await unlink(resolve(`musics/${deleteMusic.music}`));
     }

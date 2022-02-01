@@ -4,5 +4,5 @@ export interface IVideo {
     description: string;
     idVideo: string;
     video: string;
-    publicateUser: string;
+    publicateUser: number;
 }

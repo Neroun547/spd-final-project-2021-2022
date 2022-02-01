@@ -19,5 +19,5 @@ export class Video implements IVideo {
     description: string;
 
     @Column() 
-    publicateUser: string;
+    publicateUser: number;
 }

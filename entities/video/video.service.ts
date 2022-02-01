@@ -7,11 +7,11 @@ import { IInfoVideo } from "./interfaces/IInfoVideo";
 export class VideoService {
     constructor(@InjectRepository(VideoRepository) private readonly videoRepository: VideoRepository) {};
 
-    async saveVideo(infoVideo:IInfoVideo) {
+    async saveVideo(infoVideo: IInfoVideo) {
         await this.videoRepository.save(infoVideo);
     }
 
-    async getVideo(publicateUser: string, countVideo: number, skip:number) {
+    async getVideo(publicateUser: number, countVideo: number, skip:number) {
         return await this.videoRepository.find({ where: { publicateUser: publicateUser }, take: countVideo, skip: skip });
     }
 
@@ -19,14 +19,14 @@ export class VideoService {
         return await this.videoRepository.findOne({ idVideo: id });
     }
 
-    async deleteVideo(id: string, publicateUser: string) {
+    async deleteVideo(id: string, publicateUser: number) {
         const video = await this.videoRepository.findOne({ where: { idVideo: id, publicateUser: publicateUser } });
         await this.videoRepository.delete({ idVideo: id, publicateUser: publicateUser });
 
         return video;
     }
 
-    async getCountVideo(publicateUser: string) {
+    async getCountVideo(publicateUser: number) {
         return await this.videoRepository.count({ where: { publicateUser: publicateUser } });
     }
 }

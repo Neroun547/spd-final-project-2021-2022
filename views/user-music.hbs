@@ -6,23 +6,22 @@
         {{else}}
             <img src="/img/user.png">
         {{/if}}
-
+        
         {{#if auth}}
             <a href="/chat/{{activeUser}}">
                 <button class="button primary">Send message</button>
             </a>
+        
             {{#if pendingFriend}}
                 <div>Friend request pending ...</div>
             {{else}}
-        
-            {{#if alreadyFriend}}
-                <div>Already friend</div>
-            {{else}}
-                <a href="/user/add-friend/{{activeUser}}">
-                    <button class="button primary">Add to friends</button>
-                </a>
-            {{/if}}
-
+                {{#if alreadyFriend}}
+                    <div>Already friend</div>
+                {{else}}
+                    <a href="/user/add-friend/{{activeUser}}">
+                        <button class="button primary">Add to friends</button>
+                    </a>
+                {{/if}}
             {{/if}}
         {{/if}}
     </div>

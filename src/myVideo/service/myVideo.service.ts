@@ -20,7 +20,7 @@ export class MyVideo {
         });
     }
 
-    async getVideoId(publicateUser: string, countVideo: number, skipVideo: number) {
+    async getVideoId(publicateUser: number, countVideo: number, skipVideo: number) {
         const video = await this.videoService.getVideo(publicateUser, countVideo, skipVideo);
         
         return video.map((el) => ({
@@ -60,12 +60,12 @@ export class MyVideo {
         createReadStream(resolve("video/"+filename.video)).pipe(res);
     }
 
-    async deleteVideo(id: string, publicateUser: string) {
+    async deleteVideo(id: string, publicateUser: number) {
         const deleteVideo = await this.videoService.deleteVideo(id, publicateUser);
         await unlink(resolve(`video/${deleteVideo.video}`)); 
     }
 
-    async getCountVideo(publicateUser: string) {
+    async getCountVideo(publicateUser: number) {
         return await this.videoService.getCountVideo(publicateUser);
     }
 }

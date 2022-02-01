@@ -11,7 +11,7 @@ export class PhotoService {
         await this.photoRepository.save(photoData);
     }
 
-    async findPhotoById(publicateUser: string) {
+    async findPhotoById(publicateUser: number) {
         return await this.photoRepository.find({ where:{ author: publicateUser}, take: 4 });
     }
 
@@ -19,7 +19,7 @@ export class PhotoService {
         return await this.photoRepository.findOne({ idPhoto: idPhoto });
     }
 
-    async loadMorePhoto(publicateUser: string, skip: number, numberPhoto: number) {
+    async loadMorePhoto(publicateUser: number, skip: number, numberPhoto: number) {
         return await this.photoRepository.find({ 
             where: { author: publicateUser }, 
             take: numberPhoto, 
@@ -27,14 +27,14 @@ export class PhotoService {
         });
     }
 
-    async findOneAndDelete(idPhoto: string, publicateUser: string) {
+    async findOneAndDelete(idPhoto: string, publicateUser: number) {
         const data = await this.photoRepository.findOne({ where: { idPhoto: idPhoto, author: publicateUser } });       
         await this.photoRepository.delete({ idPhoto: idPhoto, author: publicateUser });
 
         return data;
     }
 
-    async getCountPhoto(publicateUser: string) {
+    async getCountPhoto(publicateUser: number) {
         return await this.photoRepository.count({ author: publicateUser });
     }
 }

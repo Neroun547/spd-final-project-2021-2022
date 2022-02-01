@@ -51,7 +51,7 @@ export class MyPhotoController {
             file: file,
             theme: body.theme.trim(),
             description: body.description.trim(),
-            author:req["user"]._id
+            author: req["user"]._id
         });
 
         res.redirect("/my-photo");

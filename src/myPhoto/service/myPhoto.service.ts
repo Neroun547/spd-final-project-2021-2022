@@ -21,8 +21,8 @@ export class MyPhotoService {
         });
     }
 
-    async loadPhoto(id: string) {
-        const photo = await this.photoService.findPhotoById(id);
+    async loadPhoto(author: number) {
+        const photo = await this.photoService.findPhotoById(author);
         const filterData = photo.map((el) => ({
             theme: el.theme,
             description: el.description,
@@ -32,7 +32,7 @@ export class MyPhotoService {
         return filterData;
     }
 
-    async getPhoto(id: string, res:Response) {
+    async getPhoto(id: string, res: Response) {
         const filename = await this.photoService.getPhotoByIdPhoto(id);
         
         if(existsSync(resolve("photo/"+filename.photo))){
@@ -43,8 +43,8 @@ export class MyPhotoService {
         res.sendStatus(404);
     }
 
-    async loadMorePhoto(id: string, skip: number) {
-        const data = await this.photoService.loadMorePhoto(id, skip, 4);
+    async loadMorePhoto(author: number, skip: number) {
+        const data = await this.photoService.loadMorePhoto(author, skip, 4);
         
         return data.map((el) => ({ 
             idPhoto: el.idPhoto,
@@ -53,12 +53,12 @@ export class MyPhotoService {
         }));
     }
     // TODO -_-
-    async deletePhoto(id: string, author: string){
+    async deletePhoto(id: string, author: number){
         const deletePhoto = await this.photoService.findOneAndDelete(id, author);
         await unlink(resolve(`photo/${deletePhoto.photo}`)); 
     }
 
-    async getCountPhoto(author: string) {
+    async getCountPhoto(author: number) {
         return await this.photoService.getCountPhoto(author);
     }
 }

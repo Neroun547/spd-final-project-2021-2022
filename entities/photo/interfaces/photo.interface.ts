@@ -1,6 +1,6 @@
 export interface IPhoto {
     _id?: number;
-    author: string;
+    author: number;
     theme: string;
     description: string;
     photo: string;

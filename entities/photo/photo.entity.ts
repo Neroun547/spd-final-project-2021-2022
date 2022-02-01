@@ -7,7 +7,7 @@ export class Photo implements IPhoto {
     _id: number
 
     @Column()
-    author: string
+    author: number
 
     @Column()
     theme: string

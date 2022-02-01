@@ -7,7 +7,7 @@ import { IMusics } from "./interfaces/musics.interface";
 export class MusicsService {
     constructor(@InjectRepository(MusicsRepository) private readonly musicsRepository:MusicsRepository) {};
 
-    async getMusics(skip: number, countMusic: number, publicateUser: string) {
+    async getMusics(skip: number, countMusic: number, publicateUser: number) {
         return await this.musicsRepository.find({ 
             where: { publicateUser: publicateUser  }, 
             take: countMusic, 
@@ -19,11 +19,11 @@ export class MusicsService {
         await this.musicsRepository.save(music);
     }
 
-    async getCountMusics(publicateUser: string) {
+    async getCountMusics(publicateUser: number) {
         return await this.musicsRepository.count({ where: { publicateUser: publicateUser } });
     }
 
-    async deleteMusic(idMusic: string, publicateUser: string) {
+    async deleteMusic(idMusic: string, publicateUser: number) {
         const deleteItem = await this.musicsRepository.findOne({ where: { idMusic: idMusic.trim(), publicateUser: publicateUser } });
         await this.musicsRepository.delete({ idMusic: idMusic, publicateUser: publicateUser });
 

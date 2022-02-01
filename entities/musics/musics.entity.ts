@@ -21,5 +21,5 @@ export class Music implements IMusics {
     author: string;
 
     @Column()
-    publicateUser: string;
+    publicateUser: number;
 }
