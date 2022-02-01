@@ -1,8 +1,8 @@
 import { Module } from "@nestjs/common";
 import { FriendsController } from "./friends.controller";
 import { MyFriendsService } from "./service/friends.service";
-import { UserEntityModule } from "../entities/user/user.module";
-import { FriendsEntityModule } from "src/entities/friends/friends.module";
+import { UserEntityModule } from "../../entities/user/user.module";
+import { FriendsEntityModule } from "entities/friends/friends.module";
 
 @Module({
     imports: [UserEntityModule, FriendsEntityModule],

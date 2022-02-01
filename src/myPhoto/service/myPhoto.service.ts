@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { PhotoService } from "../../entities/photo/photo.service";
+import { PhotoService } from "../../../entities/photo/photo.service";
 import { v4 as uuidv4 } from 'uuid';
 import { Response } from "express";
 import { createReadStream, existsSync } from "fs";

@@ -40,7 +40,7 @@ export class MyVideoController {
             if(file.mimetype !== "video/mp4") {
                 cb(null, false);
             }
-            if(+file.size > 1000000){
+            if(+file.size > 10000000){
                 cb(null, false);
             } else {
                 cb(null, true);

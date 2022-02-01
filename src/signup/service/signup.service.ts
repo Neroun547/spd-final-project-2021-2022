@@ -4,10 +4,10 @@ import * as jwt from "jsonwebtoken";
 import { secretJwt } from "config.json";
 import { UserDto } from "../dto/user.dto";
 import * as bcrypt from "bcrypt";
-import { UserService } from "src/entities/user/user.service";
+import { UserService } from "entities/user/user.service";
 import { Response } from "express";
 import { passwordEmail, email } from "config.json";
-import { host, appPort } from "config.json";
+import { host, appPort, protocol } from "config.json";
 
 @Injectable()
 export class SignUpService {
@@ -40,7 +40,7 @@ export class SignUpService {
                 subject: "Confirm account",
                 html: `
             <h2>Hello ${createUserDto.name} ! Confirm your account by click this link</h2>
-            <a href="http://${host}:${appPort}/signup/confirm-account/${token}">Click for confirm your account</a>`
+            <a href="${protocol}://${host}:${appPort}/signup/confirm-account/${token}">Click for confirm your account</a>`
             });
 
         

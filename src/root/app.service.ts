@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { UserService } from "./entities/user/user.service";
+import { UserService } from "../../entities/user/user.service";
 
 @Injectable()
 export class AppService {
     constructor(private readonly userService: UserService){}
 
-    async searchUser(username:string, count: number, skip: number) {
+    async searchUser(username: string, count: number, skip: number) {
         
         if(!username.trim()){
             return [];

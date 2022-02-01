@@ -6,12 +6,12 @@ import { v4 as uuidv4 } from 'uuid';
 import { existsSync, createReadStream } from "fs";
 import { unlink } from "fs/promises";
 import { resolve } from "path";
-import { UserService } from "src/entities/user/user.service"; 
+import { UserService } from "entities/user/user.service"; 
 import { User } from "../interfaces/user.interfaces";
 import * as bcrypt from "bcrypt";
 import * as nodemailer from "nodemailer";
 import { email, passwordEmail } from "config.json";
-import { host, appPort } from "config.json";
+import { host, appPort, protocol } from "config.json";
 
 /* Don't good service ... maybe TODO -_-*/
 
@@ -118,7 +118,7 @@ export class AccountService {
             subject: "Confirm account",
             html: `
         <h2>Hello ${user.name} ! Confirm your account by click this link</h2>
-        <a href="http://${host}:${appPort}/account-settings/confirm-new-email/${token}">Click for confirm your new email</a>`
+        <a href="${protocol}://${host}:${appPort}/account-settings/confirm-new-email/${token}">Click for confirm your new email</a>`
         }); 
     }
 

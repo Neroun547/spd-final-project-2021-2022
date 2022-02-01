@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { MusicsService } from "../../entities/musics/musics.service";
+import { MusicsService } from "../../../entities/musics/musics.service";
 import { UploadMusic } from "../interfaces/upload-music.interface";
 import { v4 as uuidv4 } from 'uuid';
 import { Request, Response } from "express";

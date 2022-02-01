@@ -1,10 +1,10 @@
 import { Injectable } from "@nestjs/common"; 
-import { UserService } from "../../entities/user/user.service";
-import { PhotoService } from "../../entities/photo/photo.service";
-import { MusicsService } from "../../entities/musics/musics.service";
-import { VideoService } from "../../entities/video/video.service"; 
-import { FriendPandingService } from "../../entities/friendsPanding/friendPanding.service";
-import { FriendsService } from "../../entities/friends/friends.service";
+import { UserService } from "../../../entities/user/user.service";
+import { PhotoService } from "../../../entities/photo/photo.service";
+import { MusicsService } from "../../../entities/musics/musics.service";
+import { VideoService } from "../../../entities/video/video.service"; 
+import { FriendPandingService } from "../../../entities/friendsPanding/friendPanding.service";
+import { FriendsService } from "../../../entities/friends/friends.service";
 
 @Injectable()
 export class AnotherUserService {

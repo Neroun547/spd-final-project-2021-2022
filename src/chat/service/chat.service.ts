@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
-import { UserService } from "../../entities/user/user.service";
-import { ChatsService } from "../../entities/chats/chats.service";
-import { MessagesService } from "../../entities/messages/messages.service";
+import { UserService } from "../../../entities/user/user.service";
+import { ChatsService } from "../../../entities/chats/chats.service";
+import { MessagesService } from "../../../entities/messages/messages.service";
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()

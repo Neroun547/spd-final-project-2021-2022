@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
-import { UserService } from "../../entities/user/user.service";
-import { FriendsService } from "../../entities/friends/friends.service";
+import { UserService } from "../../../entities/user/user.service";
+import { FriendsService } from "../../../entities/friends/friends.service";
 
 @Injectable()
 export class MyFriendsService {

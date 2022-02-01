@@ -26,14 +26,14 @@ export class AccountSettingsController {
     
     @Post("upload-avatar")
     @UseInterceptors(FileInterceptor('file', {
-        fileFilter:(req, file, cb) => {
+        fileFilter: (req, file, cb) => {
             if(+file.size > 1000000){
                 cb(null, false);
             } else {
                 cb(null, true);
             }
         },
-        storage:diskStorage({
+        storage: diskStorage({
             destination: './avatars',
             filename:(req, file, cb) => {
                 const name = Date.now();
@@ -45,7 +45,7 @@ export class AccountSettingsController {
         const newToken = await this.service.uploadAvatar(file, req["user"], req.file.filename);
         
         res.cookie("token", newToken);
-        res.send("Avatar uploaded success");
+        res.redirect("/account-settings");
     };
 
     @Get("avatar/:id")

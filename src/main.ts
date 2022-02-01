@@ -1,12 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { AppModule } from './app.module';
+import { AppModule } from "./root/app.module";
 import { resolve } from "path";
 import { create } from 'express-handlebars';
 import { secretCookie } from "config.json";
 import * as cookieParser from "cookie-parser";
 import { ValidationPipe } from "@nestjs/common";
-import { ErrorFilter } from "./error-filter/error-filter";
+import { ErrorFilter } from "../error-filter/error-filter";
 import { appPort } from "config.json"; 
 
 async function bootstrap() {

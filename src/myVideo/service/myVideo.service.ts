@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { VideoService } from "../../entities/video/video.service";
+import { VideoService } from "../../../entities/video/video.service";
 import { resolve } from "path";
 import { createReadStream, existsSync, statSync } from "fs";
 import { Request, Response } from "express";

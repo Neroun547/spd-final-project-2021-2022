@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from "@nestjs/common";  
-import { FriendPandingService } from "src/entities/friendsPanding/friendPanding.service";
-import { FriendsService } from "../../entities/friends/friends.service";
-import { UserService } from "../../entities/user/user.service";
+import { FriendPandingService } from "entities/friendsPanding/friendPanding.service";
+import { FriendsService } from "../../../entities/friends/friends.service";
+import { UserService } from "../../../entities/user/user.service";
 
 @Injectable()
 export class AddFriendService {
