@@ -1,6 +1,6 @@
 {
-    "email": "project21323@gmail.com",
-    "passwordEmail": "Jalerznww",
+    "email": "ADMIN",
+    "passwordEmail": "ADMIN",
     "hostDB": "localhost",
     "portDB": 3306,
     "usernameDB": "gosha",
