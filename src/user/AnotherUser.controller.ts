@@ -65,6 +65,7 @@ export class UserController {
                 activeUser: req.params["username"],
                 avatarAnotherUser: idAvatar,
                 alreadyFriend: alreadyFriend.accept,
+                pendingFriend: alreadyFriend.pending,
                 loadMoreMusic: countMusic > 5 ? true : false,
                 script: "/js/another-user-music.js",
                 style: "/css/another-user.css"
@@ -101,6 +102,7 @@ export class UserController {
                 activeUser: req.params["username"],
                 avatarAnotherUser: idAvatar,
                 alreadyFriend: alreadyFriend.accept,
+                pendingFriend: alreadyFriend.pending,
                 loadMoreVideo: countVideo > 2 ? true : false,
                 script: "/js/another-user-video.js",
                 style: "/css/another-user.css"

@@ -86,14 +86,18 @@
     }
 
     .notifications__block {
-        margin-right: 60px;
+        position: absolute;
+        right: 80px;
     }
 
     .wrapper__account-settings-link {
+        position: absolute;
+        right: 0;
         max-width: 60px;
     }
 
     .wrapper__nav {
+        position: static;
         justify-content: end;
     }
 
@@ -170,5 +174,9 @@
     .notifications__block img {
         width: 30px;
         height: 30px;
+    }
+
+    .notifications__block {
+        right: 55px;
     }
 }
