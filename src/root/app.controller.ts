@@ -42,4 +42,9 @@ export class AppController {
     const data = await this.service.searchUser(req.body.username, 5, req.body.skip);
     res.send({...data});
   }
+
+  @Get("check-token-interval")
+  checkTokenInterval(@Req() req: Request, @Res() res: Response) {
+    res.sendStatus(200);
+  }
 }

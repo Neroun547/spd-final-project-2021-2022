@@ -46,3 +46,9 @@
     max-width: 600px;
     text-align: center;
 }
+
+.upload-video-loading {
+    display: none;
+    text-align: center;
+    margin-top: 70px;
+}

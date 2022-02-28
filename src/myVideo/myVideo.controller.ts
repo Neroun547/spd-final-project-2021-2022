@@ -30,7 +30,8 @@ export class MyVideoController {
         res.render("upload-video-form", {
             auth: true,
             idAvatar: req["user"].idAvatar,
-            style: "/css/signInForm.css"
+            style: "/css/signInForm.css",
+            script: "/js/upload-video.js"
         });
     }
 

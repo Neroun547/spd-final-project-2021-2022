@@ -29,6 +29,19 @@ export class AppMiddleware implements NestMiddleware {
       
             return;
         }
+
+        if(req.originalUrl === "/check-token-interval") {
+            try {
+                const user = await jwt.verify(req.cookies.token, secretJwt);
+                req["user"] = user;
+            
+                next();
+            } catch {
+                res.sendStatus(400);
+            }
+
+            return;
+        }
       
           // Is really another user music, video or photo ? (I use referer for this) So... maybe don't better solution
         if(req.headers.referer) {
