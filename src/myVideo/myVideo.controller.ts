@@ -84,6 +84,15 @@ export class MyVideoController {
         }
     }
 
+    @Get("private-video")
+    myPrivateVideoPage(@Req() req: Request, @Res() res: Response) {
+        res.render("my-private-video", {
+            auth: true,
+            idAvatar: req["user"].idAvatar,
+            style: "/css/my-video.css"
+        });
+    }
+
     @Get(":id")
     async getVideo(@Req() req: Request, @Res() res: Response) {
         await this.myVideoService.getVideo(req.params["id"], req, res);

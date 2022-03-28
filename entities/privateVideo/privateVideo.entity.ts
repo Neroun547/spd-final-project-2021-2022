@@ -1,8 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"; 
-import { IVideo } from "./interfaces/IVideo";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { IPrivateVideo } from "./interfaces/privateVideo.interface";
 
 @Entity()
-export class Video implements IVideo {
+export class privateVideoEntity implements IPrivateVideo {
     @PrimaryGeneratedColumn()
     _id: number;
 
