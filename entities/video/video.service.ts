@@ -29,4 +29,8 @@ export class VideoService {
     async getCountVideo(publicateUser: number) {
         return await this.videoRepository.count({ where: { publicateUser: publicateUser } });
     }
+
+    async updateParamsVideo(publicateUser: number, name: string, description: string, idVideo: string) {
+        await this.videoRepository.update({ idVideo, publicateUser }, { name, description });
+    }
 }

@@ -1,5 +1,5 @@
 import { EntityRepository, Repository } from "typeorm";
-import { privateVideoEntity } from "./privateVideo.entity";
+import { PrivateVideo } from "./privateVideo.entity";
 
-@EntityRepository(privateVideoEntity)
-export class PrivateVideoRepository extends Repository<privateVideoEntity> {}
+@EntityRepository(PrivateVideo)
+export class PrivateVideoRepository extends Repository<PrivateVideo> {}

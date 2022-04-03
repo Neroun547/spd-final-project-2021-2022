@@ -9,4 +9,4 @@ import { PrivateVideoService } from "./privateVideo.service";
     exports: [PrivateVideoService]
 })
 
-export class privateVideoEntityModule {};
+export class PrivateVideoEntityModule {};

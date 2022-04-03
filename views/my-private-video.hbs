@@ -16,8 +16,28 @@
         {{#if video}}
         {{#each video}}
             <div class="wrapper__video-content-item" id="{{this.idVideo}}">
-                <button class="delete-video-btn button alert mb-5">Delete</button>
-                <video data-role="video-player" data-src="/my-video/{{this.idVideo}}" preload="metadata">
+                <h4>{{this.name}}</h4>
+                    <div class="wrapper__video-content-item-container-del-btn-menu">
+                    <div class="wrapper__video-content-item-decoration-menu">
+                        <div class="wrapper__video-content-item-decoration-menu-decoration"></div>
+                        <div class="wrapper__video-content-item-decoration-menu-decoration"></div>
+                        <div class="wrapper__video-content-item-decoration-menu-decoration"></div>
+                    </div>
+                    <ul class="wrapper__video-content-item-menu-hide">
+                        <li>
+                            <button class="make-public-video-btn" id="{{this.idVideo}}">Make public video</button>
+                        </li>
+                        <li>
+                            <a href="/my-video/change-params-private-video/{{this.idVideo}}">
+                                <button>Change params video</button>
+                            </a>
+                        </li>
+                        <li>
+                            <button class="delete-video-btn" id="{{this.idVideo}}">Delete video</button>
+                        </li>
+                    </ul>
+                </div>
+                <video data-role="video-player" data-src="/my-video/private-video/{{this.idVideo}}" preload="metadata">
                 </video>
                 {{#if this.description}}
                     <button class="columns__photo-description-toggle-btn mt-2 w-100 button primary">Show description</button>
@@ -28,11 +48,11 @@
             </div>
         {{/each}}
         {{else}}
-        <h2 class="mt-10">You don't have video :(</h2>
+        <h2 class="mt-10">You don't have private video :(</h2>
         {{/if}}
     </div>
 
     {{#if loadMore}}
-        <button class="load-more-video-btn button dark">Load more video</button>
+        <button class="load-more-private-video-btn button dark">Load more video</button>
     {{/if}}
 </div>

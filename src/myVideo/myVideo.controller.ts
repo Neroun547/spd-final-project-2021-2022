@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Post, Req, Res, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query, Req, Res, UseInterceptors } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { Request, Response } from "express";
 import { diskStorage } from "multer";
@@ -56,6 +56,21 @@ export class MyVideoController {
         })
     }))
     async uploadNewVideo(@Body() body: UploadVideoDto, @Req() req: Request, @Res() res: Response) {
+    
+        if(req.body.isPrivate === "on") {
+            await this.myVideoService.uploadNewPrivateVideo({
+                name: body.name,
+                video: req.file.filename,
+                publicateUser: req["user"]._id,
+                idVideo: uuidv4(),
+                description: body.description
+            });
+
+            res.redirect("/my-video/private-video");
+
+            return;
+        }
+
         await this.myVideoService.uploadNewVideo({ 
             name: body.name,
             video: req.file.filename,
@@ -74,23 +89,94 @@ export class MyVideoController {
 
     @Delete("delete/:id")
     async deleteVideo(@Req() req: Request, @Res() res: Response) {
+
         try {
-            await this.myVideoService.deleteVideo(req.params["id"], req["user"]._id);
-        
+            if(!req.body.isPrivate) {
+                await this.myVideoService.deleteVideo(req.params["id"], req["user"]._id);
+            }
+            if(req.body.isPrivate) {
+                await this.myVideoService.deletePrivateVideo(req.params["id"], req["user"]._id);
+            }
             res.sendStatus(200);
         } catch(e) {
-            console.log(e);
             res.sendStatus(500);
         }
     }
 
+
     @Get("private-video")
-    myPrivateVideoPage(@Req() req: Request, @Res() res: Response) {
+    async myPrivateVideoPage(@Req() req: Request, @Res() res: Response) {
+        const video = await this.myVideoService.getPrivateVideoId(req["user"]._id, 2, 0);
+        const countVideo = await this.myVideoService.getCountPrivateVideo(req["user"]._id);
+
         res.render("my-private-video", {
             auth: true,
             idAvatar: req["user"].idAvatar,
-            style: "/css/my-video.css"
+            style: "/css/my-video.css",
+            video: video,
+            loadMore: countVideo > 2 ? true : false,
+            script: "/js/my-video.js"
         });
+    }
+
+    @Put("make-private-video/:id")
+    async makePrivateVideo(@Req() req: Request, @Res() res: Response) {
+        await this.myVideoService.makePrivateVideo(req.params["id"], req["user"]._id);
+
+        res.sendStatus(200);
+    }
+
+    @Post("load-more-private") 
+    async loadMorePrivate(@Req() req: Request) {
+        return await this.myVideoService.getPrivateVideoId(req["user"]._id, 2, req.body.skip);
+    }
+
+    @Put("make-public-video/:id")
+    async makePublicVideo(@Req() req: Request, @Res() res: Response) {    
+        await this.myVideoService.makePublicVideo(req.params["id"], req["user"]._id);
+
+        res.sendStatus(200);
+    }
+
+    @Put("change-params-video/:id")
+    async changeParamsVideo(@Body() body: UploadVideoDto, @Req() req: Request, @Res() res: Response) {
+        await this.myVideoService.changeParamsVideo(req["user"]._id, body.name, body.description, req.params["id"], false);
+
+        res.send({ message: "Params was updated success" });
+    }
+
+    @Put("change-params-private-video/:id")
+    async changeParamsPrivateVideo(@Body() body: UploadVideoDto, @Req() req: Request, @Res() res: Response) {
+        await this.myVideoService.changeParamsVideo(req["user"]._id, body.name, body.description, req.params["id"], true);
+
+        res.send({ message: "Params was updated success" });
+    }
+
+    @Get("change-params-video/:id")
+    async changeParamsVideoForm(@Req() req: Request, @Res() res: Response) { 
+        res.render("change-params-video", {
+            auth: true,
+            idAvatar: req["user"].idAvatar,
+            style: "/css/signInForm.css",
+            idVideo: req.params["id"],
+            script: "/js/change-params-video.js"
+        });
+    }
+
+    @Get("change-params-private-video/:id")
+    async changeParamsPrivateVideoForm(@Req() req: Request, @Res() res: Response) {
+        res.render("change-params-private-video", {
+            auth: true,
+            idAvatar: req["user"].idAvatar,
+            style: "/css/signInForm.css",
+            idVideo: req.params["id"],
+            script: "/js/change-params-private-video.js"
+        });
+    }
+
+    @Get("/private-video/:id")
+    async getPrivateVideo(@Req() req: Request, @Res() res: Response) {
+        await this.myVideoService.getPrivateVideo(req.params["id"], req, res);
     }
 
     @Get(":id")

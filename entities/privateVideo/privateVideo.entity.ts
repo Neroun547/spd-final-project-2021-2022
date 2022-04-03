@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { IPrivateVideo } from "./interfaces/privateVideo.interface";
 
 @Entity()
-export class privateVideoEntity implements IPrivateVideo {
+export class PrivateVideo implements IPrivateVideo {
     @PrimaryGeneratedColumn()
     _id: number;
 
