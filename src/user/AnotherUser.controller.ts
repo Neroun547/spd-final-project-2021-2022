@@ -129,6 +129,8 @@ export class UserController {
         const countArticles = await this.service.getCountArticles(req.params["username"]);
 
         if(req["user"]) {
+            const alreadyFriend = await this.service.alreadyFriend(req.params["username"], req["user"]._id);
+
             res.render("user-articles", {
                 auth: true,
                 articles: articles,
@@ -136,7 +138,9 @@ export class UserController {
                 avatarAnotherUser: idAvatar,
                 loadMore: countArticles > 5 ? true : false,
                 style: "/css/another-user.css",
-                script: "/js/another-user-articles.js"
+                script: "/js/another-user-articles.js",
+                alreadyFriend: alreadyFriend.accept,
+                pendingFriend: alreadyFriend.pending
             });
 
             return;
