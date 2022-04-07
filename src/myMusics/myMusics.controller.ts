@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Post, Req, Res, UploadedFile } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Req, Res, UploadedFile } from "@nestjs/common";
 import { Request, Response } from "express";
 import { UseInterceptors } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
@@ -42,7 +42,7 @@ export class MyMusicsController {
             if(file.mimetype !== "audio/mpeg") {
                 cb(null, false);
             }
-            if(+file.size > 1000000){
+            if(+file.size > 30000000){
                 cb(null, false);
             } else {
                 cb(null, true);
@@ -67,9 +67,9 @@ export class MyMusicsController {
         res.redirect("/my-musics");        
     }
 
-    @Post("load-more-musics")
-    async loadMoreMusics(@Req() req: Request, @Res() res: Response) {
-        const musics = await this.myMusicsService.getMusicsId(req.body.skip, 5, req["user"]._id); 
+    @Get("load-more-musics/:skip")
+    async loadMoreMusics(@Req() req: Request, @Res() res: Response, @Param("skip", new ParseIntPipe()) skip: number) {
+        const musics = await this.myMusicsService.getMusicsId(skip, 5, req["user"]._id); 
 
         res.send(musics);
     }

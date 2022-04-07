@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Req, Res } from "@nestjs/common";
+import { Controller, Get, Param, ParseIntPipe, Post, Query, Req, Res } from "@nestjs/common";
 import { Request, Response } from "express";
 import { AnotherUserService } from "./service/AnotherUser.service";
 
@@ -122,6 +122,36 @@ export class UserController {
         });
     }
 
+    @Get("articles-user/:username")
+    async articlesUser(@Req() req: Request, @Res() res: Response) {
+        const idAvatar = await this.service.getIdAvatar(req.params["username"]);
+        const articles = await this.service.getArticles(req.params["username"], 0);
+        const countArticles = await this.service.getCountArticles(req.params["username"]);
+
+        if(req["user"]) {
+            res.render("user-articles", {
+                auth: true,
+                articles: articles,
+                activeUser: req.params["username"],
+                avatarAnotherUser: idAvatar,
+                loadMore: countArticles > 5 ? true : false,
+                style: "/css/another-user.css",
+                script: "/js/another-user-articles.js"
+            });
+
+            return;
+        }
+        res.render("user-articles", {
+            auth: false,
+            articles: articles,
+            activeUser: req.params["username"],
+            avatarAnotherUser: idAvatar,
+            loadMore: countArticles > 5 ? true : false,
+            style: "/css/another-user.css",
+            script: "/js/another-user-articles.js"
+        });
+    }
+
     @Get("add-friend/:username")
     async addFriend(@Req() req: Request, @Res() res: Response) {
         await this.service.addFriend(req.params["username"], req["user"]._id);
@@ -129,23 +159,33 @@ export class UserController {
         res.redirect(`/user/${req.params["username"]}`);
     }
 
-    @Post("load-more-photo")
-    async loadMorePhoto(@Req() req: Request, @Res() res: Response) {
-        const photo = await this.service.loadMorePhoto(req.body.username, req.body.skip);
+    @Get("load-more-articles/:skip")
+    async loadMoreArticles(@Req() req: Request, @Param("skip", new ParseIntPipe()) skip: number,
+    @Query("user") username: string, @Res() res: Response) {
+        const articles = await this.service.getArticles(username, skip);
+        res.send(articles);
+    }
+
+    @Get("load-more-photo/:skip")
+    async loadMorePhotoId(@Req() req: Request, @Param("skip", new ParseIntPipe()) skip: number,
+    @Query("user") username: string, @Res() res: Response) {
+        const photo = await this.service.loadMorePhotoId(username, skip);
 
         res.send(photo);
     }
 
-    @Post("load-more-video")
-    async loadMoreVideoId(@Req() req: Request, @Res() res: Response) {
-        const video = await this.service.loadMoreVideoId(req.body.username, req.body.skip);
+    @Get("load-more-video/:skip")
+    async loadMoreVideoId(@Req() req: Request, @Param("skip", new ParseIntPipe()) skip: number,
+    @Query("user") username: string, @Res() res: Response) {
+        const video = await this.service.loadMoreVideoId(username, skip);
 
         res.send(video);
     }
 
-    @Post("load-more-music")
-    async loadMoreMusicId(@Req() req: Request, @Res() res: Response) {
-        const music = await this.service.loadMoreMusicId(req.body.username, req.body.skip);
+    @Get("load-more-music/:skip")
+    async loadMoreMusicId(@Req() req: Request, @Param("skip", new ParseIntPipe()) skip: number,
+    @Query("user") username: string, @Res() res: Response) {
+        const music = await this.service.loadMoreMusicId(username, skip);
     
         res.send(music);
     }

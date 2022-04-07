@@ -5,28 +5,30 @@ import { MusicsService } from "../../../entities/musics/musics.service";
 import { VideoService } from "../../../entities/video/video.service"; 
 import { FriendPandingService } from "../../../entities/friendsPanding/friendPanding.service";
 import { FriendsService } from "../../../entities/friends/friends.service";
+import { ArticlesService } from "entities/articles/articles.service";
 
 @Injectable()
 export class AnotherUserService {
     constructor(
-        private readonly userService: UserService,
-        private readonly photoService: PhotoService,
-        private readonly musicsService: MusicsService, 
-        private readonly videoService: VideoService,
-        private readonly friendPandingService: FriendPandingService,
-        private readonly friendsService: FriendsService
+        private readonly userServiceDb: UserService,
+        private readonly photoServiceDb: PhotoService,
+        private readonly musicsServiceDb: MusicsService, 
+        private readonly videoServiceDb: VideoService,
+        private readonly friendPandingServiceDb: FriendPandingService,
+        private readonly friendsServiceDb: FriendsService,
+        private readonly articlesServiceDb: ArticlesService
     ) {};
 
     async getIdAvatar(username: string){
-        const user = await this.userService.findUserByUsername(username);
+        const user = await this.userServiceDb.findUserByUsername(username);
         return user.idAvatar;
     }
 
     async getPhotoId(username: string) {
-        const user = await this.userService.findUserByUsername(username); 
-        const dataUserPhoto = await this.photoService.findPhotoById(user._id);
+        const user = await this.userServiceDb.findUserByUsername(username); 
+        const dataUserPhoto = await this.photoServiceDb.findPhotoById(user._id);
 
-        return dataUserPhoto.filter((el) => ({
+        return dataUserPhoto.map((el) => ({
             idPhoto: el.idPhoto,
             description: el.description,
             theme: el.theme
@@ -34,10 +36,10 @@ export class AnotherUserService {
     }
 
     async getMusicUserId(username: string) {
-        const user = await this.userService.findUserByUsername(username); 
-        const dataUserMusic = await this.musicsService.getMusics(0, 5, user._id);
+        const user = await this.userServiceDb.findUserByUsername(username); 
+        const dataUserMusic = await this.musicsServiceDb.getMusics(0, 5, user._id);
 
-        return dataUserMusic.filter((el) => ({
+        return dataUserMusic.map((el) => ({
             idMusic: el.idMusic,
             name: el.name,
             author: el.author
@@ -45,10 +47,10 @@ export class AnotherUserService {
     }
 
     async getVideoId(username: string) {
-        const user = await this.userService.findUserByUsername(username); 
-        const dataUserVideo = await this.videoService.getVideo(user._id, 2, 0);
+        const user = await this.userServiceDb.findUserByUsername(username); 
+        const dataUserVideo = await this.videoServiceDb.getVideo(user._id, 2, 0);
 
-        return dataUserVideo.filter((el) => ({
+        return dataUserVideo.map((el) => ({
             idVideo: el.idVideo,
             description: el.description,
             name: el.name
@@ -56,15 +58,15 @@ export class AnotherUserService {
     }
 
     async addFriend(friendUsername: string, idUser: number) {
-        const friendId = await this.userService.getIdUserByUsername(friendUsername);
+        const friendId = await this.userServiceDb.getIdUserByUsername(friendUsername);
 
-        await this.friendPandingService.addFriend(friendId, idUser);
+        await this.friendPandingServiceDb.addFriend(friendId, idUser);
     }
 
     async alreadyFriend(friendUsername: string, idUser: number) {
-        const friendId = await this.userService.getIdUserByUsername(friendUsername);
-        const alreadyFriend = await this.friendsService.alreadyFriends(idUser, friendId);
-        const pendingFriend = await this.friendPandingService.findFriend(friendId, idUser);
+        const friendId = await this.userServiceDb.getIdUserByUsername(friendUsername);
+        const alreadyFriend = await this.friendsServiceDb.alreadyFriends(idUser, friendId);
+        const pendingFriend = await this.friendPandingServiceDb.findFriend(friendId, idUser);
 
         if(alreadyFriend) {
             return {
@@ -86,9 +88,21 @@ export class AnotherUserService {
         }
     }
 
-    async loadMorePhoto(username: string, skip: number) {
-        const user = await this.userService.findUserByUsername(username); 
-        return (await this.photoService.loadMorePhoto(user._id, skip, 4)).filter((el) => ({
+    async getArticles(username: string, skip: number) {
+        const user = await this.userServiceDb.findUserByUsername(username); 
+        const articles = await this.articlesServiceDb.getArticles(user._id, skip, 5);
+
+        return articles.map(el => ({ idArticle: el.idArticle, title: el.title, theme: el.theme, date: el.date }));
+    }
+
+    async getCountArticles(username: string) {
+        const user = await this.userServiceDb.findUserByUsername(username);
+        return await this.articlesServiceDb.getCountArticles(user._id);
+    }
+
+    async loadMorePhotoId(username: string, skip: number) {
+        const user = await this.userServiceDb.findUserByUsername(username); 
+        return (await this.photoServiceDb.loadMorePhoto(user._id, skip, 4)).map((el) => ({
             idPhoto: el.idPhoto,
             description: el.description,
             theme: el.theme
@@ -96,14 +110,14 @@ export class AnotherUserService {
     }
 
     async getCountVideo(username: string) {
-        const user = await this.userService.findUserByUsername(username); 
-        return await this.videoService.getCountVideo(user._id);
+        const user = await this.userServiceDb.findUserByUsername(username); 
+        return await this.videoServiceDb.getCountVideo(user._id);
     }
 
     async loadMoreVideoId(username: string, skip: number) {
-        const user = await this.userService.findUserByUsername(username); 
+        const user = await this.userServiceDb.findUserByUsername(username); 
         
-        return (await this.videoService.getVideo(user._id, 2, skip)).filter(el => ({
+        return (await this.videoServiceDb.getVideo(user._id, 2, skip)).map(el => ({
             idVideo: el.idVideo,
             name: el.name,
             description: el.description
@@ -111,10 +125,10 @@ export class AnotherUserService {
     }
 
     async loadMoreMusicId(username: string, skip: number) {
-        const user = await this.userService.findUserByUsername(username); 
-        const musics = await this.musicsService.getMusics(skip, 5, user._id);
+        const user = await this.userServiceDb.findUserByUsername(username); 
+        const musics = await this.musicsServiceDb.getMusics(skip, 5, user._id);
         
-        return musics.filter((el) => ({
+        return musics.map((el) => ({
             idMusic: el.idMusic,
             author: el.author,
             name: el.name
@@ -122,14 +136,14 @@ export class AnotherUserService {
     }
 
     async getCountMusic(username: string) {
-        const user = await this.userService.findUserByUsername(username); 
+        const user = await this.userServiceDb.findUserByUsername(username); 
         
-        return await this.musicsService.getCountMusics(user._id); 
+        return await this.musicsServiceDb.getCountMusics(user._id); 
     }
 
     async getCountPhoto(author: string) {
-        const user = await this.userService.findUserByUsername(author); 
+        const user = await this.userServiceDb.findUserByUsername(author); 
 
-        return await this.photoService.getCountPhoto(user._id);
+        return await this.photoServiceDb.getCountPhoto(user._id);
     }
 }

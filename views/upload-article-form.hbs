@@ -1,0 +1,10 @@
+<div class="wrapper__form">
+    <form method="POST" action="/my-articles/upload-new-article" enctype="multipart/form-data">
+        <input type="text" placeholder="Title:" name="title" required class="title-article-input">
+        <input type="text" placeholder="Theme:" name="theme" required class="theme-article-input">
+        <input class="upload-new-photo-file-input" type="file" name="file" data-role="file" data-button-title="<span class='mif-folder'></span>" required aria-colspan="file-article-input">
+        <button class="upload-article-form-btn">Upload new article</button>
+    </form>
+
+    <div class="upload-video-loading">Loading ...</div>
+</div>

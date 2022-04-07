@@ -41,7 +41,7 @@ export class MyVideoController {
             if(file.mimetype !== "video/mp4") {
                 cb(null, false);
             }
-            if(+file.size > 10000000){
+            if(+file.size > 1000000000){
                 cb(null, false);
             } else {
                 cb(null, true);
@@ -82,9 +82,9 @@ export class MyVideoController {
         res.redirect("/my-video");
     }
 
-    @Post("load-more")
-    async loadMoreVideo(@Req() req: Request) {
-        return await this.myVideoService.getVideoId(req["user"]._id, 2, req.body.skip);
+    @Get("load-more/:skip")
+    async loadMoreVideo(@Req() req: Request, @Param("skip", new ParseIntPipe()) skip: number) {
+        return await this.myVideoService.getVideoId(req["user"]._id, 2, skip);
     }
 
     @Delete("delete/:id")
@@ -126,9 +126,9 @@ export class MyVideoController {
         res.sendStatus(200);
     }
 
-    @Post("load-more-private") 
-    async loadMorePrivate(@Req() req: Request) {
-        return await this.myVideoService.getPrivateVideoId(req["user"]._id, 2, req.body.skip);
+    @Get("load-more-private/:skip") 
+    async loadMorePrivate(@Req() req: Request, @Param("skip", new ParseIntPipe()) skip: number) {
+        return await this.myVideoService.getPrivateVideoId(req["user"]._id, 2, skip);
     }
 
     @Put("make-public-video/:id")

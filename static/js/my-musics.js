@@ -4,6 +4,7 @@ import { ApiService } from "./services/api-call.service.js";
 const loadMoreMusics = document.querySelector(".load-more-musics-btn");
 const deleteMusic = document.querySelectorAll(".delete-music-btn");
 const countTrack = document.querySelector(".count__track");
+const wrapperMusics = document.querySelector(".wrapper__musics");
 let skipMusics = 0;
 
 const apiService = new ApiService();
@@ -11,15 +12,12 @@ const apiService = new ApiService();
 if(loadMoreMusics) {
     loadMoreMusics.addEventListener("click", async function () {
         skipMusics += 5;
-        const api = await apiService.apiCall("/my-musics/load-more-musics", "POST", JSON.stringify({skip: skipMusics}));
+        const api = await apiService.apiCall(`/my-musics/load-more-musics/${skipMusics}`, "GET");
         const data = await api.json();
 
-        if(data.length < 4) {
+        if(data.length < 5) {
             loadMoreMusics.remove();
         }
-
-        const wrapperMusics = document.querySelector(".wrapper__musics");
-
         data.forEach((el) => {
             const wrapperMusicsItem = createElement(wrapperMusics, "div", { class: "wrapper__musics-item", id: el.idMusic });
             const wrapperNameAuthor = createElement(
@@ -39,6 +37,7 @@ if(loadMoreMusics) {
                 element.remove();
         
                 countTrack.innerHTML = String(Number(countTrack.textContent) - 1);
+                skipMusics-=1;
             });
 
             createElement(wrapperMusicsItem, "audio", {
@@ -58,5 +57,7 @@ for (let i = 0; i < deleteMusic.length; i++) {
         element.remove();
 
         countTrack.innerHTML = String(Number(countTrack.textContent) - 1);
+
+        skipMusics-=1;
     });
 }

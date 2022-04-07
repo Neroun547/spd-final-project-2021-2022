@@ -23,7 +23,7 @@ const apiService = new ApiService();
 if(loadMoreVideoBtn) {
     loadMoreVideoBtn.addEventListener("click", async function () {
         skipVideo += 2;
-        const api = await apiService.apiCall("/my-video/load-more", "POST",  JSON.stringify({skip: skipVideo}));
+        const api = await apiService.apiCall(`/my-video/load-more/${skipVideo}`, "GET");
         const dataVideo = await api.json();
 
         if (dataVideo.length < 2) {
@@ -55,7 +55,7 @@ if(loadMoreVideoBtn) {
 
                 makePublicVideoBtn.addEventListener("click", async function () {
                     await apiService.apiCall(`/my-video/make-public-video/${this.getAttribute("id")}`, "PUT");
-
+                    skipVideo-=1;
                     this.parentElement.parentElement.parentElement.parentElement.remove();
                 });
             } else {
@@ -67,7 +67,7 @@ if(loadMoreVideoBtn) {
 
                 makePrivateVideoBtn.addEventListener("click", async function () {
                     await apiService.apiCall(`/my-video/make-private-video/${this.getAttribute("id")}`, "PUT");
-
+                    skipVideo-=1;
                     this.parentElement.parentElement.parentElement.parentElement.remove();
                 });
             }
@@ -83,7 +83,8 @@ if(loadMoreVideoBtn) {
 
             deleteVideoBtn.addEventListener("click", async function () {
                 await apiService.apiCall(`/my-video/delete/${this.getAttribute("id")}`, "DELETE", JSON.stringify({ isPrivate: false }));
-                this.parentElement.parentElement.parentElement.parentElement.remove()
+                this.parentElement.parentElement.parentElement.parentElement.remove();
+                skipVideo-=1;
             });
 
             createElement(wrapperVideoContentItem, "video", {
@@ -113,7 +114,7 @@ if(loadMoreVideoBtn) {
 if(loadMorePrivateVideoBtn) {
     loadMorePrivateVideoBtn.addEventListener("click", async function () {
         skipVideo += 2;
-        const api = await apiService.apiCall("/my-video/load-more-private", "POST",  JSON.stringify({skip: skipVideo}));
+        const api = await apiService.apiCall(`/my-video/load-more-private/${skipVideo}`, "GET");
         const dataVideo = await api.json();
 
         if (dataVideo.length < 2) {
@@ -145,7 +146,7 @@ if(loadMorePrivateVideoBtn) {
 
                 makePublicVideoBtn.addEventListener("click", async function () {
                     await apiService.apiCall(`/my-video/make-public-video/${this.getAttribute("id")}`, "PUT");
-
+                    skipVideo-=1;
                     this.parentElement.parentElement.parentElement.parentElement.remove();
                 });
             } else {
@@ -157,7 +158,7 @@ if(loadMorePrivateVideoBtn) {
 
                 makePrivateVideoBtn.addEventListener("click", async function () {
                     await apiService.apiCall(`/my-video/make-private-video/${this.getAttribute("id")}`, "PUT");
-
+                    skipVideo-=1;
                     this.parentElement.parentElement.parentElement.parentElement.remove();
                 });
             }
@@ -174,7 +175,8 @@ if(loadMorePrivateVideoBtn) {
 
             deleteVideoBtn.addEventListener("click", async function () {
                 await apiService.apiCall(`/my-video/delete/${this.getAttribute("id")}`, "DELETE", JSON.stringify({ isPrivate: true }));
-                this.parentElement.parentElement.parentElement.parentElement.remove()
+                this.parentElement.parentElement.parentElement.parentElement.remove();
+                skipVideo-=1;
             });
 
             createElement(wrapperVideoContentItem, "video", {
@@ -205,7 +207,7 @@ if(makePrivateVideoBtn) {
     for(let i = 0; i < makePrivateVideoBtn.length; i++) {
         makePrivateVideoBtn[i].addEventListener("click", async function () {
             await apiService.apiCall(`/my-video/make-private-video/${this.getAttribute("id")}`, "PUT");
-            console.log(this.parentElement.parentElement.parentElement.parentElement);
+            skipVideo-=1;
             this.parentElement.parentElement.parentElement.parentElement.remove();
         });
     }
@@ -215,7 +217,7 @@ if(makePublicVideoBtn) {
     for(let i = 0; i < makePublicVideoBtn.length; i++) {
         makePublicVideoBtn[i].addEventListener("click", async function () {
             await apiService.apiCall(`/my-video/make-public-video/${this.getAttribute("id")}`, "PUT");
-            console.log(this.parentElement.parentElement.parentElement.parentElement);
+            skipVideo-=1;
             this.parentElement.parentElement.parentElement.parentElement.remove();
         });
     }
@@ -227,11 +229,13 @@ for (let i = 0; i < deleteVideoBtn.length; i++) {
         if(window.location.href.includes("my-video/private-video")) {
             await apiService.apiCall(`/my-video/delete/${this.getAttribute("id")}`, "DELETE", JSON.stringify({ isPrivate: true }));
             this.parentElement.parentElement.parentElement.parentElement.remove()
+            skipVideo-=1;
 
             return;
         }
         await apiService.apiCall(`/my-video/delete/${this.getAttribute("id")}`, "DELETE", JSON.stringify({ isPrivate: false }));
         this.parentElement.parentElement.parentElement.parentElement.remove()
+        skipVideo-=1;
     });
 }
 

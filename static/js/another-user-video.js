@@ -20,7 +20,7 @@ loadMoreVideoBtn.addEventListener("click", async function () {
     skipVideo += 2;
     const user = this.getAttribute("id");
     
-    const api = await apiService.apiCall("/user/load-more-video", "POST", JSON.stringify({skip: skipVideo,username: user})); 
+    const api = await apiService.apiCall(`/user/load-more-video/${skipVideo}?user=${user}`, "GET"); 
 
     const dataVideo = await api.json();
 

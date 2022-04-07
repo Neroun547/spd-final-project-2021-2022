@@ -12,7 +12,9 @@ export function openDialogActions(src, id, delBtn=true) {
                             fetch(`/my-photo/delete-photo/${id}`, {
                                 method: "DELETE"
                             });
-                            document.getElementById(id).remove();                      
+                            document.getElementById(id).remove();  
+                            
+                            throw new Error("Element was deleted ...");
                         } 
                     }
                 },
@@ -23,8 +25,6 @@ export function openDialogActions(src, id, delBtn=true) {
             ],
             overlayClickClose: true
         });
-
-        return;
     }
 
     Metro.dialog.create({

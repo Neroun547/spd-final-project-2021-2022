@@ -11,7 +11,7 @@ if(loadMoreMusics) {
         const user = this.getAttribute("id");
         skipMusics += 5;
     
-        const api = await apiService.apiCall("/user/load-more-music", "POST", JSON.stringify({ skip: skipMusics, username: user }));
+        const api = await apiService.apiCall(`/user/load-more-music/${skipMusics}?user=${user}`, "GET");
         const data = await api.json();
     
         if (data.length < 4) {
