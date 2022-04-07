@@ -67,7 +67,7 @@
     display: none;
 }
 
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1305px) {
     .nav {
         display: flex;
         flex-direction: column;

@@ -17,10 +17,12 @@ import { AddFriendModule } from "../add-friend/add-friend.module";
 import { FriendsModule } from "../friends/friends.module";
 import { ChatModule } from "../chat/chat.module";
 import { AppMiddleware } from "../../middleware/middleware";
+import { MyArticle } from "../myArticles/myArticles.module";
 
 import { passwordDB, hostDB, usernameDB, database, portDB, synchronize, autoLoadEntities } from "config.json";
 @Module({
     imports:[
+        MyArticle,
         ChatModule,
         AddFriendModule,
         UserModule,
@@ -72,6 +74,10 @@ import { passwordDB, hostDB, usernameDB, database, portDB, synchronize, autoLoad
             {
                 path: "/chat",
                 module: ChatModule
+            },
+            {
+                path: "/my-articles",
+                module: MyArticle
             }
         ]),
         
@@ -85,6 +91,7 @@ import { passwordDB, hostDB, usernameDB, database, portDB, synchronize, autoLoad
             entities: [User],
             synchronize: synchronize,
             autoLoadEntities: autoLoadEntities,
+            charset: "utf8mb4"
         }),
 
         TypeOrmModule.forFeature([User])

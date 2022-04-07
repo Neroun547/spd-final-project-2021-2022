@@ -2,8 +2,12 @@
     <form method="POST" action="/my-video/upload-new-video" enctype="multipart/form-data">
         <input type="text" placeholder="Name:" name="name" required class="name-video">
         <input type="text" placeholder="Description:" name="description">
+        <div class="wrapper__form-private-video-container">
+            <span>Private video:</span>
+            <input type="checkbox" name="isPrivate">
+        </div>
         <input class="upload-new-photo-file-input" type="file" name="file" data-role="file" data-button-title="<span class='mif-folder'></span>" required>
-        <button type="submit" class="upload-video-btn">Upload new video</button>
+        <button type="submit" class="upload-video-form-btn">Upload new video</button>
     </form>
 
     <div class="upload-video-loading">Loading ...</div>

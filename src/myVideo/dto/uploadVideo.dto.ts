@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, Length } from "class-validator";
+import { IsString, IsNotEmpty, Length, IsBoolean } from "class-validator";
 
 export class UploadVideoDto {
     

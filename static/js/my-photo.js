@@ -21,7 +21,7 @@ if(loadMorePhotoBtn) {
 
     loadMorePhotoBtn.addEventListener("click", async function () {
         skip+=4;
-        const api = await apiService.apiCall("/my-photo/load-more-photo", "POST", JSON.stringify({skip:skip}));
+        const api = await apiService.apiCall(`/my-photo/load-more-photo/${skip}`, "GET");
 
         const data = await api.json();
 
@@ -33,7 +33,11 @@ if(loadMorePhotoBtn) {
             const wrapper = createElement(wrapperColumnsPhoto, "div", { class:"columns__photo-item", id: el.idPhoto });
             const wrapperColumnsPhotoImg = createElement(wrapper, "img", { src: `/my-photo/photo/${el.idPhoto}`, id: el.idPhoto, class: "wrapper__column-photo-img"});
             wrapperColumnsPhotoImg.addEventListener("click", function () {
-                openDialogActions(`/my-photo/photo/${this.getAttribute("id")}`, this.getAttribute("id"));
+                try {
+                    openDialogActions(`/my-photo/photo/${this.getAttribute("id")}`, this.getAttribute("id"));
+                } catch {
+                    skip-=1;
+                }
             });
             
             createElement(wrapper, "div", { class: "columns__photo-theme" }).innerHTML = `Theme: ${el.theme}`;
@@ -53,6 +57,10 @@ if(loadMorePhotoBtn) {
 
 for(let i = 0; i < wrapperColumnsPhotoImg.length; i++) {
     wrapperColumnsPhotoImg[i].addEventListener("click", function () {
-        openDialogActions(`/my-photo/photo/${this.getAttribute("id")}`, this.getAttribute("id"));
+        try {
+            openDialogActions(`/my-photo/photo/${this.getAttribute("id")}`, this.getAttribute("id"));
+        } catch {
+            skip -=1;
+        }
     }); 
 } 

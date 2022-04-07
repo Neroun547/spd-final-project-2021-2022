@@ -50,6 +50,7 @@ export class AppMiddleware implements NestMiddleware {
                 || req.headers.referer.includes("/user") && req.originalUrl.includes("/account-settings")
                 || req.headers.referer.includes("/user") && req.originalUrl.includes("/my-photo/photo")
                 || req.headers.referer.includes("/user") && req.originalUrl.includes("/my-video")
+                || req.headers.referer.includes("/user") && req.originalUrl.includes("/my-articles")
                 || req.headers.referer.includes("/") && req.originalUrl.includes("/account-settings/avatar")
             ) {
                 try {

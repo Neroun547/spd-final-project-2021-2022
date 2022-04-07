@@ -36,6 +36,9 @@
         <a href="/user/video-user/{{activeUser}}">
             <img src="/img/video.png">
         </a>
+        <a href="/user/articles-user/{{activeUser}}">
+            <img src="/img/article.png">
+        </a>
     </div>
 </div>
 <div class="wrapper__video">
@@ -43,6 +46,7 @@
     <div class="wrapper__video-content">
         {{#each video}}
             <div class="wrapper__video-content-item" id="{{this.idVideo}}">
+                <h4>{{this.name}}</h4>
                 <video data-role="video-player" data-src="/my-video/{{this.idVideo}}" preload="metadata">
                 </video>
                 {{#if this.description}}

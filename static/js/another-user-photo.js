@@ -21,7 +21,7 @@ if(loadMorePhotoBtn) {
     loadMorePhotoBtn.addEventListener("click", async function () {
         skip+=4;
         const user = this.getAttribute("id");
-        const api = await apiService.apiCall("/user/load-more-photo", "POST", JSON.stringify({skip: skip,username: user}));
+        const api = await apiService.apiCall(`/user/load-more-photo/${skip}?user=${user}`, "GET");
         const data = await api.json();
 
         if(data.length < 4){

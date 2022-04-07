@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Post, Req, Res, UploadedFile } from "@nestjs/common";
+import { Body, Controller, Delete, Get, ParseIntPipe, Post, Req, Res, UploadedFile, Param } from "@nestjs/common";
 import { Request, Response } from "express"; 
 import { UseInterceptors } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
@@ -30,8 +30,9 @@ export class MyPhotoController {
         fileFilter: (req, file, cb) => {
             if(file.mimetype !== "image/png" && file.mimetype !== "image/jpeg" && file.mimetype !== "image/jpg") {
                 cb(null, false);
+                return;
             }
-            if(+file.size > 1000000){
+            if(+file.size > 100000000){
                 cb(null, false);
             } else {
                 cb(null, true);
@@ -71,9 +72,9 @@ export class MyPhotoController {
         this.service.getPhoto(req.params["id"], res);
     }
 
-    @Post("load-more-photo")
-    async loadMorePhoto(@Req() req:Request, @Res() res:Response) {
-        const photos = await this.service.loadMorePhoto(req["user"]._id, req.body.skip);     
+    @Get("load-more-photo/:skip")
+    async loadMorePhoto(@Req() req:Request, @Res() res:Response, @Param("skip", new ParseIntPipe()) skip: number) {
+        const photos = await this.service.loadMorePhoto(req["user"]._id, skip);     
         res.send(photos);
     }
 

@@ -4,7 +4,7 @@ import { IVideo } from "./interfaces/IVideo";
 @Entity()
 export class Video implements IVideo {
     @PrimaryGeneratedColumn()
-    _id: number
+    _id: number;
 
     @Column()
     name: string;
