@@ -46,6 +46,7 @@ if(loadMoreArticles) {
             deleteBtn.addEventListener("click", async function () {
                 await apiService.apiCall(`/my-articles/`, "DELETE");
                 this.parentElement.parentElement.parentElement.parentElement.remove();
+                skipArticles-=1;
             });
             deleteBtn.innerHTML = "Delete article";
 
@@ -71,5 +72,6 @@ for(let i = 0; i < deleteBtn.length; i++) {
     deleteBtn[i].addEventListener("click", async function () {
         await apiService.apiCall(`/my-articles/${this.getAttribute("id")}`, "DELETE");
         this.parentElement.parentElement.parentElement.parentElement.remove();
+        skipArticles-=1;
     });
 }

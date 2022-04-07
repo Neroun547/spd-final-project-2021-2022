@@ -39,6 +39,7 @@ export class MyArticlesController {
         fileFilter:(req, file, cb) => {
             if(file.mimetype !== "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
                 cb(null, false);
+                return;
             }
             if(+file.size > 100000000){
                 cb(null, false);

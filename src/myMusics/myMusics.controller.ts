@@ -41,6 +41,7 @@ export class MyMusicsController {
         fileFilter:(req, file, cb) => {
             if(file.mimetype !== "audio/mpeg") {
                 cb(null, false);
+                return;
             }
             if(+file.size > 30000000){
                 cb(null, false);

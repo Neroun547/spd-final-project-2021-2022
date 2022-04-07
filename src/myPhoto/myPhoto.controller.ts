@@ -30,6 +30,7 @@ export class MyPhotoController {
         fileFilter: (req, file, cb) => {
             if(file.mimetype !== "image/png" && file.mimetype !== "image/jpeg" && file.mimetype !== "image/jpg") {
                 cb(null, false);
+                return;
             }
             if(+file.size > 100000000){
                 cb(null, false);

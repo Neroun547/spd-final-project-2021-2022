@@ -36,10 +36,12 @@ export class MyVideoController {
     }
 
     @Post("upload-new-video")
-    @UseInterceptors(FileInterceptor('file', {
+    @UseInterceptors(FileInterceptor("file", {
         fileFilter:(req, file, cb) => {
+    
             if(file.mimetype !== "video/mp4") {
                 cb(null, false);
+                return;
             }
             if(+file.size > 1000000000){
                 cb(null, false);
