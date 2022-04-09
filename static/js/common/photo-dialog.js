@@ -25,16 +25,16 @@ export function openDialogActions(src, id, delBtn=true) {
             ],
             overlayClickClose: true
         });
-    }
-
-    Metro.dialog.create({
-        content: `<div><img src=${src}/></div>`,
-        actions: [
-            {
-                caption: "Close",
-                cls: "js-dialog-close close"
-            }
-        ],
-        overlayClickClose: true
+    } else {
+        Metro.dialog.create({
+            content: `<div><img src=${src}/></div>`,
+            actions: [
+                {
+                    caption: "Close",
+                    cls: "js-dialog-close close"
+                }
+            ],
+            overlayClickClose: true
     });
+    }
 };

@@ -30,7 +30,7 @@ export class UserController {
                 alreadyFriend: alreadyFriend.accept,
                 pendingFriend: alreadyFriend.pending,
                 loadMore: countPhoto > 4 ? true : false,
-                script: "/js/another-user-photo.js",
+                script: "/js/modules/another-user/another-user-photo/another-user-photo.js",
                 style: "/css/another-user.css"
             });
 
@@ -44,7 +44,7 @@ export class UserController {
             photo: photo,
             activeUser: req.params["username"],
             loadMore: countPhoto > 4 ? true : false,
-            script: "/js/another-user-photo.js",
+            script: "/js/modules/another-user/another-user-photo/another-user-photo.js",
             style: "/css/another-user.css"
         });
     }
@@ -67,7 +67,7 @@ export class UserController {
                 alreadyFriend: alreadyFriend.accept,
                 pendingFriend: alreadyFriend.pending,
                 loadMoreMusic: countMusic > 5 ? true : false,
-                script: "/js/another-user-music.js",
+                script: "/js/modules/another-user/another-user-music/another-user-music.js",
                 style: "/css/another-user.css"
             });
 
@@ -81,7 +81,7 @@ export class UserController {
             activeUser: req.params["username"],
             avatarAnotherUser: idAvatar,
             loadMoreMusic: countMusic > 5 ? true : false,
-            script: "/js/another-user-music.js",
+            script: "/js/modules/another-user/another-user-music/another-user-music.js",
             style: "/css/another-user.css"
         });        
     }
@@ -104,7 +104,7 @@ export class UserController {
                 alreadyFriend: alreadyFriend.accept,
                 pendingFriend: alreadyFriend.pending,
                 loadMoreVideo: countVideo > 2 ? true : false,
-                script: "/js/another-user-video.js",
+                script: "/js/modules/another-user/another-user-video/another-user-video.js",
                 style: "/css/another-user.css"
             });
         
@@ -117,7 +117,7 @@ export class UserController {
             activeUser: req.params["username"],
             avatarAnotherUser: idAvatar,
             loadMoreVideo: countVideo > 2 ? true : false,
-            script: "/js/another-user-video.js",
+            script: "/js/modules/another-user/another-user-video/another-user-video.js",
             style: "/css/another-user.css"
         });
     }
@@ -138,7 +138,7 @@ export class UserController {
                 avatarAnotherUser: idAvatar,
                 loadMore: countArticles > 5 ? true : false,
                 style: "/css/another-user.css",
-                script: "/js/another-user-articles.js",
+                script: "/js/modules/another-user/another-user-articles/another-user-articles.js",
                 alreadyFriend: alreadyFriend.accept,
                 pendingFriend: alreadyFriend.pending
             });
@@ -152,7 +152,7 @@ export class UserController {
             avatarAnotherUser: idAvatar,
             loadMore: countArticles > 5 ? true : false,
             style: "/css/another-user.css",
-            script: "/js/another-user-articles.js"
+            script: "/js/modules/another-user/another-user-articles/another-user-articles.js"
         });
     }
 
@@ -168,6 +168,26 @@ export class UserController {
     @Query("user") username: string, @Res() res: Response) {
         const articles = await this.service.getArticles(username, skip);
         res.send(articles);
+    }
+
+    @Get("article/:idArticle")
+    async loadArticle(@Param("idArticle") idArticle: string, @Req() req: Request, @Res() res: Response) {
+        const article = await this.service.getArticle(idArticle);
+        
+        if(req["user"]) {
+            res.render(`articles/${article.article}`, {
+                auth: true,
+                idAvatar: req["user"].idAvatar,
+                style: "/css/article.css"
+            });
+
+            return;
+        }
+
+        res.render(`articles/${article.article}`, {
+            auth: false,
+            style: "/css/article.css"
+        });
     }
 
     @Get("load-more-photo/:skip")

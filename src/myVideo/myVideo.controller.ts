@@ -20,7 +20,7 @@ export class MyVideoController {
             idAvatar: req["user"].idAvatar,
             video: video,
             loadMore: countVideo > 2 ? true : false,
-            script: "/js/my-video.js",
+            script: "/js/modules/my-account/my-video/my-video.js",
             style: "/css/my-video.css"
         });
     }
@@ -31,7 +31,7 @@ export class MyVideoController {
             auth: true,
             idAvatar: req["user"].idAvatar,
             style: "/css/signInForm.css",
-            script: "/js/upload-video.js"
+            script: "/js/modules/my-account/my-video/upload-video.js"
         });
     }
 
@@ -117,7 +117,7 @@ export class MyVideoController {
             style: "/css/my-video.css",
             video: video,
             loadMore: countVideo > 2 ? true : false,
-            script: "/js/my-video.js"
+            script: "/js/modules/my-account/my-video/my-video.js"
         });
     }
 
@@ -161,7 +161,7 @@ export class MyVideoController {
             idAvatar: req["user"].idAvatar,
             style: "/css/signInForm.css",
             idVideo: req.params["id"],
-            script: "/js/change-params-video.js"
+            script: "/js/modules/my-account/my-video/change-params-video.js"
         });
     }
 
@@ -172,7 +172,7 @@ export class MyVideoController {
             idAvatar: req["user"].idAvatar,
             style: "/css/signInForm.css",
             idVideo: req.params["id"],
-            script: "/js/change-params-private-video.js"
+            script: "/js/modules/my-account/my-video/change-params-private-video.js"
         });
     }
 

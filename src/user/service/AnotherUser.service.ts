@@ -109,6 +109,10 @@ export class AnotherUserService {
         }));
     }
 
+    async getArticle(idArticle: string) {
+        return await this.articlesServiceDb.getArticleById(idArticle);
+    }
+
     async getCountVideo(username: string) {
         const user = await this.userServiceDb.findUserByUsername(username); 
         return await this.videoServiceDb.getCountVideo(user._id);

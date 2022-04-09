@@ -1,4 +1,4 @@
-import { ApiService } from "./services/api-call.service.js";
+import { ApiService } from "../../services/api-call.service.js";
 
 const form = document.getElementById("signin-form");
 const wrapperMessage = document.querySelector(".wrapper__message-signup");

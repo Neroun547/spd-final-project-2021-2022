@@ -20,7 +20,7 @@ export class MyPhotoController {
             idAvatar: req["user"].idAvatar,
             photo: photo,
             loadMore: countPhoto > 4 ? true : false,
-            script:"/js/my-photo.js",
+            script:"/js/modules/my-account/my-photo/my-photo.js",
             style: "/css/my-photo.css"
         });
     }

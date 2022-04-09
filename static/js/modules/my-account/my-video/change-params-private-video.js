@@ -1,4 +1,4 @@
-import { ApiService } from "./services/api-call.service.js";
+import { ApiService } from "../../../services/api-call.service.js";
 const changeParamsVideoForm = document.getElementById("change-params-private-video-form");
 const wrapperMessage = document.querySelector(".wrapper__message-signup"); 
 const apiService = new ApiService();

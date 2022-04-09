@@ -1,5 +1,5 @@
-import { createElement } from "./modules/createElement.js";
-import { ApiService } from "./services/api-call.service.js";
+import { createElement } from "../../../common/createElement.js";
+import { ApiService } from "../../../services/api-call.service.js";
 
 const deleteFriendBtn = document.querySelectorAll(".delete-friend");
 const loadMoreFriendsBtn = document.querySelector(".load-more-friends-btn");

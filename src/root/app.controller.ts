@@ -12,7 +12,7 @@ export class AppController {
       res.render("info", {
         auth:true, 
         idAvatar:req["user"].idAvatar,
-        script: "/js/search-user-form.js"
+        script: "/js/modules/search-user/search-user-form.js"
       });
 
       return;
@@ -20,7 +20,7 @@ export class AppController {
 
     res.render("info", {
       auth: false,
-      script: "/js/search-user-form.js"
+      script: "/js/modules/search-user/search-user-form.js"
     });
 
   }

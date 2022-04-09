@@ -1,5 +1,5 @@
-import { createElement } from "./modules/createElement.js";
-import { ApiService } from "./services/api-call.service.js";
+import { createElement } from "../../common/createElement.js";
+import { ApiService } from "../../services/api-call.service.js";
 
 const searchUserForm = document.getElementById("search-user-form");
 const findUserContainer = document.querySelector(".wrapper__find-user");

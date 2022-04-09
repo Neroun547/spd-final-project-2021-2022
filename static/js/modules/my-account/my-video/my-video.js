@@ -1,5 +1,5 @@
-import { createElement } from "./modules/createElement.js";
-import { ApiService } from "./services/api-call.service.js";
+import { createElement } from "../../../common/createElement.js";
+import { ApiService } from "../../../services/api-call.service.js";
 
 const loadMoreVideoBtn = document.querySelector(".load-more-video-btn");
 const loadMorePrivateVideoBtn = document.querySelector(".load-more-private-video-btn");

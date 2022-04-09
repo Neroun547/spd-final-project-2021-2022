@@ -1,11 +1,13 @@
-import { createElement } from "./modules/createElement.js";
-import { openDialogActions } from "./modules/photo-dialog.js";
-import { ApiService } from "./services/api-call.service.js";
+import { createElement } from "../../../common/createElement.js";
+import { ApiService } from "../../../services/api-call.service.js";
+import { openDialogActions } from "../../../common/photo-dialog.js";
 
 const toggleButtons = document.querySelectorAll(".columns__photo-description-toggle-btn");
 const loadMorePhotoBtn = document.querySelector(".load-more-photo-btn");
 const wrapperColumnsPhoto = document.querySelector(".wrapper__columns-photo");
 const wrapperColumnsPhotoImg = document.querySelectorAll(".wrapper__column-photo-img");
+
+const apiService = new ApiService();
 
 for(let i = 0; i < toggleButtons.length; i++){
     toggleButtons[i].addEventListener("click", function () {
@@ -15,14 +17,11 @@ for(let i = 0; i < toggleButtons.length; i++){
 
 let skip = 0;
 
-const apiService = new ApiService();
-
 if(loadMorePhotoBtn) {
-
     loadMorePhotoBtn.addEventListener("click", async function () {
         skip+=4;
-        const api = await apiService.apiCall(`/my-photo/load-more-photo/${skip}`, "GET");
-
+        const user = this.getAttribute("id");
+        const api = await apiService.apiCall(`/user/load-more-photo/${skip}?user=${user}`, "GET");
         const data = await api.json();
 
         if(data.length < 4){
@@ -31,15 +30,11 @@ if(loadMorePhotoBtn) {
     
         data.forEach(el => {
             const wrapper = createElement(wrapperColumnsPhoto, "div", { class:"columns__photo-item", id: el.idPhoto });
-            const wrapperColumnsPhotoImg = createElement(wrapper, "img", { src: `/my-photo/photo/${el.idPhoto}`, id: el.idPhoto, class: "wrapper__column-photo-img"});
+            const wrapperColumnsPhotoImg = createElement(wrapper, "img", { src: `/my-photo/photo/${el.idPhoto}`, id: el.idPhoto, class: "wrapper__column-photo-img" });
             wrapperColumnsPhotoImg.addEventListener("click", function () {
-                try {
-                    openDialogActions(`/my-photo/photo/${this.getAttribute("id")}`, this.getAttribute("id"));
-                } catch {
-                    skip-=1;
-                }
+                openDialogActions(`/my-photo/photo/${this.getAttribute("id")}`, this.getAttribute("id"), false);
             });
-            
+
             createElement(wrapper, "div", { class: "columns__photo-theme" }).innerHTML = `Theme: ${el.theme}`;
         
             if(el.description){
@@ -57,10 +52,6 @@ if(loadMorePhotoBtn) {
 
 for(let i = 0; i < wrapperColumnsPhotoImg.length; i++) {
     wrapperColumnsPhotoImg[i].addEventListener("click", function () {
-        try {
-            openDialogActions(`/my-photo/photo/${this.getAttribute("id")}`, this.getAttribute("id"));
-        } catch {
-            skip -=1;
-        }
+        openDialogActions(`/my-photo/photo/${this.getAttribute("id")}`, this.getAttribute("id"), false);
     }); 
 } 

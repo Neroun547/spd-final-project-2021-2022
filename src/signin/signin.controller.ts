@@ -10,7 +10,7 @@ export class SignInController {
     signInPage(@Req() req: Request, @Res() res: Response){
         res.render("signin", {
             style: "/css/signInForm.css",
-            script: "/js/signin.js"
+            script: "/js/modules/signin/signin.js"
         });
     }
 

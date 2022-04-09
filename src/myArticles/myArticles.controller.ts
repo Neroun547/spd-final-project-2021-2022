@@ -20,7 +20,7 @@ export class MyArticlesController {
             style: "/css/my-articles.css",
             articles,
             loadMore: count > 5 ? true : false,
-            script: "/js/my-articles.js"
+            script: "/js/modules/my-account/my-articles/my-articles.js"
         });
     }
 
@@ -30,7 +30,7 @@ export class MyArticlesController {
             auth: true,
             idAvatar: req["user"].idAvatar,
             style: "/css/signInForm.css",
-            script: "/js/upload-article.js"
+            script: "/js/modules/my-account/my-articles/upload-article.js"
         });
     }
 

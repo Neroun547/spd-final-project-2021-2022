@@ -1,7 +1,7 @@
-import { createElement } from "../modules/createElement.js";
-import { ApiService } from "../services/api-call.service.js";
+import { createElement } from "../../common/createElement.js";
+import { ApiService } from "../../services/api-call.service.js";
 import { socket } from "./socketConnect.js";
-import { config } from "../config/config.js";
+import { config } from "../../config/config.js";
 
 const wrapperMessageContent = document.querySelector(".wrapper__messages-content-single");
 const noMessageLogo = document.querySelector(".no-message-logo");

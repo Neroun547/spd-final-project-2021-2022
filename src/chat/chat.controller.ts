@@ -14,7 +14,7 @@ export class ChatController {
         res.render("chat", {
             idAvatar: req["user"].idAvatar,
             auth: true,
-            headScript: "/js/chat/socketConnect.js",
+            headScript: "/js/modules/chat/socketConnect.js",
             style: "/css/chat.css",
             chats: chats,
             socketScript: "https://cdn.socket.io/4.3.2/socket.io.min.js"
@@ -29,8 +29,8 @@ export class ChatController {
         res.render("single-messages", {
             auth: true,
             idAvatar: req["user"].idAvatar,
-            headScript: "/js/chat/socketConnect.js",
-            script: "/js/chat/chat.js",
+            headScript: "/js/modules/chat/socketConnect.js",
+            script: "/js/modules/chat/chat.js",
             style: "/css/chat.css",
             activeUser: req.params["username"],
             messages: messages ? messages.reverse() : false,
@@ -48,8 +48,8 @@ export class ChatController {
         res.render("chat", {
             auth: true,
             idAvatar: req["user"].idAvatar,
-            headScript: "/js/chat/socketConnect.js",
-            script: "/js/chat/chat.js",
+            headScript: "/js/modules/chat/socketConnect.js",
+            script: "/js/modules/chat/chat.js",
             style: "/css/chat.css",
             activeUser: req.params["username"],
             messages:  messages ? messages.reverse() : false,

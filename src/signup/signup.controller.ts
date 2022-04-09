@@ -10,7 +10,7 @@ export class SignUpController {
     signUpPage(@Res() res:Response){
         res.render("signup", {
             style: "/css/signInForm.css",
-            script: "/js/signup.js"
+            script: "/js/modules/signup/signup.js"
         });
     }
 

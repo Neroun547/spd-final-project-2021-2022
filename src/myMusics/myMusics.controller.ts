@@ -22,7 +22,7 @@ export class MyMusicsController {
             musics: musics,
             loadMore: countMusics > 5 ? true : false,
             countMusic: countMusics,
-            script:"/js/my-musics.js",
+            script:"/js/modules/my-account/my-music/my-music.js",
             style: "/css/my-musics.css"
         });
     }
