@@ -11,6 +11,9 @@ const messagesRight = document.querySelectorAll(".message-right");
 const apiService = new ApiService();
 let count = 0;
 
+//Warning
+alert("If you use Cyrillic letters in username chat will not work !");
+
 /* Send message on server */
 
 wrapperMessageForm.addEventListener("submit", function (e) {

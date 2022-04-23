@@ -26,17 +26,17 @@
         {{/if}}
     </div>
 
-    <div class="wrapper__nav-another-user">
-        <a href="/user/{{activeUser}}">
+      <div class="wrapper__nav-another-user">
+        <a href="/user/photo/{{activeUser}}">
             <img src="/img/photo.png">
         </a>
-        <a href="/user/music-user/{{activeUser}}">
+        <a href="/user/music/{{activeUser}}">
             <img src="/img/music.png">
         </a>
-        <a href="/user/video-user/{{activeUser}}">
+        <a href="/user/video/{{activeUser}}">
             <img src="/img/video.png">
         </a>
-        <a href="/user/articles-user/{{activeUser}}">
+        <a href="/user/articles/{{activeUser}}">
             <img src="/img/article.png">
         </a>
     </div>
@@ -46,7 +46,7 @@
     <div class="wrapper__columns-photo">
         {{#each photo}}
         <div class="columns__photo-item" id='{{this.idPhoto}}'>
-            <img src="/my-photo/photo/{{this.idPhoto}}" id="{{this.idPhoto}}" class="wrapper__column-photo-img">
+            <img src="/user/photo/item/{{this.idPhoto}}" id="{{this.idPhoto}}" class="wrapper__column-photo-img">
             <div class="columns__photo-theme">Theme: {{this.theme}}</div>
             {{#if this.description}}
                 <button class="columns__photo-description-toggle-btn button primary">Show description</button>

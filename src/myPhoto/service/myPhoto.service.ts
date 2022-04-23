@@ -1,8 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { PhotoService } from "../../../entities/photo/photo.service";
 import { v4 as uuidv4 } from 'uuid';
-import { Response } from "express";
-import { createReadStream, existsSync } from "fs";
 import { resolve } from "path";
 import { unlink } from "fs/promises";
 import { UploadPhoto } from "../interfaces/upload-photo.interface";
@@ -20,39 +18,6 @@ export class MyPhotoService {
             idPhoto: uuidv4()
         });
     }
-
-    async loadPhoto(author: number) {
-        const photo = await this.photoService.findPhotoById(author);
-        const filterData = photo.map((el) => ({
-            theme: el.theme,
-            description: el.description,
-            idPhoto: el.idPhoto
-        }));
-
-        return filterData;
-    }
-
-    async getPhoto(id: string, res: Response) {
-        const filename = await this.photoService.getPhotoByIdPhoto(id);
-        
-        if(existsSync(resolve("photo/"+filename.photo))){
-            createReadStream(resolve("photo/"+filename.photo)).pipe(res);
-            return;
-        }
-
-        res.sendStatus(404);
-    }
-
-    async loadMorePhoto(author: number, skip: number) {
-        const data = await this.photoService.loadMorePhoto(author, skip, 4);
-        
-        return data.map((el) => ({ 
-            idPhoto: el.idPhoto,
-            theme: el.theme,
-            description: el.description
-        }));
-    }
-    // TODO -_-
     async deletePhoto(id: string, author: number){
         const deletePhoto = await this.photoService.findOneAndDelete(id, author);
         await unlink(resolve(`photo/${deletePhoto.photo}`)); 

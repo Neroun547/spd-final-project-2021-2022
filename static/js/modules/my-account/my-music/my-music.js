@@ -12,7 +12,7 @@ const apiService = new ApiService();
 if(loadMoreMusics) {
     loadMoreMusics.addEventListener("click", async function () {
         skipMusics += 5;
-        const api = await apiService.apiCall(`/my-musics/load-more-musics/${skipMusics}`, "GET");
+        const api = await apiService.apiCall(`/user/music/load-more-musics/${skipMusics}`, "GET");
         const data = await api.json();
 
         if(data.length < 5) {
@@ -41,7 +41,7 @@ if(loadMoreMusics) {
             });
 
             createElement(wrapperMusicsItem, "audio", {
-                "data-src": `"/my-musics/${el.idMusic}"`,
+                "data-src": `"/user/music/audio/${el.idMusic}"`,
                 "data-role": "audio-player",
                 class: "light",
                 preload: "metadata"

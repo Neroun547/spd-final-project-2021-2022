@@ -7,7 +7,7 @@
 
     <div class="wrapper__nav-video">
         <nav>
-            <a href="/my-video/" class="active-my-video-link">Public video</a>
+            <a href="/user/video/{{username}}" class="active-my-video-link">Public video</a>
             <a href="/my-video/private-video" class="my-video-link">Private video</a>
         </nav>
     </div>
@@ -37,7 +37,7 @@
                         </li>
                     </ul>
                 </div>
-                <video data-role="video-player" data-src="/my-video/{{this.idVideo}}" preload="metadata">
+                <video data-role="video-player" data-src="/user/video/track/{{this.idVideo}}" preload="metadata">
                 </video>
                 {{#if this.description}}
                     <button class="columns__photo-description-toggle-btn mt-2 w-100 button primary">Show description</button>

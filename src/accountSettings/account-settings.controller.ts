@@ -58,6 +58,7 @@ export class AccountSettingsController {
     @Get("change-name")
     changeNameForm(@Req() req:Request, @Res() res:Response) {
         res.render("change-name-form", {
+            username: req["user"].username,
             auth: true,
             idAvatar: req["user"].idAvatar,
             style: "/css/signInForm.css"
@@ -77,6 +78,7 @@ export class AccountSettingsController {
     @Get("change-username")
     changeUserNameForm(@Req() req:Request, @Res() res:Response) {
         res.render("change-username-form", {
+            username: req["user"].username,
             auth: true,
             idAvatar: req["user"].idAvatar,
             style: "/css/signInForm.css"
@@ -96,6 +98,7 @@ export class AccountSettingsController {
     @Get("change-password")
     changePassword(@Req() req:Request, @Res() res:Response) {
         res.render("change-password-check-old-pass", {
+            username: req["user"].username,
             auth:true,
             idAvatar:req["user"].idAvatar,
             style: "/css/signInForm.css"
@@ -114,6 +117,7 @@ export class AccountSettingsController {
     async newPassword(@Req() req: Request, @Res() res: Response) {
         if(req["user"].changePassword){
             res.render("change-password-form", {
+                username: req["user"].username,
                 auth: true,
                 idAvatar: req["user"].idAvatar,
                 style: "/css/signInForm.css"
@@ -136,6 +140,7 @@ export class AccountSettingsController {
     @Get("change-email")
     async changeEmail(@Req() req:Request, @Res() res:Response) {
         res.render("change-email-form", {
+            username: req["user"].username,
             auth: true,
             idAvatar: req["user"].idAvatar,
             style: "/css/signInForm.css"

@@ -7,7 +7,7 @@ import { UserDto } from "./dto/user.dto";
 export class SignInController {
     constructor(private readonly service:SignInService){}
     @Get()
-    signInPage(@Req() req: Request, @Res() res: Response){
+    signInPage(@Req() req: Request, @Res() res: Response) {
         res.render("signin", {
             style: "/css/signInForm.css",
             script: "/js/modules/signin/signin.js"

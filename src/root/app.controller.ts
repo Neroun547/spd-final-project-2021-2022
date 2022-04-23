@@ -10,6 +10,7 @@ export class AppController {
   async infoPage(@Req() req:Request, @Res() res:Response) {
     if(req["user"]) {
       res.render("info", {
+        username: req["user"].username,
         auth:true, 
         idAvatar:req["user"].idAvatar,
         script: "/js/modules/search-user/search-user-form.js"

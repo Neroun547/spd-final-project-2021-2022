@@ -23,7 +23,6 @@ changeParamsVideoForm.addEventListener("submit", async function (e) {
             return;
         }
 
-        console.log(response);
         wrapperMessage.classList.remove("bd-red");
         wrapperMessage.classList.add("bd-green");
         wrapperMessage.style.display = "block";

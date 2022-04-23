@@ -10,21 +10,6 @@ import { UploadPhotoDto } from "./dto/upload-photo.dto";
 export class MyPhotoController {
     constructor(private readonly service:MyPhotoService){}
 
-    @Get()
-    async myPhotoPage(@Req() req:Request, @Res() res:Response){
-        const photo = await this.service.loadPhoto(req["user"]._id);
-        const countPhoto = await this.service.getCountPhoto(req["user"]._id);
-
-        res.render("my-photo", {
-            auth: true,
-            idAvatar: req["user"].idAvatar,
-            photo: photo,
-            loadMore: countPhoto > 4 ? true : false,
-            script:"/js/modules/my-account/my-photo/my-photo.js",
-            style: "/css/my-photo.css"
-        });
-    }
-
     @Post("upload-new-photo")
     @UseInterceptors(FileInterceptor('file', {
         fileFilter: (req, file, cb) => {
@@ -55,27 +40,17 @@ export class MyPhotoController {
             author: req["user"]._id
         });
 
-        res.redirect("/my-photo");
+        res.redirect(`/user/photo/${req["user"].username}`);
     }
 
     @Get("upload-new-photo-form")
     uploadNewPhotoForm(@Req() req:Request, @Res() res:Response){
         res.render("upload-photo-form", {
+            username: req["user"].username,
             auth: true,
             idAvatar: req["user"].idAvatar,
             style: "/css/signInForm.css"
         });
-    }
-
-    @Get("photo/:id")
-    getPhoto(@Req() req:Request, @Res() res:Response){
-        this.service.getPhoto(req.params["id"], res);
-    }
-
-    @Get("load-more-photo/:skip")
-    async loadMorePhoto(@Req() req:Request, @Res() res:Response, @Param("skip", new ParseIntPipe()) skip: number) {
-        const photos = await this.service.loadMorePhoto(req["user"]._id, skip);     
-        res.send(photos);
     }
 
     @Delete("delete-photo/:id")

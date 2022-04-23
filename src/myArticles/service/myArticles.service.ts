@@ -33,24 +33,10 @@ export class MyArticlesService {
         });
     }
 
-    async getArticles(publicateUser: number, skip: number, take: number) {
-        const articles = await this.articlesServiceDb.getArticles(publicateUser, skip, take);
-
-        return articles.map(el => ({ idArticle: el.idArticle, title: el.title, theme: el.theme, date: el.date }));
-    }
-
-    async getArticle(idArticle: string) {
-        return await this.articlesServiceDb.getArticleById(idArticle);
-    }
-
     async deleteArticle(idArticle: string, publicateUser: number) {
         const article = await this.articlesServiceDb.getArticleById(idArticle);
 
         await this.articlesServiceDb.deleteArticleById(idArticle, publicateUser);
         await unlink(`views/articles/${article.article}`);
-    }
-
-    async getCountArticles(publicateUser: number) {
-        return await this.articlesServiceDb.getCountArticles(publicateUser);
     }
 }
