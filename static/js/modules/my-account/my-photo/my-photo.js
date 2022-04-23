@@ -38,7 +38,6 @@ if(loadMorePhotoBtn) {
                 })
                 .then((n) => {
                     skip-=n;
-                    console.log(skip);
                 })
             });
             
@@ -64,7 +63,6 @@ for(let i = 0; i < wrapperColumnsPhotoImg.length; i++) {
         })
         .then((n) => {
             skip-=n;
-            console.log(skip);
         })
     }); 
 } 

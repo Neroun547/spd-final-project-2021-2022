@@ -15,8 +15,6 @@ if(loadMoreArticles) {
         const api = await apiService.apiCall(`/user/articles/load-more-articles/${skipArticles}`, "GET");
         const data = await api.json();
 
-        console.log(data);
-
         if(data.length < 5) {
             loadMoreArticles.remove();
         }
@@ -42,7 +40,7 @@ if(loadMoreArticles) {
             const articleMenuList = createElement(wrapperItemArticleLogo, "ul", { class: "wrapper__article-item-menu-hide" });
             const itemMenuList = createElement(articleMenuList, "li");
             const deleteBtn = createElement(itemMenuList, "button", { class: "delete-article-btn", id: el.idArticle });
-            console.log(this.getAttribute("id"));
+        
             deleteBtn.addEventListener("click", async function () {
                 await apiService.apiCall(`/my-articles/`, "DELETE");
                 this.parentElement.parentElement.parentElement.parentElement.remove();
