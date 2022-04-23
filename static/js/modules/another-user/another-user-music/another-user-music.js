@@ -11,7 +11,7 @@ if(loadMoreMusics) {
         const user = this.getAttribute("id");
         skipMusics += 5;
     
-        const api = await apiService.apiCall(`/user/load-more-music/${skipMusics}?user=${user}`, "GET");
+        const api = await apiService.apiCall(`/user/music/load-more-music/${skipMusics}?user=${user}`, "GET");
         const data = await api.json();
     
         if (data.length < 4) {
@@ -30,7 +30,7 @@ if(loadMoreMusics) {
             wrapperNameAuthor.innerHTML = `${el.author} - ${el.name}`
 
             createElement(wrapperMusicsItem, "audio", {
-                "data-src": `"/my-musics/${el.idMusic}"`,
+                "data-src": `"/user/music/audio/${el.idMusic}"`,
                 "data-role": "audio-player",
                 class: "light"
             });

@@ -21,7 +21,7 @@ if(loadMorePhotoBtn) {
 
     loadMorePhotoBtn.addEventListener("click", async function () {
         skip+=4;
-        const api = await apiService.apiCall(`/my-photo/load-more-photo/${skip}`, "GET");
+        const api = await apiService.apiCall(`/user/photo/load-more-photo/${skip}`, "GET");
 
         const data = await api.json();
 
@@ -31,13 +31,15 @@ if(loadMorePhotoBtn) {
     
         data.forEach(el => {
             const wrapper = createElement(wrapperColumnsPhoto, "div", { class:"columns__photo-item", id: el.idPhoto });
-            const wrapperColumnsPhotoImg = createElement(wrapper, "img", { src: `/my-photo/photo/${el.idPhoto}`, id: el.idPhoto, class: "wrapper__column-photo-img"});
+            const wrapperColumnsPhotoImg = createElement(wrapper, "img", { src: `/user/photo/item/${el.idPhoto}`, id: el.idPhoto, class: "wrapper__column-photo-img"});
             wrapperColumnsPhotoImg.addEventListener("click", function () {
-                try {
-                    openDialogActions(`/my-photo/photo/${this.getAttribute("id")}`, this.getAttribute("id"), true);
-                } catch {
-                    skip-=1;
-                }
+                new Promise((resolve, reject) => {
+                    openDialogActions(`/user/photo/item/${this.getAttribute("id")}`, this.getAttribute("id"), true, resolve);
+                })
+                .then((n) => {
+                    skip-=n;
+                    console.log(skip);
+                })
             });
             
             createElement(wrapper, "div", { class: "columns__photo-theme" }).innerHTML = `Theme: ${el.theme}`;
@@ -56,11 +58,13 @@ if(loadMorePhotoBtn) {
 }
 
 for(let i = 0; i < wrapperColumnsPhotoImg.length; i++) {
-    wrapperColumnsPhotoImg[i].addEventListener("click", function () {
-        try {
-            openDialogActions(`/my-photo/photo/${this.getAttribute("id")}`, this.getAttribute("id"), true);
-        } catch {
-            skip -=1;
-        }
+    wrapperColumnsPhotoImg[i].addEventListener("click", async function () {
+        new Promise((resolve, reject) => {
+            openDialogActions(`/user/photo/item/${this.getAttribute("id")}`, this.getAttribute("id"), true, resolve);
+        })
+        .then((n) => {
+            skip-=n;
+            console.log(skip);
+        })
     }); 
 } 

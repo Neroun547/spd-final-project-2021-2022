@@ -12,11 +12,12 @@ export class AddFriendController {
         const countInvites = await this.service.countInvites(req["user"]._id);
 
         res.render("add-friend", {
+            username: req["user"].username,
             auth: true,
             idAvatar: req["user"].idAvatar,
             invites: inviteFriends,
             loadMoreInvites: countInvites > 5 ? true : false,
-            script: "/js/modules/my-friends/invites-friends.js",
+            script: "/js/modules/my-account/my-friends/invites-friends.js",
             style: "/css/add-friends.css"
         });
     }

@@ -12,6 +12,7 @@ export class FriendsController {
         const countFriends = await this.service.getCountFriends(req["user"]._id);
     
         res.render("friends", {
+            username: req["user"].username,
             auth: true,
             idAvatar: req["user"].idAvatar,
             friends: friends,

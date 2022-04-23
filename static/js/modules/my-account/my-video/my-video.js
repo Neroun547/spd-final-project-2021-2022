@@ -23,7 +23,7 @@ const apiService = new ApiService();
 if(loadMoreVideoBtn) {
     loadMoreVideoBtn.addEventListener("click", async function () {
         skipVideo += 2;
-        const api = await apiService.apiCall(`/my-video/load-more/${skipVideo}`, "GET");
+        const api = await apiService.apiCall(`/user/video/load-more-video/${skipVideo}`, "GET");
         const dataVideo = await api.json();
 
         if (dataVideo.length < 2) {
@@ -89,7 +89,7 @@ if(loadMoreVideoBtn) {
 
             createElement(wrapperVideoContentItem, "video", {
                 "data-role": "video-player",
-                "data-src": `"/my-video/${el.idVideo}"`
+                "data-src": `"/user/video/track/${el.idVideo}"`
             });
 
             if(el.description) {

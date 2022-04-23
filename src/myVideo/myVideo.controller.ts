@@ -10,24 +10,10 @@ import { UploadVideoDto } from "./dto/uploadVideo.dto";
 export class MyVideoController {
     constructor(private readonly myVideoService: MyVideo){};
 
-    @Get()
-    async myVideoPage(@Req() req: Request, @Res() res: Response) {
-        const video = await this.myVideoService.getVideoId(req["user"]._id, 2, 0);
-        const countVideo = await this.myVideoService.getCountVideo(req["user"]._id);
-        
-        res.render("my-video", {
-            auth: true,
-            idAvatar: req["user"].idAvatar,
-            video: video,
-            loadMore: countVideo > 2 ? true : false,
-            script: "/js/modules/my-account/my-video/my-video.js",
-            style: "/css/my-video.css"
-        });
-    }
-
     @Get("upload-new-video-form")
     async myVideoForm(@Req() req: Request, @Res() res: Response) {
         res.render("upload-video-form", {
+            username: req["user"].username,
             auth: true,
             idAvatar: req["user"].idAvatar,
             style: "/css/signInForm.css",
@@ -81,12 +67,7 @@ export class MyVideoController {
             description: body.description
         });
 
-        res.redirect("/my-video");
-    }
-
-    @Get("load-more/:skip")
-    async loadMoreVideo(@Req() req: Request, @Param("skip", new ParseIntPipe()) skip: number) {
-        return await this.myVideoService.getVideoId(req["user"]._id, 2, skip);
+        res.redirect(`/user/video/${req["user"].username}`);
     }
 
     @Delete("delete/:id")
@@ -112,6 +93,7 @@ export class MyVideoController {
         const countVideo = await this.myVideoService.getCountPrivateVideo(req["user"]._id);
 
         res.render("my-private-video", {
+            username: req["user"].username,
             auth: true,
             idAvatar: req["user"].idAvatar,
             style: "/css/my-video.css",
@@ -157,6 +139,7 @@ export class MyVideoController {
     @Get("change-params-video/:id")
     async changeParamsVideoForm(@Req() req: Request, @Res() res: Response) { 
         res.render("change-params-video", {
+            username: req["user"].username,
             auth: true,
             idAvatar: req["user"].idAvatar,
             style: "/css/signInForm.css",
@@ -168,6 +151,7 @@ export class MyVideoController {
     @Get("change-params-private-video/:id")
     async changeParamsPrivateVideoForm(@Req() req: Request, @Res() res: Response) {
         res.render("change-params-private-video", {
+            username: req["user"].username,
             auth: true,
             idAvatar: req["user"].idAvatar,
             style: "/css/signInForm.css",
@@ -179,10 +163,5 @@ export class MyVideoController {
     @Get("/private-video/:id")
     async getPrivateVideo(@Req() req: Request, @Res() res: Response) {
         await this.myVideoService.getPrivateVideo(req.params["id"], req, res);
-    }
-
-    @Get(":id")
-    async getVideo(@Req() req: Request, @Res() res: Response) {
-        await this.myVideoService.getVideo(req.params["id"], req, res);
     }
 }

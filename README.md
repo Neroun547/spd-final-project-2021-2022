@@ -1,7 +1,7 @@
 ------------------------------------------------------------------------------------------------------
 1. Start Project:
   1) In config file you should write email and password for this email (and db info)
-  2) Create folder avatars, video, musics, photo (If you want upload musics, avatars, video and photo)
+  2) Create folder avatars, video, musics, photo, articles(views/articles) (If you want upload musics, avatars, video, photo and articles)
   3) Connect to DB in app module
   4) npm start (server start in port 3000)
 2. Modules:
@@ -14,6 +14,7 @@
   7) chat
   8) add-friend
   9) acountSettings
+  10) user
 3. Technologies:
   Backend:  
     Framework: Nest js

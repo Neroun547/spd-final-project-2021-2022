@@ -42,28 +42,18 @@ export class AppMiddleware implements NestMiddleware {
 
             return;
         }
-      
-          // Is really another user music, video or photo ? (I use referer for this) So... maybe don't better solution
-        if(req.headers.referer) {
-      
-            if(req.headers.referer.includes("/music-user") && req.originalUrl.includes("/my-musics") 
-                || req.headers.referer.includes("/user") && req.originalUrl.includes("/account-settings")
-                || req.headers.referer.includes("/user") && req.originalUrl.includes("/my-photo/photo")
-                || req.headers.referer.includes("/user") && req.originalUrl.includes("/my-video")
-                || req.headers.referer.includes("/user") && req.originalUrl.includes("/my-articles")
-                || req.headers.referer.includes("/") && req.originalUrl.includes("/account-settings/avatar")
-            ) {
-                try {
-                    const user = await jwt.verify(req.cookies.token, secretJwt);
-                    req["user"] = user;
+        
+        if(req.originalUrl.includes("/account-settings/avatar")) {
+            try {
+                const user = await jwt.verify(req.cookies.token, secretJwt);
+                req["user"] = user;
               
-                    next();
-                } catch {
-                    next();
-                }
-      
-                return;
+                next();
+            } catch {
+                next();
             }
+      
+            return;
         }
           
         try {

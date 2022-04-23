@@ -12,14 +12,18 @@ import { AppService } from "./app.service";
 import { User } from "../../entities/user/user.entity";
 import { UserEntityModule } from "../../entities/user/user.module";
 import { MyVideoModule } from "../myVideo/myVideo.module";
-import { UserModule } from "../user/AnotherUser.module";
+import { UserModule } from "../user/user.module";
 import { AddFriendModule } from "../add-friend/add-friend.module";
 import { FriendsModule } from "../friends/friends.module";
 import { ChatModule } from "../chat/chat.module";
 import { AppMiddleware } from "../../middleware/middleware";
 import { MyArticle } from "../myArticles/myArticles.module";
-
 import { passwordDB, hostDB, usernameDB, database, portDB, synchronize, autoLoadEntities } from "config.json";
+import { UserArticlesModule } from "src/user/user-articles/user-articles.modules";
+import { UserMusicModule } from "src/user/user-musics/user-musics.module";
+import { UserPhotoModule } from "src/user/user-photo/user-photo.module";
+import { UserVideoModule } from "src/user/user-video/user-video.module";
+
 @Module({
     imports:[
         MyArticle,
@@ -61,7 +65,25 @@ import { passwordDB, hostDB, usernameDB, database, portDB, synchronize, autoLoad
             },
             {
                 path: "/user",
-                module: UserModule
+                module: UserModule,
+                children: [
+                    { 
+                        path: "articles",
+                        module: UserArticlesModule
+                    }, 
+                    {
+                        path: "music",
+                        module: UserMusicModule
+                    },
+                    {
+                        path: "photo",
+                        module: UserPhotoModule
+                    },
+                    {
+                        path: "video",
+                        module: UserVideoModule
+                    }
+                ]
             },
             {
                 path: "/add-friend",

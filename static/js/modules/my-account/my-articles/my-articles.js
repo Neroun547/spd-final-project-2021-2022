@@ -12,7 +12,7 @@ let skipArticles = 0;
 if(loadMoreArticles) {
     loadMoreArticles.addEventListener("click", async function () {
         skipArticles += 5;
-        const api = await apiService.apiCall(`/my-articles/load-more-articles/${skipArticles}`, "GET");
+        const api = await apiService.apiCall(`/user/articles/load-more-articles/${skipArticles}`, "GET");
         const data = await api.json();
 
         console.log(data);
@@ -56,7 +56,7 @@ if(loadMoreArticles) {
             const logoDate = createElement(wrapperItemArticle, "h6", { class: "wrapper__article-date pt-10" });
             logoDate.innerHTML = `${el.date}`;
 
-            const link = createElement(wrapperItemArticle, "a", { href: `/my-articles/${el.idArticle}`, class: "read-article-link" });
+            const link = createElement(wrapperItemArticle, "a", { href: `/user/articles/article/${el.idArticle}`, class: "read-article-link" });
             link.innerHTML = "Read";
         });
     });

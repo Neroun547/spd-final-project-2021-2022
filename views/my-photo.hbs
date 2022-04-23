@@ -19,7 +19,7 @@
     <div class="wrapper__columns-photo">
         {{#each photo}}
             <div class="columns__photo-item" id='{{this.idPhoto}}'>
-                <img src="/my-photo/photo/{{this.idPhoto}}" class="wrapper__column-photo-img" id="{{this.idPhoto}}">
+                <img src="/user/photo/item/{{this.idPhoto}}" class="wrapper__column-photo-img" id="{{this.idPhoto}}">
                 <div class="columns__photo-theme">Theme: {{this.theme}}</div>
                 {{#if this.description}}
                 <button class="columns__photo-description-toggle-btn button primary">Show description</button>

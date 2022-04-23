@@ -10,8 +10,9 @@ export class ChatController {
     @Get()
     async chatsPage(@Req() req: Request, @Res() res: Response) {
         const chats = await this.service.getAllChats(req["user"]._id);
-
+    
         res.render("chat", {
+            username: req["user"].username,
             idAvatar: req["user"].idAvatar,
             auth: true,
             headScript: "/js/modules/chat/socketConnect.js",
@@ -27,6 +28,7 @@ export class ChatController {
         const countMessages = await this.service.countMessage(req["user"]._id, req.params["username"]);
     
         res.render("single-messages", {
+            username: req["user"].username,
             auth: true,
             idAvatar: req["user"].idAvatar,
             headScript: "/js/modules/chat/socketConnect.js",
@@ -46,6 +48,7 @@ export class ChatController {
         const chats = await this.service.getAllChats(req["user"]._id);
  
         res.render("chat", {
+            username: req["user"].username,
             auth: true,
             idAvatar: req["user"].idAvatar,
             headScript: "/js/modules/chat/socketConnect.js",

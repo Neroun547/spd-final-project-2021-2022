@@ -27,16 +27,16 @@
     </div>
 
     <div class="wrapper__nav-another-user">
-        <a href="/user/{{activeUser}}">
+        <a href="/user/photo/{{activeUser}}">
             <img src="/img/photo.png">
         </a>
-        <a href="/user/music-user/{{activeUser}}">
+        <a href="/user/music/{{activeUser}}">
             <img src="/img/music.png">
         </a>
-        <a href="/user/video-user/{{activeUser}}">
+        <a href="/user/video/{{activeUser}}">
             <img src="/img/video.png">
         </a>
-        <a href="/user/articles-user/{{activeUser}}">
+        <a href="/user/articles/{{activeUser}}">
             <img src="/img/article.png">
         </a>
     </div>
@@ -50,7 +50,7 @@
                 </div>
                 <h4 class="wrapper__article-theme"><strong>Theme: </strong>{{this.theme}}</h4>
                 <h6 class="wrapper__article-date pt-10">{{this.date}}</h6>
-                <a href="/user/article/{{this.idArticle}}" class="read-article-link">Read</a>
+                <a href="/user/articles/article/{{this.idArticle}}" class="read-article-link">Read</a>
             </div>
         {{/each}}
         {{else}}

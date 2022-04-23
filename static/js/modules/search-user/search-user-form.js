@@ -24,7 +24,7 @@ searchUserForm.addEventListener("submit", async function (e) {
         
         if(!document.getElementById(el.username)){
 
-            const link = createElement(findUserContainer, "a", { href:`/user/${el.username}`, class:"wrapper__find-user-link" });
+            const link = createElement(findUserContainer, "a", { href:`/user/photo/${el.username}`, class:"wrapper__find-user-link" });
             const wrapperUser = createElement(link, "div", { id:el.username, class:"wrapper__find-user-item" });
             
             const subWrapperUser = createElement(wrapperUser, "div", { class:"sub__wrapper-user-item" });
@@ -53,7 +53,7 @@ searchUserForm.addEventListener("submit", async function (e) {
         
                 if(!document.getElementById(el.username)){
         
-                    const link = createElement(findUserContainer, "a", { href:`/user/${el.username}`, class:"wrapper__find-user-link" });
+                    const link = createElement(findUserContainer, "a", { href:`/user/photo/${el.username}`, class:"wrapper__find-user-link" });
                     const wrapperUser = createElement(link, "div", { id:el.username, class:"wrapper__find-user-item" });
                     
                     const subWrapperUser = createElement(wrapperUser, "div", { class:"sub__wrapper-user-item" } );

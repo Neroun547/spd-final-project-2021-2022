@@ -20,7 +20,7 @@ loadMoreVideoBtn.addEventListener("click", async function () {
     skipVideo += 2;
     const user = this.getAttribute("id");
     
-    const api = await apiService.apiCall(`/user/load-more-video/${skipVideo}?user=${user}`, "GET"); 
+    const api = await apiService.apiCall(`/user/video/load-more-video/${skipVideo}?user=${user}`, "GET"); 
 
     const dataVideo = await api.json();
 
@@ -34,7 +34,7 @@ loadMoreVideoBtn.addEventListener("click", async function () {
 
         createElement(wrapperVideoContentItem, "video", {
             "data-role": "video-player",
-            "data-src": `"/my-video/${el.idVideo}"`
+            "data-src": `"/user/video/track/${el.idVideo}"`
         });
 
         if(el.description) {

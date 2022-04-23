@@ -1,4 +1,4 @@
-export function openDialogActions(src, id, delBtn=true) {
+export function openDialogActions(src, id, delBtn=true, resolve) {
     if(delBtn) {
         Metro.dialog.create({
             content: `<div><img src=${src}/></div>`,
@@ -14,8 +14,11 @@ export function openDialogActions(src, id, delBtn=true) {
                             });
                             document.getElementById(id).remove();  
                             
-                            throw new Error("Element was deleted ...");
+                            resolve(1);
+
+                            return;
                         } 
+                        resolve(1);
                     }
                 },
                 {
