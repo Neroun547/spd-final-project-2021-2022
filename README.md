@@ -4,7 +4,7 @@
   2) Create folder avatars, video, musics, photo, articles(views/articles) (If you want upload musics, avatars, video, photo and articles)
   3) Connect to DB in app module
   4) npm start (server start in port 3000)
-2. Modules:
+2. Modules (all modules locate in src folder ...):
   1) signin
   2) signup
   3) myVideo
@@ -14,14 +14,13 @@
   7) chat
   8) add-friend
   9) acountSettings
-  10) user
+  10) myArticles
 3. Technologies:
   Backend:  
     Framework: Nest js
     DB: MySql
   Layout: HTML/CSS + Metro Css, Responsive, Metro
   Front-end: JavaScript (Native), Metro
- 
 
 4. Problems module
   1) Chat  (maybe don't better solution) 
