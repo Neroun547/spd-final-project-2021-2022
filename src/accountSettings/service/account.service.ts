@@ -105,7 +105,7 @@ export class AccountService {
 
         const transporter = nodemailer.createTransport({
             service: "gmail",
-            secure: false,
+            secure: true,
             auth: {
                 user: email,
                 pass: passwordEmail
@@ -115,9 +115,9 @@ export class AccountService {
         await transporter.sendMail({
             from: email,
             to: emailUser,
-            subject: "Confirm account",
+            subject: "Confirm your new email",
             html: `
-        <h2>Hello ${user.name} ! Confirm your account by click this link</h2>
+        <h2>Hello ${user.name} ! Confirm your new email by click this link</h2>
         <a href="${protocol}://${host}:${appPort}/account-settings/confirm-new-email/${token}">Click for confirm your new email</a>`
         }); 
     }

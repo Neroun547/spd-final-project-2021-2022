@@ -27,7 +27,7 @@ export class SignUpService {
 
         const transporter = nodemailer.createTransport({
             service: "gmail",
-            secure: false,
+            secure: true,
             auth: {
                 user: email,
                 pass: passwordEmail

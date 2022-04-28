@@ -12,7 +12,7 @@ const apiService = new ApiService();
 if(loadMoreMusics) {
     loadMoreMusics.addEventListener("click", async function () {
         skipMusics += 5;
-        const api = await apiService.apiCall(`/user/music/load-more-musics/${skipMusics}`, "GET");
+        const api = await apiService.apiCall(`/user/music/load-more-music/${skipMusics}`, "GET");
         const data = await api.json();
 
         if(data.length < 5) {
