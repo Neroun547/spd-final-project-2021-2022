@@ -89,7 +89,8 @@ if(loadMoreVideoBtn) {
 
             createElement(wrapperVideoContentItem, "video", {
                 "data-role": "video-player",
-                "data-src": `"/user/video/track/${el.idVideo}"`
+                "data-src": `"/user/video/track/${el.idVideo}"`,
+                "preload": "metadata"
             });
 
             if(el.description) {
@@ -181,7 +182,8 @@ if(loadMorePrivateVideoBtn) {
 
             createElement(wrapperVideoContentItem, "video", {
                 "data-role": "video-player",
-                "data-src": `"/my-video/private-video/${el.idVideo}"`
+                "data-src": `"/my-video/private-video/${el.idVideo}"`,
+                "preload": "metadata"
             });
 
             if(el.description) {

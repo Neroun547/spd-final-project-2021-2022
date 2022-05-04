@@ -2,8 +2,8 @@ import { BadRequestException, Injectable } from "@nestjs/common";
 import { UserDto } from "../dto/user.dto";
 import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
-import { secretJwt } from "config.json";
-import { UserService } from "entities/user/user.service";
+import { secretJwt } from "../../../config.json";
+import { UserService } from "../../../entities/user/user.service";
 
 @Injectable()
 export class SignInService {

@@ -14,7 +14,7 @@ export class UserVideoController {
         if(req["user"] && req["user"].username === username) {
             const dataVideo = await this.service.getVideoIdByUserId(req["user"]._id, 0, 2);
             const countVideo = await this.service.getCountVideoByIdUser(req["user"]._id);
-            console.log(countVideo);
+
             res.render("my-video", {
                 username: req["user"].username,
                 video:dataVideo,
