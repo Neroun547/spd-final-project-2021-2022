@@ -6,6 +6,7 @@ import { convertToHtml } from "mammoth";
 import { ArticlesService } from "entities/articles/articles.service";
 import { IMyArticles } from "../interfaces/myArticles.interface";
 import { v4 as uuidv4 } from 'uuid';
+import { UploadArticleWithHtmlDto } from "../dto/uploadArticleWithHtml.dto";
 
 @Injectable()
 export class MyArticlesService {
@@ -38,5 +39,24 @@ export class MyArticlesService {
 
         await this.articlesServiceDb.deleteArticleById(idArticle, publicateUser);
         await unlink(`views/articles/${article.article}`);
+    }
+
+    async writeArticleWithHtml(article: UploadArticleWithHtmlDto, idUser: number) {
+        const nameArticle = Date.now();
+        const writeStream = createWriteStream(resolve(`views/articles/${nameArticle}.hbs`));
+        
+        writeStream.write(`<div class="wrapper__about">`);
+        writeStream.write(article.content);
+        writeStream.write(`</div>`);
+        writeStream.end();
+
+        await this.articlesServiceDb.saveArticle({
+            publicateUser: idUser,
+            theme: article.theme,
+            title: article.title,
+            article: `${nameArticle}.hbs`,
+            idArticle: uuidv4(),
+            date: new Date()
+        });
     }
 }

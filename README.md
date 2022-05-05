@@ -15,6 +15,7 @@
   8) add-friend
   9) acountSettings
   10) myArticles
+  11) User
 3. Technologies:
   Backend:  
     Framework: Nest js
