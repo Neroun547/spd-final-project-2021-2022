@@ -29,7 +29,6 @@ if(loadMoreArticles) {
             const wrapperArticleDecorationMenu = createElement(wrapperItemArticleLogo, "div", { class: "wrapper__article-item-decoration-menu" });
 
             wrapperArticleDecorationMenu.addEventListener("click", async function () {
-                await apiService.apiCall(`/my-articles/${this.getAttribute("id")}`, "DELETE");
                 this.nextElementSibling.classList.toggle("wrapper__article-item-menu-show");
             });
 
@@ -42,7 +41,7 @@ if(loadMoreArticles) {
             const deleteBtn = createElement(itemMenuList, "button", { class: "delete-article-btn", id: el.idArticle });
         
             deleteBtn.addEventListener("click", async function () {
-                await apiService.apiCall(`/my-articles/`, "DELETE");
+                await apiService.apiCall(`/my-articles/${this.getAttribute("id")}`, "DELETE");
                 this.parentElement.parentElement.parentElement.parentElement.remove();
                 skipArticles-=1;
             });

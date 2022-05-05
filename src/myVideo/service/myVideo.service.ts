@@ -1,11 +1,11 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
 import { VideoService } from "../../../entities/video/video.service";
 import { resolve } from "path";
 import { createReadStream, existsSync, statSync } from "fs";
 import { Request, Response } from "express";
 import { unlink } from "fs/promises";
 import { UploadVideo } from "../interfaces/upload-video.interface";
-import { PrivateVideoService } from "entities/privateVideo/privateVideo.service";
+import { PrivateVideoService } from "../../../entities/privateVideo/privateVideo.service";
 
 @Injectable()
 export class MyVideo {
@@ -90,6 +90,9 @@ export class MyVideo {
         if(!video) {
             throw new BadRequestException();
         }
+        if(video.publicateUser !== idUser) {
+            throw new InternalServerErrorException();
+        }
         await this.videoService.deleteVideo(id, idUser);
 
         await this.privateVideoService.savePrivateVideo(video);
@@ -99,7 +102,10 @@ export class MyVideo {
         const video = await this.privateVideoService.getPrivateVideoById(id);
 
         if(!video) {
-            throw new BadRequestException();
+            throw new NotFoundException();
+        }
+        if(video.publicateUser !== idUser) {
+            throw new InternalServerErrorException();
         }
         await this.privateVideoService.deletePrivateVideo(id, idUser);
 
@@ -112,7 +118,10 @@ export class MyVideo {
             const existsVideo = await this.videoService.getVideoById(idVideo);
             
             if(!existsVideo) {
-                throw new BadRequestException();
+                throw new NotFoundException();
+            }
+            if(existsVideo.publicateUser !== publicateUser) {
+                throw new InternalServerErrorException();
             }
             await this.videoService.updateParamsVideo(publicateUser, name, description, idVideo);
 
@@ -122,7 +131,10 @@ export class MyVideo {
             const existsVideo = await this.privateVideoService.getPrivateVideoById(idVideo);
 
             if(!existsVideo) {
-                throw new BadRequestException();
+                throw new NotFoundException();
+            }
+            if(existsVideo.publicateUser !== publicateUser) {
+                throw new InternalServerErrorException();
             }
             await this.privateVideoService.updateParamsPrivateVideo(publicateUser, name, description, idVideo);
 

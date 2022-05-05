@@ -123,17 +123,17 @@ export class MyVideoController {
     }
 
     @Put("change-params-video/:id")
-    async changeParamsVideo(@Body() body: UploadVideoDto, @Req() req: Request, @Res() res: Response) {
+    async changeParamsVideo(@Body() body: UploadVideoDto, @Req() req: Request) {
         await this.myVideoService.changeParamsVideo(req["user"]._id, body.name, body.description, req.params["id"], false);
 
-        res.send({ message: "Params was updated success" });
+        return ({ message: "Params was updated success" });
     }
 
     @Put("change-params-private-video/:id")
-    async changeParamsPrivateVideo(@Body() body: UploadVideoDto, @Req() req: Request, @Res() res: Response) {
+    async changeParamsPrivateVideo(@Body() body: UploadVideoDto, @Req() req: Request) {
         await this.myVideoService.changeParamsVideo(req["user"]._id, body.name, body.description, req.params["id"], true);
 
-        res.send({ message: "Params was updated success" });
+        return ({ message: "Params was updated success" });
     }
 
     @Get("change-params-video/:id")

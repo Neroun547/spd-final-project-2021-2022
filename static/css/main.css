@@ -11,24 +11,6 @@ body {
     height: 100vh;
 }
 
-/* Maybe todo -_- */
-
-:root.light {
-    --nav-bg:#fafafa;
-    --text-color:#000;
-    --text-color-hover:#242424;
-    --content-background-color:#fff;
-}
-
-:root.dark {
-    --nav-bg:#000;
-    --text-color:#fff;
-    --text-color-hover:#ccc;
-    --content-background-color:#121212;
-}
-
-/* ---- */
-
 .nav__block {
     background-color: #fafafa;
     border-bottom: 1px solid #e8e8e8;

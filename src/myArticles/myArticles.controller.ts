@@ -3,6 +3,7 @@ import { FileInterceptor } from "@nestjs/platform-express";
 import { Request, Response } from "express";
 import { diskStorage } from "multer";
 import { MyArticlesDto } from "./dto/myArticles.dto";
+import { UploadArticleWithHtmlDto } from "./dto/uploadArticleWithHtml.dto";
 import { MyArticlesService } from "./service/myArticles.service"; 
 
 @Controller()
@@ -48,6 +49,21 @@ export class MyArticlesController {
             publicateUser: req["user"]._id
         });
         
+        res.redirect(`/user/articles/${req["user"].username}`);
+    }
+    @Get("write-article-with-html")
+    writeArticleWithHtmlPage(@Req() req: Request, @Res() res: Response) {
+        res.render("write-article-with-html", {
+            auth: true,
+            username: req["user"].username,
+            idAvatar: req["user"].idAvatar,
+            style: "/css/write-article-with-html.css"
+        });
+    }
+    @Post("write-article-with-html")
+    async writeArticleWithHtml(@Req() req: Request, @Body() article: UploadArticleWithHtmlDto, @Res() res: Response) { 
+        await this.myArticlesService.writeArticleWithHtml(article, req["user"]._id);
+
         res.redirect(`/user/articles/${req["user"].username}`);
     }
     @Delete(":idArticle") 
