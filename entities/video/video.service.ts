@@ -12,7 +12,7 @@ export class VideoService {
     }
 
     async getVideo(publicateUser: number, countVideo: number, skip:number) {
-        return await this.videoRepository.find({ where: { publicateUser: publicateUser }, take: countVideo, skip: skip });
+        return await this.videoRepository.find({ where: { publicateUser: publicateUser }, take: countVideo, skip: skip, order: {_id: "DESC"} });
     }
 
     async getVideoById(id: string) {

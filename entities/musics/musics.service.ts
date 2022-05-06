@@ -11,7 +11,8 @@ export class MusicsService {
         return await this.musicsRepository.find({ 
             where: { publicateUser: publicateUser  }, 
             take: countMusic, 
-            skip: skip
+            skip: skip,
+            order: { _id: "DESC" }
         });
     }
 

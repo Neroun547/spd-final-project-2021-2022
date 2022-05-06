@@ -11,7 +11,7 @@ export class PrivateVideoService {
     }
 
     async getPrivateVideo(publicateUser: number, countVideo: number, skip:number) {
-        return await this.privateVideoRepository.find({ where: { publicateUser: publicateUser }, take: countVideo, skip: skip });
+        return await this.privateVideoRepository.find({ where: { publicateUser: publicateUser }, take: countVideo, skip: skip, order: {  _id: "DESC"} });
     }
 
     async getPrivateVideoById(id: string) {

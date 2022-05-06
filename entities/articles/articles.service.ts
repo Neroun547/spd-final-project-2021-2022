@@ -11,7 +11,7 @@ export class ArticlesService {
     }
 
     async getArticles(publicateUser: number, skip: number, take: number) {
-        return await this.repository.find({ where: { publicateUser }, skip, take });
+        return await this.repository.find({ where: { publicateUser }, skip, take, order: {  _id: "DESC"}});
     }
 
     async getCountArticles(publicateUser: number) {

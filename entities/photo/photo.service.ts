@@ -12,7 +12,7 @@ export class PhotoService {
     }
 
     async findPhotoById(publicateUser: number, skip: number, take: number) {
-        return await this.photoRepository.find({ where:{ author: publicateUser}, take: take, skip: skip });
+        return await this.photoRepository.find({ where:{ author: publicateUser}, take: take, skip: skip, order: {_id: "DESC"} });
     }
 
     async getPhotoByIdPhoto(idPhoto: string) {
