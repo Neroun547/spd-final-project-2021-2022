@@ -1,9 +1,10 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { PhotoService } from "../../../entities/photo/photo.service";
 import { v4 as uuidv4 } from 'uuid';
 import { resolve } from "path";
 import { unlink } from "fs/promises";
 import { UploadPhoto } from "../interfaces/upload-photo.interface";
+import { existsSync } from "fs";
 
 @Injectable()
 export class MyPhotoService {
@@ -20,7 +21,14 @@ export class MyPhotoService {
     }
     async deletePhoto(id: string, author: number){
         const deletePhoto = await this.photoService.findOneAndDelete(id, author);
-        await unlink(resolve(`photo/${deletePhoto.photo}`)); 
+
+        if(existsSync(resolve(`photo/${deletePhoto.photo}`))) {
+            await unlink(resolve(`photo/${deletePhoto.photo}`)); 
+
+            return;
+        }
+
+        throw new NotFoundException();
     }
 
     async getCountPhoto(author: number) {

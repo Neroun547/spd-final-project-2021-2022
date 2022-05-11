@@ -61,7 +61,7 @@ loadMoreFriendsBtn.addEventListener("click", async function () {
             }
 
             createElement(wrapperUsernameAvatar, "img", { src: `/img/user.png` });
-            createElement(wrapperUsernameAvatar, "a", { href: `/user/${el.username}` }).innerHTML = el.username;
+            createElement(wrapperUsernameAvatar, "a", { href: `/user/photo/${el.username}` }).innerHTML = el.username;
         });
     });
 }

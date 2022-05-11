@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { MusicsService } from "../../../entities/musics/musics.service";
 import { UploadMusic } from "../interfaces/upload-music.interface";
 import { v4 as uuidv4 } from 'uuid';
@@ -17,6 +17,12 @@ export class MyMusicsService {
 
     async deleteMusic(idMusic: string, publicateUser: number) {
         const deleteMusic = await this.musicsService.deleteMusic(idMusic, publicateUser);
-        await unlink(resolve(`musics/${deleteMusic.music}`));
+
+        if(existsSync(resolve(`musics/${deleteMusic.music}`))) {
+            await unlink(resolve(`musics/${deleteMusic.music}`));
+            
+            return;
+        }
+        throw new NotFoundException();
     }
 }

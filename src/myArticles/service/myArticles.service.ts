@@ -1,6 +1,6 @@
-import { Injectable } from "@nestjs/common"; 
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common"; 
 import { unlink } from "fs/promises";
-import { createWriteStream } from "fs"; 
+import { createWriteStream, existsSync } from "fs"; 
 import { resolve } from "path";
 import { convertToHtml } from "mammoth";
 import { ArticlesService } from "entities/articles/articles.service";
@@ -38,7 +38,13 @@ export class MyArticlesService {
         const article = await this.articlesServiceDb.getArticleById(idArticle);
 
         await this.articlesServiceDb.deleteArticleById(idArticle, publicateUser);
-        await unlink(`views/articles/${article.article}`);
+
+        if(existsSync(`views/articles/${article.article}`)) {
+            await unlink(`views/articles/${article.article}`);
+
+            return;
+        } 
+        throw new NotFoundException();
     }
 
     async writeArticleWithHtml(article: UploadArticleWithHtmlDto, idUser: number) {

@@ -52,12 +52,24 @@ export class MyVideo {
 
     async deleteVideo(id: string, publicateUser: number) {
         const deleteVideo = await this.videoService.deleteVideo(id, publicateUser);
-        await unlink(resolve(`video/${deleteVideo.video}`)); 
+
+        if(existsSync(resolve(`video/${deleteVideo.video}`))) {
+            await unlink(resolve(`video/${deleteVideo.video}`)); 
+
+            return;
+        }
+        throw new NotFoundException();
     }
 
     async deletePrivateVideo(id: string, publicateUser: number) {
         const deleteVideo = await this.privateVideoService.deletePrivateVideo(id, publicateUser);
-        await unlink(resolve(`video/${deleteVideo.video}`)); 
+
+        if(existsSync(resolve(`video/${deleteVideo.video}`))) {
+            await unlink(resolve(`video/${deleteVideo.video}`)); 
+
+            return;
+        }
+        throw new NotFoundException();
     }
 
     async getCountPrivateVideo(publicateUser: number) {
