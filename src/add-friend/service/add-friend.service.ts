@@ -33,4 +33,10 @@ export class AddFriendService {
     async countInvites(idGetter: number) {
         return this.friendPandingService.countInvites(idGetter);
     }
+
+    async addFriendInvite(friendUsername: string, idUser: number) {
+        const friendId = await this.userService.getIdUserByUsername(friendUsername);
+
+        await this.friendPandingService.addFriend(friendId, idUser);
+    }
 }

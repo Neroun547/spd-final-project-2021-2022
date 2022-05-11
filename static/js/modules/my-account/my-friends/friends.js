@@ -40,8 +40,19 @@ loadMoreFriendsBtn.addEventListener("click", async function () {
             const wrapperSendMessageDelete = createElement(wrapperItemInvite, "div", { class: "wrapper__item-invite-send-message-delete" });
             const linkSendMessage = createElement(wrapperSendMessageDelete, "a", { href: `/chat/${el.username}` });
             const buttonSendMessage = createElement(linkSendMessage, "button", { class: "button primary send-message-btn" });
-       
-            createElement(wrapperSendMessageDelete, "button", { class: "button alert mb-5 mt-5 delete-friend border-radius", id: el._id }).innerHTML = "&#10006;";
+            const deleteBtn = createElement(wrapperSendMessageDelete, "button", { class: "button alert mb-5 mt-5 delete-friend border-radius", id: el._id });
+            
+            deleteBtn.innerHTML = "&#10006;";
+
+            deleteBtn.addEventListener("click", async function() {
+                countFriendsLogo.innerHTML = String(Number(countFriendsLogo.textContent) - 1);
+        
+                const idFriend = this.getAttribute("id");
+                this.parentElement.parentElement.remove();
+        
+                await apiService.apiCall("/my-friends/remove", "DELETE",  JSON.stringify({idFriend: idFriend}))
+            });
+
             createElement(buttonSendMessage, "img", { src: "/img/send-message.png" });
 
             if(el.idAvatar) {           

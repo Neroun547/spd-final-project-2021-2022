@@ -35,4 +35,11 @@ export class AddFriendController {
 
         res.send(inviteFriends);
     }
+
+    @Get("add-friend/:username")
+    async addFriendInvite(@Req() req: Request, @Res() res: Response) {
+        await this.service.addFriendInvite(req.params["username"], req["user"]._id);
+
+        res.redirect(`/user/photo/${req.params['username']}`);
+    }
 }
