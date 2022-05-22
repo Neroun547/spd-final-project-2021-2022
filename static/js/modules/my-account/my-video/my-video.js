@@ -87,11 +87,12 @@ if(loadMoreVideoBtn) {
                 skipVideo-=1;
             });
 
-            createElement(wrapperVideoContentItem, "video", {
-                "data-role": "video-player",
-                "data-src": `"/user/video/track/${el.idVideo}"`,
-                "preload": "metadata"
+            const video = createElement(wrapperVideoContentItem, "video", {
+                "preload": "metadata",
+                "controls": "true"
             });
+
+            createElement(video, "source", { "src": `/user/video/track/${el.idVideo}`, "type": "video/mp4" });
 
             if(el.description) {
                 const buttonShowDescription = createElement(wrapperVideoContentItem, "button", { class: "columns__photo-description-toggle-btn mt-2 w-100 button primary" });
@@ -180,10 +181,14 @@ if(loadMorePrivateVideoBtn) {
                 skipVideo-=1;
             });
 
-            createElement(wrapperVideoContentItem, "video", {
-                "data-role": "video-player",
-                "data-src": `"/my-video/private-video/${el.idVideo}"`,
-                "preload": "metadata"
+            const video = createElement(wrapperVideoContentItem, "video", {
+                "preload": "metadata",
+                "controls": "true"
+            });
+
+            createElement(video, "source", {
+                "src": `/my-video/private-video/${el.idVideo}`,
+                "type": "video/mp4"
             });
 
             if(el.description) {

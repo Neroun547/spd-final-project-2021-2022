@@ -35,6 +35,10 @@
     margin-top: 40px;
 }
 
+.wrapper__video-content-item video {
+    width: inherit;
+}
+
 .load-more-video-btn {
     display: block;
     margin: 0 auto;

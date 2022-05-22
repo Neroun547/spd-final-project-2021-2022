@@ -47,7 +47,8 @@
         {{#each video}}
             <div class="wrapper__video-content-item" id="{{this.idVideo}}">
                 <h4>{{this.name}}</h4>
-                <video data-role="video-player" data-src="/user/video/track/{{this.idVideo}}" preload="metadata">
+                <video style="width: inherit;" preload="metadata" controls>
+                    <source src="/user/video/track/{{this.idVideo}}" type="video/mp4">
                 </video>
                 {{#if this.description}}
                     <button class="columns__photo-description-toggle-btn mt-2 w-100 button primary">Show description</button>
@@ -62,7 +63,7 @@
         <h2 class="mt-10" >{{activeUser}} don't have video :(</h2>
     {{/if}}
 
-    {{#if loadMoreVideo}}
+    {{#if loadMore}}
     <button class="load-more-video-btn button dark" id="{{activeUser}}">Load more video</button>
     {{/if}}
 </div>

@@ -37,7 +37,8 @@
                         </li>
                     </ul>
                 </div>
-                <video data-role="video-player" data-src="/user/video/track/{{this.idVideo}}" preload="none">
+                <video style="width:inherit;" controls preload="metadata">
+                    <source src="/user/video/track/{{this.idVideo}}" type="video/mp4">
                 </video>
                 {{#if this.description}}
                     <button class="columns__photo-description-toggle-btn mt-2 w-100 button primary">Show description</button>
