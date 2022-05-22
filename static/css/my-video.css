@@ -37,6 +37,7 @@
 
 .wrapper__video-content-item video {
     width: inherit;
+    max-height: 281.25;
 }
 
 .load-more-video-btn {

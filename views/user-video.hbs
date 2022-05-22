@@ -47,7 +47,7 @@
         {{#each video}}
             <div class="wrapper__video-content-item" id="{{this.idVideo}}">
                 <h4>{{this.name}}</h4>
-                <video style="width: inherit;" preload="metadata" controls>
+                <video preload="metadata" controls>
                     <source src="/user/video/track/{{this.idVideo}}" type="video/mp4">
                 </video>
                 {{#if this.description}}
