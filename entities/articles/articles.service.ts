@@ -25,4 +25,13 @@ export class ArticlesService {
     async deleteArticleById(idArticle: string, publicateUser: number) {
         await this.repository.delete({ idArticle, publicateUser });
     }
+
+    async getArticlesByUsernameAndTheme(publicateUser: number, theme: string, skip: number, take: number) {
+        return await this.repository.createQueryBuilder("articles")
+        .where("articles.publicateUser = :publicateUser AND articles.theme LIKE :theme", { publicateUser: publicateUser, theme: `%${theme}%` })
+        .orderBy({  _id: "DESC"})
+        .skip(skip)
+        .take(take)
+        .getMany()
+    }
 }

@@ -1,5 +1,5 @@
 <strong class="username-active-user">{{activeUser}}</strong>
-<div class="wrapper__about">
+<div class="wrapper__about" id="{{activeUser}}">
     <div class="wrapper__another-user-avatar">
         {{#if avatarAnotherUser}}
             <img src="/account-settings/avatar/{{avatarAnotherUser}}" />
@@ -40,7 +40,9 @@
             <img src="/img/article.png">
         </a>
     </div>
-
+    <div class="wrapper__search-article">
+        <input type="text" placeholder="Order by theme:" name="theme" class="wrapper__search-article-input">
+    </div>
     <div class="wrapper__articles">
         {{#if articles}}
         {{#each articles}}

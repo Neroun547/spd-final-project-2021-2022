@@ -13,7 +13,7 @@ export class SignInController {
             script: "/js/modules/signin/signin.js"
         });
     }
-
+    
     @Post()
     async signIn(@Body() body: UserDto, @Res() res: Response) {
         const newToken = await this.service.signIn(body);

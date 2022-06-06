@@ -47,6 +47,30 @@
     margin: 0;
 }
 
+.wrapper__search-article {
+    margin-top: 50px;
+}
+
+.wrapper__search-article input::placeholder {
+    font-size: 18px;
+}
+
+.wrapper__search-article input {
+    border: none;
+    border-bottom: 2px solid #000;
+    outline: none;
+}
+
+.wrapper__search-article button {
+    cursor: pointer;
+    border: none;
+    background-color: #0366d6;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    margin-left: 20px;
+}
+
 .wrapper__article-item-menu-hide li button {
     display: block;
     border: none;

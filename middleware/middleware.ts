@@ -6,7 +6,7 @@ import * as jwt from "jsonwebtoken";
 @Injectable()
 export class AppMiddleware implements NestMiddleware {
     async use(req: Request, res: Response, next: NextFunction) {
-        if(req.originalUrl.includes("signin") || req.originalUrl.includes("signup")) {
+        if(req.originalUrl.includes("signin") || req.originalUrl.includes("signup") || req.originalUrl.includes("/recovery-password")) {
             try {
                 await jwt.verify(req.cookies.token, secretJwt);
                 res.redirect("/");

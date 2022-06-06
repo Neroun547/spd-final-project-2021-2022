@@ -6,6 +6,21 @@ import { UserArticlesService } from "./service/user-articles.service";
 export class UserArticlesController {
     constructor(private service: UserArticlesService) {}
 
+
+    @Get("load-articles-by-theme")
+    async loadArticleByTheme(@Query("theme") theme: string, @Query("username") username: string) {
+        const articles = await this.service.getArticlesByUsernameAndTheme(username, theme, 0, 5);
+        
+        return articles;
+    }
+
+    @Get("load-more-articles-by-theme")
+    async loadMoreArticlesByTheme(@Query("theme") theme: string, @Query("username") username: string, @Query("skip") skip: number) {
+        const articles = await this.service.getArticlesByUsernameAndTheme(username, theme, skip, 5);
+
+        return articles;
+    }
+
     @Get(":username")
     async articlesUser(@Req() req: Request, @Res() res: Response) {
         const idAvatar = await this.service.getIdAvatar(req.params["username"]);
@@ -81,17 +96,10 @@ export class UserArticlesController {
     }
 
     @Get("load-more-articles/:skip")
-    async loadMoreArticles(@Req() req: Request, @Param("skip", new ParseIntPipe()) skip: number,
-    @Query("user") username: string, @Res() res: Response) {
-
-        if(username) {
-            const articles = await this.service.getArticlesByUsername(username, skip, 5);
-            res.send(articles);
-
-            return;
-        }
-        const articles = await this.service.getArticlesByUserId(req["user"]._id, skip, 5);
-        res.send(articles);        
+    async loadMoreArticles(@Param("skip", new ParseIntPipe()) skip: number, @Query("user") username: string) {
+        const articles = await this.service.getArticlesByUsername(username, skip, 5);
+        
+        return articles       
     }
 };
 
