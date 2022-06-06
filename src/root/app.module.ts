@@ -23,6 +23,7 @@ import { UserArticlesModule } from "src/user/user-articles/user-articles.modules
 import { UserMusicModule } from "src/user/user-musics/user-musics.module";
 import { UserPhotoModule } from "src/user/user-photo/user-photo.module";
 import { UserVideoModule } from "src/user/user-video/user-video.module";
+import { RecoveryPasswordModule } from "src/recovery-password/recovery-password.module";
 
 @Module({
     imports:[
@@ -38,6 +39,7 @@ import { UserVideoModule } from "src/user/user-video/user-video.module";
         MyPhotoModule,
         MyMusicsModule,
         FriendsModule,
+        RecoveryPasswordModule,
         RouterModule.register([
             {
                 path: "/account-settings",
@@ -100,6 +102,10 @@ import { UserVideoModule } from "src/user/user-video/user-video.module";
             {
                 path: "/my-articles",
                 module: MyArticle
+            },
+            {
+                path: "/recovery-password",
+                module: RecoveryPasswordModule
             }
         ]),
         

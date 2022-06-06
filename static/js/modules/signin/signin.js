@@ -8,6 +8,9 @@ form.addEventListener("submit", async function (e) {
     const username = e.target[0].value;
     const password = e.target[1].value;
 
+    wrapperMessage.style.display = "block";
+    wrapperMessage.innerHTML = "Loading ...";
+
     try {
         const apiService = new ApiService();
         const api = await apiService.apiCall("/signin", "POST", JSON.stringify({username, password}));
