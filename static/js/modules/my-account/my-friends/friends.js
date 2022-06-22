@@ -57,7 +57,6 @@ loadMoreFriendsBtn.addEventListener("click", async function () {
 
             if(el.idAvatar) {           
                 createElement(wrapperUsernameAvatar, "img", { src: `/account-settings/avatar/${el.idAvatar}` });
-                return;
             }
 
             createElement(wrapperUsernameAvatar, "img", { src: `/img/user.png` });

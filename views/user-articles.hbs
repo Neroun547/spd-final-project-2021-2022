@@ -40,9 +40,11 @@
             <img src="/img/article.png">
         </a>
     </div>
+    {{#if articles}}
     <div class="wrapper__search-article">
         <input type="text" placeholder="Order by theme:" name="theme" class="wrapper__search-article-input">
     </div>
+    {{/if}}
     <div class="wrapper__articles">
         {{#if articles}}
         {{#each articles}}
