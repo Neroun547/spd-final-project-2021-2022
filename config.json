@@ -1,6 +1,6 @@
 {
     "email": "project21323@gmail.com",
-    "passwordEmail": "idtimfpkfbpkmkfx",
+    "passwordEmail": "ADMIN",
     "hostDB": "localhost",
     "portDB": 3306,
     "usernameDB": "root",
@@ -9,8 +9,8 @@
     "synchronize": true,
     "autoLoadEntities": true,
     "appPort": 3000,
-    "secretJwt": "sfpwevcv7234dvsdvdfw34",
-    "secretCookie": "hsdfsdg434nk2wp3ekrm",
+    "secretJwt": "ADMIN",
+    "secretCookie": "ADMIN",
     "host": "localhost",
     "protocol": "http"
 }
