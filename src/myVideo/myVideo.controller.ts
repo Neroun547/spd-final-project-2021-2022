@@ -1,4 +1,16 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query, Req, Res, UseInterceptors } from "@nestjs/common";
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    Param,
+    ParseIntPipe,
+    Post,
+    Put,
+    Req,
+    Res,
+    UseInterceptors
+} from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { Request, Response } from "express";
 import { diskStorage } from "multer";
@@ -44,7 +56,7 @@ export class MyVideoController {
         })
     }))
     async uploadNewVideo(@Body() body: UploadVideoDto, @Req() req: Request, @Res() res: Response) {
-    
+
         if(req.body.isPrivate === "on") {
             await this.myVideoService.uploadNewPrivateVideo({
                 name: body.name,
@@ -163,5 +175,16 @@ export class MyVideoController {
     @Get("/private-video/:id")
     async getPrivateVideo(@Req() req: Request, @Res() res: Response) {
         await this.myVideoService.getPrivateVideo(req.params["id"], req, res);
+    }
+
+    @Get("upload-new-video-from-web-camera")
+    uploadNewVideoFromWebCameraPage(@Req() req: Request, @Res() res: Response) {
+        res.render("upload-new-video-from-web-camera", {
+            username: req["user"].username,
+            auth: true,
+            idAvatar: req["user"].idAvatar,
+            script: "/js/modules/my-account/my-video/upload-video-from-web-camera.js",
+            style: "/css/upload-new-video-from-web-camera.css"
+        });
     }
 }

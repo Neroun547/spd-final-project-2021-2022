@@ -1,0 +1,25 @@
+<div class="wrapper__preview-video">
+    <div class="wrapper__preview-video-btn">
+        <button class="start-recording-btn">Start Recording</button>
+        <button class="stop-recording-btn">Stop Recording</button>
+    </div>
+    <video class="preview-video" autoplay muted></video>
+</div>
+
+<div class="wrapper__recording-video">
+    <h2>Recording</h2>
+    <video class="recording-video" controls></video>
+    <button class="try-again-btn">Try again</button>
+    <div class="wrapper__form">
+        <form class="save_video">
+            <input type="text" placeholder="Name:" name="name" required class="name-video">
+            <input type="text" placeholder="Description:" name="description">
+            <div class="wrapper__form-private-video-container">
+                <span>Private video:</span>
+                <input class="wrapper__form-checkbox" type="checkbox" name="isPrivate" value="off">
+            </div>
+            <button type="submit" class="upload-video-form-btn">Upload new video</button>>
+        </form>
+    </div>
+</div>
+

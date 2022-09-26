@@ -1,10 +1,10 @@
 {
     "email": "project21323@gmail.com",
-    "passwordEmail": "Jalerznww",
+    "passwordEmail": "idtimfpkfbpkmkfx",
     "hostDB": "localhost",
     "portDB": 3306,
-    "usernameDB": "gosha",
-    "passwordDB": "MyPasswd",
+    "usernameDB": "root",
+    "passwordDB": "root",
     "database": "spdFinal",
     "synchronize": true,
     "autoLoadEntities": true,
