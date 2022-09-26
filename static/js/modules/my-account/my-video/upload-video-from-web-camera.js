@@ -9,6 +9,7 @@ const wrapperRecordingVideo = document.querySelector(".wrapper__recording-video"
 const tryAgainBtn = document.querySelector(".try-again-btn");
 const saveVideoForm = document.querySelector(".save_video");
 const wrapperFormCheckBox = document.querySelector(".wrapper__form-checkbox");
+const loading = document.querySelector(".upload-video-loading");
 
 const apiService = new ApiService();
 let recordedBlobWebm;
@@ -80,6 +81,7 @@ wrapperFormCheckBox.addEventListener("click", function () {
 });
 
 saveVideoForm.addEventListener("submit", async (e) => {
+    loading.style.display = "block";
     e.preventDefault();
     const formData = new FormData();
 
@@ -88,10 +90,14 @@ saveVideoForm.addEventListener("submit", async (e) => {
     formData.append("description", e.target[1].value);
     formData.append("isPrivate", e.target[2].value);
 
-    await fetch("/my-video/upload-new-video", {
-        method: "POST",
-        body: formData
-    });
+    try {
+        await fetch("/my-video/upload-new-video", {
+            method: "POST",
+            body: formData
+        });
+    } catch {
+        loading.innerHTML = "Some error ...";
+    }
 
     window.location.reload();
 });

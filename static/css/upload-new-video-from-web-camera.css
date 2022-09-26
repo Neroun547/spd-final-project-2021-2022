@@ -67,3 +67,9 @@ button {
     width: 50%;
     height: 50px;
 }
+
+.upload-video-loading {
+    display: none;
+    text-align: center;
+    margin-top: 70px;
+}
