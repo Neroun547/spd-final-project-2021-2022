@@ -77,6 +77,6 @@ export class RecoveryPasswordController {
     async newPassword(@Req() req: Request, @Param("email") email: string, @Body() body: NewPasswordDto, @Res() res: Response) {
         await this.service.newPassword(email, body.password);
 
-        res.redirect("/signin");
+        res.redirect("/auth");
     }
 }

@@ -57,9 +57,9 @@ loadMoreFriendsBtn.addEventListener("click", async function () {
 
             if(el.idAvatar) {           
                 createElement(wrapperUsernameAvatar, "img", { src: `/account-settings/avatar/${el.idAvatar}` });
+            } else {
+                createElement(wrapperUsernameAvatar, "img", {src: `/img/user.png`});
             }
-
-            createElement(wrapperUsernameAvatar, "img", { src: `/img/user.png` });
             createElement(wrapperUsernameAvatar, "a", { href: `/user/photo/${el.username}` }).innerHTML = el.username;
         });
     });
