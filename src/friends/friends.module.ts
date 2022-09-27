@@ -1,11 +1,11 @@
 import { Module } from "@nestjs/common";
 import { FriendsController } from "./friends.controller";
 import { MyFriendsService } from "./service/friends.service";
-import { UserEntityModule } from "../../entities/user/user.module";
-import { FriendsEntityModule } from "entities/friends/friends.module";
+import { UserModuleDb } from "../../db/user/user.module";
+import { FriendsModuleDb } from "db/friends/friends.module";
 
 @Module({
-    imports: [UserEntityModule, FriendsEntityModule],
+    imports: [UserModuleDb, FriendsModuleDb],
     controllers: [FriendsController],
     providers: [MyFriendsService]
 })

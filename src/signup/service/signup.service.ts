@@ -4,18 +4,18 @@ import * as jwt from "jsonwebtoken";
 import { secretJwt } from "config.json";
 import { UserDto } from "../dto/user.dto";
 import * as bcrypt from "bcrypt";
-import { UserService } from "entities/user/user.service";
+import { UserServiceDb } from "db/user/user.service";
 import { Response } from "express";
 import { passwordEmail, email } from "config.json";
 import { host, appPort, protocol } from "config.json";
 
 @Injectable()
 export class SignUpService {
-    constructor(private userService: UserService) { }
+    constructor(private userServiceDb: UserServiceDb) { }
 
     async signUp(createUserDto: UserDto, res: Response) {
         const user = {...createUserDto};
-        const checkInDb = await this.userService.existsUser(createUserDto.username, createUserDto.email);
+        const checkInDb = await this.userServiceDb.existsUser(createUserDto.username, createUserDto.email);
 
         if(checkInDb){
             throw new BadRequestException(["User the same params already exists"]);
@@ -48,7 +48,7 @@ export class SignUpService {
     }
 
     async confirmAccount(token: string) {
-        const user: UserDto = await jwt.verify(token, secretJwt);  
-        await this.userService.saveUser(user);
+        const user = await jwt.verify(token, secretJwt);
+        await this.userServiceDb.saveUser(user);
     }
 }

@@ -1,11 +1,21 @@
-import { BadRequestException, Body, Controller, Get, NotFoundException, Param, Post, Req, Res } from "@nestjs/common";
+import {
+    BadRequestException,
+    Body,
+    Controller,
+    Get,
+    NotFoundException,
+    Param,
+    Post,
+    Req,
+    Res,
+} from "@nestjs/common";
 import { Request, Response } from "express";
 import { RecoveryPasswordService } from "./service/recovery-password.service";
-import { CheckEmailDto } from "./dto/checkEmail.dto";
+import { CheckEmailDto } from "./dto/check-email.dto";
 import { email, passwordEmail, protocol, host, appPort, secretJwt } from "config.json";
 import * as jwt from "jsonwebtoken";
 import * as nodemailer from "nodemailer";
-import { NewPasswordDto } from "src/accountSettings/dto/new-password.dto";
+import { NewPasswordDto } from "src/account-settings/dto/new-password.dto";
 
 @Controller()
 export class RecoveryPasswordController {
@@ -55,7 +65,7 @@ export class RecoveryPasswordController {
             const user = await jwt.verify(token, secretJwt);
 
             res.render("recovery-password-form.hbs", {
-                email: user.email,
+                email: user["email"],
                 style: "/css/signInForm.css"
             });
         } catch {

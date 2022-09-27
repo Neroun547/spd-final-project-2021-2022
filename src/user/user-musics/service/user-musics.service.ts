@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
-import { FriendsService } from "entities/friends/friends.service";
-import { FriendPandingService } from "entities/friendsPanding/friendPanding.service";
-import { MusicsService } from "entities/musics/musics.service";
-import { UserService } from "entities/user/user.service";
+import { FriendsServiceDb } from "db/friends/friends.service";
+import { FriendPendingServiceDb } from "db/friends-panding/friend-panding.service";
+import { MusicsServiceDb } from "db/musics/musics.service";
+import { UserServiceDb } from "db/user/user.service";
 import { createReadStream, existsSync, statSync } from "fs";
 import { Request, Response } from "express";  
 import { resolve } from "path";
@@ -10,10 +10,10 @@ import { resolve } from "path";
 @Injectable()
 export class UserMusicsService {
     constructor(
-        private userServiceDb: UserService,
-        private friendsServiceDb: FriendsService,
-        private friendPandingServiceDb: FriendPandingService,
-        private musicsServiceDb: MusicsService
+        private userServiceDb: UserServiceDb,
+        private friendsServiceDb: FriendsServiceDb,
+        private friendPendingServiceDb: FriendPendingServiceDb,
+        private musicsServiceDb: MusicsServiceDb
     ) {}
 
     async getIdAvatar(username: string){
@@ -24,7 +24,7 @@ export class UserMusicsService {
     async alreadyFriend(friendUsername: string, idUser: number) {
         const friendId = await this.userServiceDb.getIdUserByUsername(friendUsername);
         const alreadyFriend = await this.friendsServiceDb.alreadyFriends(idUser, friendId);
-        const pendingFriend = await this.friendPandingServiceDb.findFriend(friendId, idUser);
+        const pendingFriend = await this.friendPendingServiceDb.findFriend(friendId, idUser);
 
         if(alreadyFriend) {
             return {

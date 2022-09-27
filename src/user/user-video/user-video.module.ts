@@ -1,17 +1,19 @@
 import { Module } from "@nestjs/common";
-import { FriendsEntityModule } from "entities/friends/friends.module";
-import { FriendPandingEntityModule } from "entities/friendsPanding/friendPanding.module";
-import { UserEntityModule } from "entities/user/user.module";
-import { VideoEntityModule } from "entities/video/video.module";
+import { FriendsModuleDb } from "db/friends/friends.module";
+import { FriendPandingEntityModule } from "db/friends-panding/friend-panding.module";
+import { UserModuleDb } from "db/user/user.module";
+import { VideoModuleDb } from "db/video/video.module";
 import { UserVideoService } from "./service/user-video.service";
 import { UserVideoController } from "./user-video.controller";
+import {JwtModule} from "@nestjs/jwt";
 
 @Module({
     imports:[
         FriendPandingEntityModule, 
-        FriendsEntityModule,
-        UserEntityModule,
-        VideoEntityModule
+        FriendsModuleDb,
+        UserModuleDb,
+        VideoModuleDb,
+        JwtModule
     ],
     controllers: [UserVideoController],
     providers: [UserVideoService]

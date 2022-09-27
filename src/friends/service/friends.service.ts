@@ -1,12 +1,12 @@
 import { Injectable } from "@nestjs/common";
-import { UserService } from "../../../entities/user/user.service";
-import { FriendsService } from "../../../entities/friends/friends.service";
+import { UserServiceDb } from "../../../db/user/user.service";
+import { FriendsServiceDb } from "../../../db/friends/friends.service";
 
 @Injectable()
 export class MyFriendsService {
     constructor(
-        private readonly userService: UserService,
-        private readonly friendsService: FriendsService    
+        private readonly userService: UserServiceDb,
+        private readonly friendsService: FriendsServiceDb,
     ) {};
 
     async getFriends(idGetter: number, count: number, skip: number) {

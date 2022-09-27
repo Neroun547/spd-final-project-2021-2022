@@ -23,6 +23,6 @@ export class SignUpController {
     async confirmAccount(@Req() req:Request, @Res() res:Response) {
         const token = req.params["token"];
         await this.service.confirmAccount(token);
-        res.redirect("/signin");
+        res.redirect("/auth");
     }
 }

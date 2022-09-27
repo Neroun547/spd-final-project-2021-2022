@@ -1,14 +1,14 @@
 import { BadRequestException, Injectable } from "@nestjs/common";  
-import { FriendPandingService } from "entities/friendsPanding/friendPanding.service";
-import { FriendsService } from "../../../entities/friends/friends.service";
-import { UserService } from "../../../entities/user/user.service";
+import { FriendPendingServiceDb } from "db/friends-panding/friend-panding.service";
+import { FriendsServiceDb } from "../../../db/friends/friends.service";
+import { UserServiceDb } from "../../../db/user/user.service";
 
 @Injectable()
 export class AddFriendService {
     constructor(
-        private readonly friendPandingService: FriendPandingService,
-        private readonly friendService: FriendsService,
-        private readonly userService: UserService) { };
+        private readonly friendPendingService: FriendPendingServiceDb,
+        private readonly friendService: FriendsServiceDb,
+        private readonly userService: UserServiceDb) { };
 
     async getFriendInvites(id: number, count: number, skip: number) {
         return (await this.userService.getFriendsInviteAccount(id, count, skip)).filter(el => ({
@@ -26,17 +26,17 @@ export class AddFriendService {
             throw new BadRequestException();
         }
 
-        await this.friendPandingService.deletePanding(idGetter, idSender);
+        await this.friendPendingService.deletePanding(idGetter, idSender);
         await this.friendService.acceptInvite(idGetter, idSender);        
     }
 
     async countInvites(idGetter: number) {
-        return this.friendPandingService.countInvites(idGetter);
+        return this.friendPendingService.countInvites(idGetter);
     }
 
     async addFriendInvite(friendUsername: string, idUser: number) {
         const friendId = await this.userService.getIdUserByUsername(friendUsername);
 
-        await this.friendPandingService.addFriend(friendId, idUser);
+        await this.friendPendingService.addFriend(friendId, idUser);
     }
 }

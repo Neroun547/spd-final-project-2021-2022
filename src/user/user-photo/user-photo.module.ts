@@ -1,17 +1,19 @@
 import { Module } from "@nestjs/common";
-import { FriendsEntityModule } from "entities/friends/friends.module";
-import { FriendPandingEntityModule } from "entities/friendsPanding/friendPanding.module";
-import { PhotoEntityModule } from "entities/photo/photo.module";
-import { UserEntityModule } from "entities/user/user.module";
+import { FriendsModuleDb } from "db/friends/friends.module";
+import { FriendPandingEntityModule } from "db/friends-panding/friend-panding.module";
+import { PhotoModuleDb } from "db/photo/photo.module";
+import { UserModuleDb } from "db/user/user.module";
 import { UserPhotoService } from "./service/user-photo.service";
-import { UserPhotoController } from "./user-photo.controller"; 
+import { UserPhotoController } from "./user-photo.controller";
+import {JwtModule} from "@nestjs/jwt";
 
 @Module({
     imports:[
-        PhotoEntityModule,
-        UserEntityModule,
+        JwtModule,
+        PhotoModuleDb,
+        UserModuleDb,
         FriendPandingEntityModule,
-        FriendsEntityModule
+        FriendsModuleDb
     ],
     controllers: [UserPhotoController],
     providers: [UserPhotoService]

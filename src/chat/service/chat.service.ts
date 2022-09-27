@@ -1,15 +1,15 @@
 import { Injectable } from "@nestjs/common";
-import { UserService } from "../../../entities/user/user.service";
-import { ChatsService } from "../../../entities/chats/chats.service";
-import { MessagesService } from "../../../entities/messages/messages.service";
+import { UserServiceDb } from "../../../db/user/user.service";
+import { ChatsServiceDb } from "../../../db/chats/chats.service";
+import { MessagesServiceDb } from "../../../db/messages/messages.service";
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class ChatService {
     constructor(
-        private readonly userService: UserService,
-        private readonly chatsService: ChatsService,
-        private readonly messagesService: MessagesService
+        private readonly userService: UserServiceDb,
+        private readonly chatsService: ChatsServiceDb,
+        private readonly messagesService: MessagesServiceDb
     ) {}
 
     async getAllChats(sender: number) {

@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { AppModule } from "./root/app.module";
+import { RootModule } from "./root/root.module";
 import { resolve } from "path";
 import { create } from 'express-handlebars';
 import { secretCookie } from "config.json";
@@ -12,7 +12,7 @@ import {urlencoded} from "express";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(
-    AppModule,
+    RootModule,
   );
   
   app.useGlobalPipes(new ValidationPipe());

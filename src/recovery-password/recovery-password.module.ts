@@ -1,10 +1,10 @@
 import { Module } from "@nestjs/common"; 
 import { RecoveryPasswordController } from "./recovery-password.controller";
-import { UserEntityModule } from "entities/user/user.module";
+import { UserModuleDb } from "db/user/user.module";
 import { RecoveryPasswordService } from "./service/recovery-password.service";
 
 @Module({
-    imports: [UserEntityModule],
+    imports: [UserModuleDb],
     controllers: [RecoveryPasswordController],
     providers: [RecoveryPasswordService]
 })

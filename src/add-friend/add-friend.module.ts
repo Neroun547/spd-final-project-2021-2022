@@ -1,12 +1,12 @@
 import { Module } from "@nestjs/common";
 import { AddFriendController } from "./add-friend.controller"; 
 import { AddFriendService } from "./service/add-friend.service"; 
-import { FriendsEntityModule } from "../../entities/friends/friends.module";
-import { FriendPandingEntityModule } from "entities/friendsPanding/friendPanding.module";  
-import { UserEntityModule } from "../../entities/user/user.module";
+import { FriendsModuleDb } from "../../db/friends/friends.module";
+import { FriendPandingEntityModule } from "db/friends-panding/friend-panding.module";
+import { UserModuleDb } from "../../db/user/user.module";
 
 @Module({
-    imports: [FriendsEntityModule, UserEntityModule, FriendPandingEntityModule],
+    imports: [FriendsModuleDb, UserModuleDb, FriendPandingEntityModule],
     controllers: [AddFriendController],
     providers: [AddFriendService]
 })

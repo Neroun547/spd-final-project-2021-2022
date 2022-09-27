@@ -1,19 +1,19 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
-import { FriendsService } from "entities/friends/friends.service";
-import { FriendPandingService } from "entities/friendsPanding/friendPanding.service";
-import { PhotoService } from "entities/photo/photo.service";
-import { UserService } from "entities/user/user.service";
+import { FriendsServiceDb } from "db/friends/friends.service";
+import { FriendPendingServiceDb } from "db/friends-panding/friend-panding.service";
+import { PhotoServiceDb } from "db/photo/photo.service";
+import { UserServiceDb } from "db/user/user.service";
 import { createReadStream, existsSync } from "fs";
-import { Request, Response } from "express";
+import { Response } from "express";
 import { resolve } from "path";
 
 @Injectable()
 export class UserPhotoService {
     constructor(
-        private userServiceDb: UserService, 
-        private friendsServiceDb: FriendsService, 
-        private friendPandingServiceDb: FriendPandingService,
-        private photoServiceDb: PhotoService    
+        private userServiceDb: UserServiceDb,
+        private friendsServiceDb: FriendsServiceDb,
+        private friendPendingServiceDb: FriendPendingServiceDb,
+        private photoServiceDb: PhotoServiceDb
     ) {}
 
     async getIdAvatar(username: string){
@@ -24,7 +24,7 @@ export class UserPhotoService {
     async alreadyFriend(friendUsername: string, idUser: number) {
         const friendId = await this.userServiceDb.getIdUserByUsername(friendUsername);
         const alreadyFriend = await this.friendsServiceDb.alreadyFriends(idUser, friendId);
-        const pendingFriend = await this.friendPandingServiceDb.findFriend(friendId, idUser);
+        const pendingFriend = await this.friendPendingServiceDb.findFriend(friendId, idUser);
 
         if(alreadyFriend) {
             return {

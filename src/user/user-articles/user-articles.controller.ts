@@ -1,10 +1,15 @@
 import { Controller, Get, Param, ParseIntPipe, Query, Req, Res } from "@nestjs/common";    
 import { Request, Response } from "express";
 import { UserArticlesService } from "./service/user-articles.service";
+import {JwtService} from "@nestjs/jwt";
+import {secretJwt} from "../../../config.json";
 
 @Controller()
 export class UserArticlesController {
-    constructor(private service: UserArticlesService) {}
+    constructor(
+        private service: UserArticlesService,
+        private jwtService: JwtService
+    ) {}
 
 
     @Get("load-articles-by-theme")
@@ -26,13 +31,30 @@ export class UserArticlesController {
         const idAvatar = await this.service.getIdAvatar(req.params["username"]);
         const countArticles = await this.service.getCountArticles(req.params["username"]);
 
-        if(req["user"] && req["user"].username === req.params["username"]) {
-            const articles = await this.service.getArticlesByUserId(req["user"]._id, 0, 5);
+        if(!req.cookies["token"]) {
+            const articles = await this.service.getArticlesByUsername(req.params["username"], 0, 5);
+
+            res.render("user-articles", {
+                auth: false,
+                articles: articles,
+                activeUser: req.params["username"],
+                avatarAnotherUser: idAvatar,
+                loadMore: countArticles > 5 ? true : false,
+                style: "/css/another-user.css",
+                script: "/js/modules/another-user/another-user-articles/another-user-articles.js",
+            });
+
+            return;
+        }
+        const user = this.jwtService.verify(req.cookies["token"], { secret: secretJwt });
+
+        if(user && user.username === req.params["username"]) {
+            const articles = await this.service.getArticlesByUserId(user["_id"], 0, 5);
         
             res.render("my-articles", {
-                username: req["user"].username,
+                username: user.username,
                 auth: true,
-                idAvatar: req["user"].idAvatar,
+                idAvatar: user.idAvatar,
                 style: "/css/my-articles.css",
                 articles,
                 loadMore: countArticles > 5 ? true : false,
@@ -41,14 +63,14 @@ export class UserArticlesController {
 
             return;
         }
-        if(req["user"] && req["user"].username !== req.params["username"]) {    
-            const alreadyFriend = await this.service.alreadyFriend(req.params["username"], req["user"]._id);
+        if(user && user.username !== req.params["username"]) {
+            const alreadyFriend = await this.service.alreadyFriend(req.params["username"], user._id);
             const articles = await this.service.getArticlesByUsername(req.params["username"], 0, 5);
 
             res.render("user-articles", {
                 auth: true,
-                username: req["user"].username,
-                idAvatar: req["user"].idAvatar,
+                username: user.username,
+                idAvatar: user.idAvatar,
                 articles: articles,
                 activeUser: req.params["username"],
                 avatarAnotherUser: idAvatar,
@@ -61,45 +83,35 @@ export class UserArticlesController {
 
             return;
         }
-        const articles = await this.service.getArticlesByUsername(req.params["username"], 0, 5);
-
-        res.render("user-articles", {
-            auth: false,
-            articles: articles,
-            activeUser: req.params["username"],
-            avatarAnotherUser: idAvatar,
-            loadMore: countArticles > 5 ? true : false,
-            style: "/css/another-user.css",
-            script: "/js/modules/another-user/another-user-articles/another-user-articles.js",
-        });
     }
 
     @Get("article/:idArticle")
     async loadArticle(@Param("idArticle") idArticle: string, @Req() req: Request, @Res() res: Response) {
         const article = await this.service.getArticle(idArticle);
-        
-        if(req["user"]) {
+
+        if(!req.cookies["token"]) {
             res.render(`articles/${article.article}`, {
-                auth: true,
-                username: req["user"].username,
-                idAvatar: req["user"].idAvatar,
+                auth: false,
                 style: "/css/article.css"
             });
 
             return;
         }
+        const user = this.jwtService.verify(req.cookies["token"], { secret: secretJwt });
 
-        res.render(`articles/${article.article}`, {
-            auth: false,
-            style: "/css/article.css"
-        });
+        if(user) {
+            res.render(`articles/${article.article}`, {
+                auth: true,
+                username: user.username,
+                idAvatar: user.idAvatar,
+                style: "/css/article.css"
+            });
+        }
     }
 
     @Get("load-more-articles/:skip")
     async loadMoreArticles(@Param("skip", new ParseIntPipe()) skip: number, @Query("user") username: string) {
-        const articles = await this.service.getArticlesByUsername(username, skip, 5);
-        
-        return articles       
+        return await this.service.getArticlesByUsername(username, skip, 5);
     }
 };
 

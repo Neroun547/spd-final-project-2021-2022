@@ -1,25 +1,48 @@
 import { Controller, Param, Req, Res, Get, ParseIntPipe, Query } from "@nestjs/common"; 
 import { Request, Response } from "express";  
 import { UserVideoService } from "./service/user-video.service";
+import {secretJwt} from "../../../config.json";
+import {JwtService} from "@nestjs/jwt";
 
 @Controller()
 export class UserVideoController {
     
-    constructor(private service: UserVideoService) {}
+    constructor(
+        private service: UserVideoService,
+        private jwtService: JwtService
+    ) {}
 
     @Get(":username")
     async videoUser(@Req() req: Request, @Res() res: Response, @Param("username") username: string) {
         const idAvatar = await this.service.getIdAvatar(username);
 
-        if(req["user"] && req["user"].username === username) {
-            const dataVideo = await this.service.getVideoIdByUserId(req["user"]._id, 0, 2);
-            const countVideo = await this.service.getCountVideoByIdUser(req["user"]._id);
+        if(!req.cookies["token"]) {
+            const dataVideo = await this.service.getVideoIdByUsername(username, 0, 2);
+            const countVideo = await this.service.getCountVideoByUsername(username);
+
+            res.render("user-video", {
+                video: dataVideo,
+                auth: false,
+                activeUser: username,
+                avatarAnotherUser: idAvatar,
+                loadMore: countVideo > 2 ? true : false,
+                script: "/js/modules/another-user/another-user-video/another-user-video.js",
+                style: "/css/another-user.css"
+            });
+
+            return;
+        }
+        const user = this.jwtService.verify(req.cookies["token"], { secret: secretJwt });
+
+        if(user && user.username === username) {
+            const dataVideo = await this.service.getVideoIdByUserId(user._id, 0, 2);
+            const countVideo = await this.service.getCountVideoByIdUser(user._id);
 
             res.render("my-video", {
-                username: req["user"].username,
-                video:dataVideo,
+                username: user.username,
+                video: dataVideo,
                 auth: true,
-                idAvatar: req["user"].idAvatar,
+                idAvatar: user.idAvatar,
                 avatarAnotherUser: idAvatar,
                 loadMore: countVideo > 2 ? true : false,
                 script: "/js/modules/my-account/my-video/my-video.js",
@@ -28,18 +51,18 @@ export class UserVideoController {
         
             return;
         }
-        if(req["user"] && req["user"].username !== username) {
+        if(user && user.username !== username) {
             const dataVideo = await this.service.getVideoIdByUsername(username, 0, 2);
             const countVideo = await this.service.getCountVideoByUsername(username);
-            const alreadyFriend = await this.service.alreadyFriend(username, req["user"]._id);
+            const alreadyFriend = await this.service.alreadyFriend(username, user._id);
 
             res.render("user-video", {
-                username: req["user"].username,
-                video:dataVideo,
+                username: user.username,
+                video: dataVideo,
                 auth: true,
                 alreadyFriend: alreadyFriend.accept,
                 pendingFriend: alreadyFriend.pending,
-                idAvatar: req["user"].idAvatar,
+                idAvatar: user.idAvatar,
                 activeUser: req.params["username"],
                 avatarAnotherUser: idAvatar,
                 loadMore: countVideo > 2 ? true : false,
@@ -49,34 +72,20 @@ export class UserVideoController {
 
             return;
         }
-        const dataVideo = await this.service.getVideoIdByUsername(username, 0, 2);
-        const countVideo = await this.service.getCountVideoByUsername(username);
-
-        res.render("user-video", {
-            video:dataVideo,
-            auth: false,
-            activeUser: req.params["username"],
-            avatarAnotherUser: idAvatar,
-            loadMore: countVideo > 2 ? true : false,
-            script: "/js/modules/another-user/another-user-video/another-user-video.js",
-            style: "/css/another-user.css"
-        });
     }
 
     @Get("load-more-video/:skip")
     async loadMoreVideoId(@Req() req: Request, @Param("skip", new ParseIntPipe()) skip: number,
-    @Query("user") username: string, @Res() res: Response) {
-        
-        if(!username) {
-            const video = await this.service.getVideoIdByUserId(req["user"]._id, skip, 2);
+    @Query("user") username: string) {
 
-            res.send(video);
+        if(!req.cookies["token"] || username) {
+            const video = await this.service.getVideoIdByUsername(username, skip, 2);
 
-            return;
+            return video;
         }
-        const video = await this.service.getVideoIdByUsername(username, skip, 2);
+        const user = this.jwtService.verify(req.cookies["token"], { secret: secretJwt });
 
-        res.send(video);
+        return await this.service.getVideoIdByUserId(user["_id"], skip, 2);
     }
 
     @Get("track/:id")

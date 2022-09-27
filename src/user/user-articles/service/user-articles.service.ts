@@ -1,17 +1,17 @@
 import { Injectable } from "@nestjs/common";  
-import { ArticlesService } from "entities/articles/articles.service";
-import { FriendsService } from "entities/friends/friends.service";
-import { FriendPandingService } from "entities/friendsPanding/friendPanding.service";
-import { UserService } from "entities/user/user.service";
+import { ArticlesServiceDb } from "db/articles/articles.service";
+import { FriendsServiceDb } from "db/friends/friends.service";
+import { FriendPendingServiceDb } from "db/friends-panding/friend-panding.service";
+import { UserServiceDb } from "db/user/user.service";
 import { IArticle } from "../interface/article.interface";
 
 @Injectable()
 export class UserArticlesService {
     constructor(
-        private articlesServiceDb: ArticlesService,
-        private userServiceDb: UserService,
-        private friendsServiceDb: FriendsService,
-        private friendPandingServiceDb: FriendPandingService
+        private articlesServiceDb: ArticlesServiceDb,
+        private userServiceDb: UserServiceDb,
+        private friendsServiceDb: FriendsServiceDb,
+        private friendPendingServiceDb: FriendPendingServiceDb
     ) {}
 
     async getIdAvatar(username: string){
@@ -22,7 +22,7 @@ export class UserArticlesService {
     async alreadyFriend(friendUsername: string, idUser: number) {
         const friendId = await this.userServiceDb.getIdUserByUsername(friendUsername);
         const alreadyFriend = await this.friendsServiceDb.alreadyFriends(idUser, friendId);
-        const pendingFriend = await this.friendPandingServiceDb.findFriend(friendId, idUser);
+        const pendingFriend = await this.friendPendingServiceDb.findFriend(friendId, idUser);
 
         if(alreadyFriend) {
             return {

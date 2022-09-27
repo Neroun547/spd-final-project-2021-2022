@@ -1,19 +1,19 @@
 import { Injectable } from "@nestjs/common";  
-import { FriendsService } from "entities/friends/friends.service";
-import { FriendPandingService } from "entities/friendsPanding/friendPanding.service";
+import { FriendsServiceDb } from "db/friends/friends.service";
+import { FriendPendingServiceDb } from "db/friends-panding/friend-panding.service";
 import { Request, Response } from "express";
-import { UserService } from "entities/user/user.service";
-import { VideoService } from "entities/video/video.service";
+import { UserServiceDb } from "db/user/user.service";
+import { VideoServiceDb } from "db/video/video.service";
 import { createReadStream, existsSync, statSync } from "fs";
 import { resolve } from "path";
 
 @Injectable()
 export class UserVideoService {
     constructor(
-        private userServiceDb: UserService,
-        private friendsServiceDb: FriendsService,
-        private friendPandingServiceDb: FriendPandingService,
-        private videoServiceDb: VideoService
+        private userServiceDb: UserServiceDb,
+        private friendsServiceDb: FriendsServiceDb,
+        private friendPendingServiceDb: FriendPendingServiceDb,
+        private videoServiceDb: VideoServiceDb
     ) {}
 
     async getIdAvatar(username: string){
@@ -24,7 +24,7 @@ export class UserVideoService {
     async alreadyFriend(friendUsername: string, idUser: number) {
         const friendId = await this.userServiceDb.getIdUserByUsername(friendUsername);
         const alreadyFriend = await this.friendsServiceDb.alreadyFriends(idUser, friendId);
-        const pendingFriend = await this.friendPandingServiceDb.findFriend(friendId, idUser);
+        const pendingFriend = await this.friendPendingServiceDb.findFriend(friendId, idUser);
 
         if(alreadyFriend) {
             return {
@@ -32,14 +32,12 @@ export class UserVideoService {
                 pending: false
             }
         }
-
         if(pendingFriend) {
             return {
                 accept: false,
                 pending: true
             }
         }
-
         return {
             accept: false,
             pending: false

@@ -1,23 +1,46 @@
 import { Controller, Param, Req, Res, Get, ParseIntPipe, Query } from "@nestjs/common";
 import { UserPhotoService } from "./service/user-photo.service";
-import { Request, Response } from "express";  
+import { Request, Response } from "express";
+import {JwtService} from "@nestjs/jwt";
+import { secretJwt } from "config.json";
 
 @Controller()
 export class UserPhotoController {
 
-    constructor(private service: UserPhotoService) {};
+    constructor(
+        private service: UserPhotoService,
+        private jwtService: JwtService
+    ) {};
 
     @Get(":username")
     async userPage(@Req() req: Request, @Res() res: Response, @Param("username") username: string) {
 
-        if(req["user"] && req["user"].username === req.params["username"]) {
+        if(!req.cookies["token"]) {
             const idAvatar = await this.service.getIdAvatar(username);
-            const countPhoto = await this.service.getCountPhotoById(req["user"]._id);
-            const photo = await this.service.getPhotoIdByIdUser(req["user"]._id, 0, 4);
+            const countPhoto = await this.service.getCountPhotoByUsername(username);
+            const photo = await this.service.getPhotoByUsername(username, 0, 4);
+
+            res.render("user", {
+                auth: false,
+                avatarAnotherUser: idAvatar,
+                photo: photo,
+                activeUser: req.params["username"],
+                loadMore: countPhoto > 4 ? true : false,
+                script: "/js/modules/another-user/another-user-photo/another-user-photo.js",
+                style: "/css/another-user.css"
+            });
+
+            return;
+        }
+        const user = this.jwtService.verify(req.cookies["token"], { secret: secretJwt });
+        if(user && user["username"] === username) {
+            const idAvatar = await this.service.getIdAvatar(username);
+            const countPhoto = await this.service.getCountPhotoById(user["_id"]);
+            const photo = await this.service.getPhotoIdByIdUser(user["_id"], 0, 4);
 
             res.render("my-photo", {
-                username: req["user"].username,
-                idAvatar: req["user"].idAvatar,
+                username: user["username"],
+                idAvatar: user["idAvatar"],
                 auth: true,
                 avatarAnotherUser: idAvatar,
                 photo: photo,
@@ -30,15 +53,15 @@ export class UserPhotoController {
         }
 
 
-        if(req["user"] && req["user"].username !== req.params["username"]) {
+        if(user && user["username"] !== username) {
             const idAvatar = await this.service.getIdAvatar(username);
             const countPhoto = await this.service.getCountPhotoByUsername(username);
             const photo = await this.service.getPhotoByUsername(username, 0, 4);
-            const alreadyFriend = await this.service.alreadyFriend(username, req["user"]._id);
+            const alreadyFriend = await this.service.alreadyFriend(username, user._id);
 
             res.render("user", {
-                username: req["user"].username,
-                idAvatar: req["user"].idAvatar,
+                username: user["username"],
+                idAvatar: user["idAvatar"],
                 auth: true,
                 avatarAnotherUser: idAvatar,
                 photo: photo,
@@ -52,35 +75,21 @@ export class UserPhotoController {
 
             return;
         }
-        const idAvatar = await this.service.getIdAvatar(username);
-        const countPhoto = await this.service.getCountPhotoByUsername(username);
-        const photo = await this.service.getPhotoByUsername(username, 0, 4);
-
-        res.render("user", {
-            auth: false,
-            avatarAnotherUser: idAvatar,
-            photo: photo,
-            activeUser: req.params["username"],
-            loadMore: countPhoto > 4 ? true : false,
-            script: "/js/modules/another-user/another-user-photo/another-user-photo.js",
-            style: "/css/another-user.css"
-        });
     }
 
     @Get("load-more-photo/:skip")
-    async loadMorePhotoId(@Req() req: Request, @Param("skip", new ParseIntPipe()) skip: number,
-    @Query("user") username: string, @Res() res: Response) {
+    async loadMorePhotoId(
+        @Req() req: Request, @Param("skip", new ParseIntPipe()) skip: number,
+        @Query("user") username: string
+    ) {
+        if(!req.cookies["token"] || username) {
+            const photo = await this.service.getPhotoByUsername(username, skip, 4);
 
-        if(!username) {
-            const photo = await this.service.getPhotoIdByIdUser(req["user"]._id, skip, 4);
-
-            res.send(photo);
-            
-            return;
+            return photo;
         }
-        const photo = await this.service.getPhotoByUsername(username, skip, 4);
+        const user = this.jwtService.verify(req.cookies["token"], { secret: secretJwt });
 
-        res.send(photo);
+        return await this.service.getPhotoIdByIdUser(user._id, skip, 4);
     }
 
     @Get("item/:id")
