@@ -20,7 +20,7 @@ export class FriendPendingServiceDb {
         return await this.friendRepository.findOne({ idGetter, idSender });
     }
 
-    async deletePanding(idGetter: number, idSender) {
+    async deletePending(idGetter: number, idSender: number) {
         await this.friendRepository.delete({ idGetter, idSender });
     }
 

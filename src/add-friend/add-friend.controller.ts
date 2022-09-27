@@ -1,4 +1,4 @@
-import {Controller, Req, Res, Get, Post, UseGuards} from "@nestjs/common";
+import {Controller, Req, Res, Get, Post, UseGuards, Delete, Param} from "@nestjs/common";
 import { Request, Response } from "express";
 import { AddFriendService } from "./service/add-friend.service";
 import {JwtAuthGuard} from "../auth/guard/jwt-auth.guard";
@@ -46,5 +46,13 @@ export class AddFriendController {
         await this.service.addFriendInvite(req.params["username"], req.user["_id"]);
 
         res.redirect(`/user/photo/${req.params['username']}`);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Delete("delete-invite/:username")
+    async deleteInvite(@Req() req: Request, @Param("username") username: string) {
+        await this.service.deleteInvite(username, req.user["_id"]);
+
+        return;
     }
 }

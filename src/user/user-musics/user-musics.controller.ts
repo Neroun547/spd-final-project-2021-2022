@@ -3,7 +3,6 @@ import { Request, Response } from "express";
 import { UserMusicsService } from "./service/user-musics.service";
 import {secretJwt} from "../../../config.json";
 import {JwtService} from "@nestjs/jwt";
-import {use} from "passport";
 
 @Controller()
 export class UserMusicsController {

@@ -26,7 +26,7 @@ export class AddFriendService {
             throw new BadRequestException();
         }
 
-        await this.friendPendingService.deletePanding(idGetter, idSender);
+        await this.friendPendingService.deletePending(idGetter, idSender);
         await this.friendService.acceptInvite(idGetter, idSender);        
     }
 
@@ -38,5 +38,11 @@ export class AddFriendService {
         const friendId = await this.userService.getIdUserByUsername(friendUsername);
 
         await this.friendPendingService.addFriend(friendId, idUser);
+    }
+
+    async deleteInvite(friendUsername: string, idUser: number) {
+        const friendId = await this.userService.getIdUserByUsername(friendUsername);
+
+        await this.friendPendingService.deletePending(idUser, friendId);
     }
 }
