@@ -69,27 +69,17 @@ export class AccountService {
     async checkOldPassword(user, password: string) {
         const verify = await bcrypt.compare(password, user.password);
 
-        if (verify) {
-            const newToken = await jwt.sign({ ...user, changePassword: true }, secretJwt);
-
-            return newToken;
+        if(!verify) {
+            throw new BadRequestException(["Invalid password"]);
         }
-
-        throw new BadRequestException(["Invalid password"]);
     }
 
     async newPassword(user, password: string) {
+        const newPassword = await bcrypt.hash(password, 10);
+        const newToken = await jwt.sign({ ...user, changePassword: false, password: newPassword }, secretJwt);
 
-        if (user.changePassword) {
-            const newPassword = await bcrypt.hash(password, 10);
-            const newToken = await jwt.sign({ ...user, changePassword: false, password: newPassword }, secretJwt);
-
-            await this.userServiceDb.updatePasswordByEmail(user.email, newPassword);
-
-            return newToken;
-        }
-
-        throw new BadRequestException();
+        await this.userServiceDb.updatePasswordByEmail(user.email, newPassword);
+        return newToken;
     }
 
     /*----*/

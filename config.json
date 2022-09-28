@@ -1,6 +1,6 @@
 {
-    "email": "ADMIN",
-    "passwordEmail": "ADMIN",
+    "email": "TEST",
+    "passwordEmail": "TEST",
     "hostDB": "localhost",
     "portDB": 3306,
     "usernameDB": "root",
