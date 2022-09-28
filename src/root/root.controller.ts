@@ -25,21 +25,22 @@ export class RootController {
 
       return;
     }
-    const userFromToken = await this.jwtService.verify(req.cookies["token"], { secret: secretJwt });
-    const user = await this.userServiceDb.findUserById(userFromToken._id);
+    let userFromToken;
 
-    if (user) {
+    try {
+      userFromToken = await this.jwtService.verify(req.cookies["token"], {secret: secretJwt});
+    } catch {
       res.render("info", {
-        username: user["username"],
-        auth: true,
-        idAvatar: user["idAvatar"],
+        auth: false,
         script: "/js/modules/search-user/search-user-form.js"
       });
 
       return;
     }
     res.render("info", {
-      auth: false,
+      username: userFromToken["username"],
+      auth: true,
+      idAvatar: userFromToken["idAvatar"],
       script: "/js/modules/search-user/search-user-form.js"
     });
   }
