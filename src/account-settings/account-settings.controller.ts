@@ -56,7 +56,6 @@ export class AccountSettingsController {
         res.redirect("/account-settings");
     };
 
-    @UseGuards(JwtAuthGuard)
     @Get("avatar/:id")
     async getAvatar(@Req() req:Request, @Res() res:Response) {
         await this.service.getAvatar(req.params.id, req, res);
