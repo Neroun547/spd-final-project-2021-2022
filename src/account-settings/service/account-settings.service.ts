@@ -15,7 +15,7 @@ import { host, appPort, protocol } from "config.json";
 /* Don't good service ... maybe TODO -_-*/
 
 @Injectable()
-export class AccountService {
+export class AccountSettingsService {
     constructor(private readonly userServiceDb: UserServiceDb) { };
 
     async uploadAvatar(file: Express.Multer.File, user, avatar: string): Promise<string> {

@@ -1,7 +1,7 @@
 import {Body, Controller, Get, Post, Put, Req, Res, UploadedFile, UseGuards, UseInterceptors} from "@nestjs/common";
 import { Request, Response } from "express";
 import { FileInterceptor } from "@nestjs/platform-express";
-import { AccountService } from "./service/account.service";
+import { AccountSettingsService } from "./service/account-settings.service";
 import { diskStorage } from "multer";
 import { NewNameDto } from "./dto/new-name.dto";
 import { NewUsernameDto } from "./dto/new-username.dto";
@@ -11,7 +11,7 @@ import {JwtAuthGuard} from "../auth/guard/jwt-auth.guard";
 
 @Controller()
 export class AccountSettingsController {
-    constructor(private readonly service:AccountService){}
+    constructor(private readonly service:AccountSettingsService){}
 
     @UseGuards(JwtAuthGuard)
     @Get()

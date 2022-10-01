@@ -1,14 +1,14 @@
-import { Photo } from "../../../entities/photo/photo.entity";
-import { PhotoRepository } from "../../../entities/photo/photo.repository";
-import { PhotoService } from "../../../entities/photo/photo.service";
+import { PhotoRepository } from "../../../db/photo/photo.repository";
+import { PhotoServiceDb } from "../../../db/photo/photo.service";
 import { MyPhotoService } from "../service/myPhoto.service";
+import {Photo} from "../../../db/photo/photo.entity";
 
 describe("My Photo Service", () => {
     let myPhotoService: MyPhotoService;
-    let photoServiceDb: PhotoService;
+    let photoServiceDb: PhotoServiceDb;
 
     beforeAll(async () => {
-        photoServiceDb = new PhotoService(new PhotoRepository());
+        photoServiceDb = new PhotoServiceDb(new PhotoRepository());
         myPhotoService = new MyPhotoService(photoServiceDb);
 
         jest.spyOn(photoServiceDb, "findOneAndDelete").mockImplementation(async (id, author) => {

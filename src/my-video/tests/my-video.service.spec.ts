@@ -1,17 +1,17 @@
-import { PrivateVideoRepository } from "../../../entities/private-video/private-video.repository";
-import { VideoRepository } from "../../../entities/video/video.repository";
-import { PrivateVideoService } from "../../../entities/private-video/private-video.service";
-import { VideoService } from "../../../entities/video/video.service";
+import { PrivateVideoRepository } from "../../../db/private-video/private-video.repository";
+import { VideoRepository } from "../../../db/video/video.repository";
+import { PrivateVideoServiceDb } from "../../../db/private-video/private-video.service";
+import { VideoServiceDb } from "../../../db/video/video.service";
 import { MyVideo } from "../service/my-video.service";
 
 describe("My video service", () => {
   let myVideoService: MyVideo;
-  let videoServiceDb: VideoService;
-  let privateVideoServiceDb: PrivateVideoService;
+  let videoServiceDb: VideoServiceDb;
+  let privateVideoServiceDb: PrivateVideoServiceDb;
   
   beforeEach(() => {
-    videoServiceDb = new VideoService(new VideoRepository())
-    privateVideoServiceDb = new PrivateVideoService(new PrivateVideoRepository());
+    videoServiceDb = new VideoServiceDb(new VideoRepository())
+    privateVideoServiceDb = new PrivateVideoServiceDb(new PrivateVideoRepository());
     myVideoService = new MyVideo(videoServiceDb, privateVideoServiceDb);
 
     jest.spyOn(privateVideoServiceDb, "getCountPrivateVideo").mockImplementation(async () => 5);
