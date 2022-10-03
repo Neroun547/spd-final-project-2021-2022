@@ -1,4 +1,4 @@
-import { Controller, Param, Req, Res, Get, ParseIntPipe, Query } from "@nestjs/common"; 
+import {Controller, Param, Req, Res, Get, ParseIntPipe, Query, ForbiddenException} from "@nestjs/common";
 import { Request, Response } from "express";  
 import { UserVideoService } from "./service/user-video.service";
 import {secretJwt} from "../../../config.json";
@@ -15,8 +15,11 @@ export class UserVideoController {
     @Get(":username")
     async videoUser(@Req() req: Request, @Res() res: Response, @Param("username") username: string) {
         const idAvatar = await this.service.getIdAvatar(username);
+        let user;
 
-        if(!req.cookies["token"]) {
+        try {
+            user = this.jwtService.verify(req.cookies["token"], {secret: secretJwt});
+        } catch {
             const dataVideo = await this.service.getVideoIdByUsername(username, 0, 2);
             const countVideo = await this.service.getCountVideoByUsername(username);
 
@@ -32,9 +35,8 @@ export class UserVideoController {
 
             return;
         }
-        const user = this.jwtService.verify(req.cookies["token"], { secret: secretJwt });
 
-        if(user && user.username === username) {
+        if(user.username === username) {
             const dataVideo = await this.service.getVideoIdByUserId(user._id, 0, 2);
             const countVideo = await this.service.getCountVideoByIdUser(user._id);
 
@@ -51,7 +53,7 @@ export class UserVideoController {
         
             return;
         }
-        if(user && user.username !== username) {
+        if(user.username !== username) {
             const dataVideo = await this.service.getVideoIdByUsername(username, 0, 2);
             const countVideo = await this.service.getCountVideoByUsername(username);
             const alreadyFriend = await this.service.alreadyFriend(username, user._id);
@@ -78,14 +80,18 @@ export class UserVideoController {
     async loadMoreVideoId(@Req() req: Request, @Param("skip", new ParseIntPipe()) skip: number,
     @Query("user") username: string) {
 
-        if(!req.cookies["token"] || username) {
+        if(username) {
             const video = await this.service.getVideoIdByUsername(username, skip, 2);
 
             return video;
         }
-        const user = this.jwtService.verify(req.cookies["token"], { secret: secretJwt });
+        try {
+            const user = this.jwtService.verify(req.cookies["token"], {secret: secretJwt});
 
-        return await this.service.getVideoIdByUserId(user["_id"], skip, 2);
+            return await this.service.getVideoIdByUserId(user._id, skip, 2);
+        } catch {
+            throw new ForbiddenException();
+        }
     }
 
     @Get("track/:id")

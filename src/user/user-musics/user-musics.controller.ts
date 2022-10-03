@@ -1,4 +1,4 @@
-import { Controller, Get, Param, ParseIntPipe, Query, Req, Res } from "@nestjs/common";
+import {Controller, ForbiddenException, Get, Param, ParseIntPipe, Query, Req, Res} from "@nestjs/common";
 import { Request, Response } from "express";  
 import { UserMusicsService } from "./service/user-musics.service";
 import {secretJwt} from "../../../config.json";
@@ -16,8 +16,11 @@ export class UserMusicsController {
         const dataMusic = await this.service.getMusicIdByUsername(0, 5, username);
         const countMusic = await this.service.getCountMusicByUsername(username);
         const idAvatar = await this.service.getIdAvatar(username);
+        let user;
 
-        if(!req.cookies["token"]) {
+        try {
+            user = this.jwtService.verify(req.cookies["token"], {secret: secretJwt});
+        } catch {
             res.render("user-music", {
                 music: dataMusic,
                 auth: false,
@@ -31,9 +34,8 @@ export class UserMusicsController {
 
             return;
         }
-        const user = this.jwtService.verify(req.cookies["token"], { secret: secretJwt });
 
-        if(user && user["username"] === username) {
+        if(user.username === username) {
             const dataMusic = await this.service.getMusicIdById(0, 5, user["_id"]);
             const countMusic = await this.service.getCountMusicById(user["_id"]);
 
@@ -50,7 +52,7 @@ export class UserMusicsController {
 
             return;
         }
-        if(user && user["username"] !== username) {
+        if(user.username !== username) {
             const alreadyFriend = await this.service.alreadyFriend(username, user["_id"]);
 
             res.render("user-music", {
@@ -74,13 +76,16 @@ export class UserMusicsController {
     async loadMoreMusicId(@Req() req: Request, @Param("skip", new ParseIntPipe()) skip: number,
     @Query("user") username: string) {
 
-        if(!req.cookies["token"] || username) {
-            return await this.service.getMusicIdByUsername(skip, 5, username);;
+        if(username) {
+            return await this.service.getMusicIdByUsername(skip, 5, username);
         }
-        const user = this.jwtService.verify(req.cookies["token"], { secret: secretJwt });
+        try {
+            const user = this.jwtService.verify(req.cookies["token"], {secret: secretJwt});
 
-        return await this.service.getMusicIdById(skip, 5, user["_id"]);
-
+            return await this.service.getMusicIdById(skip, 5, user._id);
+        } catch {
+            throw new ForbiddenException();
+        }
     }
     @Get("audio/:id")
     async getMusic(@Req() req:Request, @Res() res:Response) {

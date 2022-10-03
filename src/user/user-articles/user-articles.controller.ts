@@ -30,8 +30,11 @@ export class UserArticlesController {
     async articlesUser(@Req() req: Request, @Res() res: Response) {
         const idAvatar = await this.service.getIdAvatar(req.params["username"]);
         const countArticles = await this.service.getCountArticles(req.params["username"]);
+        let user;
 
-        if(!req.cookies["token"]) {
+        try {
+            user = this.jwtService.verify(req.cookies["token"], {secret: secretJwt});
+        } catch {
             const articles = await this.service.getArticlesByUsername(req.params["username"], 0, 5);
 
             res.render("user-articles", {
@@ -46,9 +49,8 @@ export class UserArticlesController {
 
             return;
         }
-        const user = this.jwtService.verify(req.cookies["token"], { secret: secretJwt });
 
-        if(user && user.username === req.params["username"]) {
+        if(user.username === req.params["username"]) {
             const articles = await this.service.getArticlesByUserId(user["_id"], 0, 5);
         
             res.render("my-articles", {
@@ -63,7 +65,7 @@ export class UserArticlesController {
 
             return;
         }
-        if(user && user.username !== req.params["username"]) {
+        if(user.username !== req.params["username"]) {
             const alreadyFriend = await this.service.alreadyFriend(req.params["username"], user._id);
             const articles = await this.service.getArticlesByUsername(req.params["username"], 0, 5);
 
@@ -89,21 +91,17 @@ export class UserArticlesController {
     async loadArticle(@Param("idArticle") idArticle: string, @Req() req: Request, @Res() res: Response) {
         const article = await this.service.getArticle(idArticle);
 
-        if(!req.cookies["token"]) {
-            res.render(`articles/${article.article}`, {
-                auth: false,
-                style: "/css/article.css"
-            });
-
-            return;
-        }
-        const user = this.jwtService.verify(req.cookies["token"], { secret: secretJwt });
-
-        if(user) {
+        try {
+            const user = this.jwtService.verify(req.cookies["token"], {secret: secretJwt});
             res.render(`articles/${article.article}`, {
                 auth: true,
                 username: user.username,
                 idAvatar: user.idAvatar,
+                style: "/css/article.css"
+            });
+        } catch {
+            res.render(`articles/${article.article}`, {
+                auth: false,
                 style: "/css/article.css"
             });
         }

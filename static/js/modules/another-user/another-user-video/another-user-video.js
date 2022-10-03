@@ -32,10 +32,12 @@ loadMoreVideoBtn.addEventListener("click", async function () {
         const wrapperVideoContentItem = createElement(wrapperVideoContent, "div", { class: "wrapper__video-content-item" });
         wrapperVideoContentItem.setAttribute("id", el.idVideo);
 
-        createElement(wrapperVideoContentItem, "video", {
-            "data-role": "video-player",
-            "data-src": `"/user/video/track/${el.idVideo}"`
+        const video = createElement(wrapperVideoContentItem, "video", {
+            "preload": "metadata",
+            "controls": "true"
         });
+
+        createElement(video, "source", { "src": `/user/video/track/${el.idVideo}`, "type": "video/mp4" });
 
         if(el.description) {
 

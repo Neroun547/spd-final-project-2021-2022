@@ -1,4 +1,4 @@
-import { Controller, Param, Req, Res, Get, ParseIntPipe, Query } from "@nestjs/common";
+import {Controller, Param, Req, Res, Get, ParseIntPipe, Query, ForbiddenException} from "@nestjs/common";
 import { UserPhotoService } from "./service/user-photo.service";
 import { Request, Response } from "express";
 import {JwtService} from "@nestjs/jwt";
@@ -14,9 +14,12 @@ export class UserPhotoController {
 
     @Get(":username")
     async userPage(@Req() req: Request, @Res() res: Response, @Param("username") username: string) {
+        const idAvatar = await this.service.getIdAvatar(username);
+        let user;
 
-        if(!req.cookies["token"]) {
-            const idAvatar = await this.service.getIdAvatar(username);
+        try {
+            user = this.jwtService.verify(req.cookies["token"], {secret: secretJwt});
+        } catch {
             const countPhoto = await this.service.getCountPhotoByUsername(username);
             const photo = await this.service.getPhotoByUsername(username, 0, 4);
 
@@ -32,9 +35,7 @@ export class UserPhotoController {
 
             return;
         }
-        const user = this.jwtService.verify(req.cookies["token"], { secret: secretJwt });
-        if(user && user["username"] === username) {
-            const idAvatar = await this.service.getIdAvatar(username);
+        if(user.username === username) {
             const countPhoto = await this.service.getCountPhotoById(user["_id"]);
             const photo = await this.service.getPhotoIdByIdUser(user["_id"], 0, 4);
 
@@ -51,10 +52,7 @@ export class UserPhotoController {
             });
             return;
         }
-
-
-        if(user && user["username"] !== username) {
-            const idAvatar = await this.service.getIdAvatar(username);
+        if(user.username !== username) {
             const countPhoto = await this.service.getCountPhotoByUsername(username);
             const photo = await this.service.getPhotoByUsername(username, 0, 4);
             const alreadyFriend = await this.service.alreadyFriend(username, user._id);
@@ -82,14 +80,18 @@ export class UserPhotoController {
         @Req() req: Request, @Param("skip", new ParseIntPipe()) skip: number,
         @Query("user") username: string
     ) {
-        if(!req.cookies["token"] || username) {
+        if(username) {
             const photo = await this.service.getPhotoByUsername(username, skip, 4);
 
             return photo;
         }
-        const user = this.jwtService.verify(req.cookies["token"], { secret: secretJwt });
+        try {
+            const user = this.jwtService.verify(req.cookies["token"], {secret: secretJwt});
 
-        return await this.service.getPhotoIdByIdUser(user._id, skip, 4);
+            return await this.service.getPhotoIdByIdUser(user._id, skip, 4);
+        } catch {
+            throw new ForbiddenException();
+        }
     }
 
     @Get("item/:id")
