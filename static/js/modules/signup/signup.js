@@ -10,6 +10,13 @@ form.addEventListener("submit", async function (e) {
     const email = e.target[2].value;
     const password = e.target[3].value;
 
+    if(username.match(/[a-z]/i) === null) {
+        wrapperMessage.style.display = "block";
+        wrapperMessage.style.borderColor = "red";
+        wrapperMessage.innerHTML = "Username should contains only latin letters";
+
+        return;
+    }
     wrapperMessage.style.display = "block";
     wrapperMessage.innerHTML = "Loading ...";
 

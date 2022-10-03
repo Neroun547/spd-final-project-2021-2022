@@ -48,7 +48,11 @@ export class SignUpService {
     }
 
     async confirmAccount(token: string) {
-        const user = await jwt.verify(token, secretJwt);
-        await this.userServiceDb.saveUser(user);
+        try {
+            const user = await jwt.verify(token, secretJwt);
+            await this.userServiceDb.saveUser(user);
+        } catch {
+            throw new BadRequestException(["Bad link ..."]);
+        }
     }
 }

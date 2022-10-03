@@ -1,11 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { MusicsRepository } from "./musics.repository";
-import { MusicsInterface } from "./interfaces/musics.interface";
+import { MusicRepository } from "./music.repository";
+import { MusicInterface } from "./interfaces/music.interface";
 
 @Injectable()
-export class MusicsServiceDb {
-    constructor(@InjectRepository(MusicsRepository) private readonly musicsRepository:MusicsRepository) {};
+export class MusicServiceDb {
+    constructor(@InjectRepository(MusicRepository) private readonly musicsRepository:MusicRepository) {};
 
     async getMusics(skip: number, countMusic: number, publicateUser: number) {
         return await this.musicsRepository.find({ 
@@ -16,7 +16,7 @@ export class MusicsServiceDb {
         });
     }
 
-    async saveMusic(music: MusicsInterface) {
+    async saveMusic(music: MusicInterface) {
         await this.musicsRepository.save(music);
     }
 

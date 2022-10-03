@@ -6,7 +6,7 @@ import { AccountSettingsModule } from "../account-settings/account-settings.modu
 import { SignupModule } from "../signup/signup.module";
 import { AuthModule } from "../auth/auth.module";
 import { MyPhotoModule } from "../my-photo/my-photo.module";
-import { MyMusicsModule } from "../my-musics/my-musics.module";
+import { MyMusicModule } from "../my-music/my-music.module";
 import { RouterModule } from "@nestjs/core";
 import { RootService } from "./root.service";
 import { User } from "../../db/user/user.entity";
@@ -37,7 +37,7 @@ import {JwtModule} from "@nestjs/jwt";
         AuthModule,
         SignupModule,
         MyPhotoModule,
-        MyMusicsModule,
+        MyMusicModule,
         FriendsModule,
         RecoveryPasswordModule,
         UserModule,
@@ -60,8 +60,8 @@ import {JwtModule} from "@nestjs/jwt";
                 module: SignupModule
             }, 
             {
-                path: "/my-musics",
-                module: MyMusicsModule
+                path: "/my-music",
+                module: MyMusicModule
             },
             {
                 path: "/my-video",

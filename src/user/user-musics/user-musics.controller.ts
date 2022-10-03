@@ -39,7 +39,7 @@ export class UserMusicsController {
             const dataMusic = await this.service.getMusicIdById(0, 5, user["_id"]);
             const countMusic = await this.service.getCountMusicById(user["_id"]);
 
-            res.render("my-musics", {
+            res.render("my-music", {
                 username: user["username"],
                 auth: true,
                 idAvatar: user["idAvatar"],
@@ -47,7 +47,7 @@ export class UserMusicsController {
                 loadMore: countMusic > 5 ? true : false,
                 countMusic: countMusic,
                 script:"/js/modules/my-account/my-music/my-music.js",
-                style: "/css/my-musics.css"
+                style: "/css/my-music.css"
             });
 
             return;

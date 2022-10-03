@@ -3,14 +3,14 @@ import { Request, Response } from "express";
 import { UseInterceptors } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { diskStorage } from "multer";
-import { MyMusicsService } from "./service/myMusics.service";
+import { MyMusicService } from "./service/my-music.service";
 import { UploadMusicDto } from "./dto/upload-music.dto";
 import {JwtAuthGuard} from "../auth/guard/jwt-auth.guard";
 
 @Controller()
-export class MyMusicsController {
+export class MyMusicController {
 
-    constructor(private readonly myMusicsService: MyMusicsService){}
+    constructor(private readonly myMusicsService: MyMusicService){}
 
     @UseGuards(JwtAuthGuard)
     @Get("upload-new-musics-form")

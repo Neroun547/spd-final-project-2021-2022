@@ -1,8 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { MusicsInterface } from "./interfaces/musics.interface";
+import { MusicInterface } from "./interfaces/music.interface";
 
 @Entity()
-export class Music implements MusicsInterface {
+export class Music implements MusicInterface {
     constructor(){}
 
     @PrimaryGeneratedColumn()

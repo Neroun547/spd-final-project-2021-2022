@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { FriendsServiceDb } from "db/friends/friends.service";
 import { FriendPendingServiceDb } from "db/friends-panding/friend-panding.service";
-import { MusicsServiceDb } from "db/musics/musics.service";
+import { MusicServiceDb } from "db/musics/music.service";
 import { UserServiceDb } from "db/user/user.service";
 import { createReadStream, existsSync, statSync } from "fs";
 import { Request, Response } from "express";  
@@ -13,7 +13,7 @@ export class UserMusicsService {
         private userServiceDb: UserServiceDb,
         private friendsServiceDb: FriendsServiceDb,
         private friendPendingServiceDb: FriendPendingServiceDb,
-        private musicsServiceDb: MusicsServiceDb
+        private musicsServiceDb: MusicServiceDb
     ) {}
 
     async getIdAvatar(username: string){
@@ -32,14 +32,12 @@ export class UserMusicsService {
                 pending: false
             }
         }
-
         if(pendingFriend) {
             return {
                 accept: false,
                 pending: true
             }
         }
-
         return {
             accept: false,
             pending: false

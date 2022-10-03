@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common"; 
 import { UserModuleDb } from "../../db/user/user.module";
 import { PhotoModuleDb } from "../../db/photo/photo.module";
-import { MusicsModuleDb } from "../../db/musics/musics.module";
+import { MusicsModuleDb } from "../../db/musics/music.module";
 import { VideoModuleDb } from "../../db/video/video.module";
 import { FriendPandingEntityModule } from "../../db/friends-panding/friend-panding.module";
 import { FriendsModuleDb } from "db/friends/friends.module";
