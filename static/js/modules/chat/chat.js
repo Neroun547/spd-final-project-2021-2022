@@ -1,4 +1,4 @@
-import { createElement } from "../../common/createElement.js";
+import { createElement } from "../../common/create-element.js";
 import { ApiService } from "../../services/api-call.service.js";
 import { socket } from "./socketConnect.js";
 import { config } from "../../config/config.js";

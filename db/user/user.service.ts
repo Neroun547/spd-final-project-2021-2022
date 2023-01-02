@@ -111,4 +111,8 @@ export class UserServiceDb {
         .andWhere(`chats.sender = ${sender}`)
         .getMany();
     }
+
+    async deleteUserById(id: number) {
+        await this.userRepository.delete({ _id: id });
+    }
 }

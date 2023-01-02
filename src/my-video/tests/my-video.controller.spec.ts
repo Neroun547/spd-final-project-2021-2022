@@ -3,7 +3,6 @@ import { MyVideoController } from "../my-video.controller";
 import { MyVideo } from "../service/my-video.service";
 import { request } from "express";
 import { INestApplication } from '@nestjs/common';
-import { UploadVideoDto } from '../dto/upload-video.dto';
 
 describe("myVideoController", () => {
   let module: TestingModule;  

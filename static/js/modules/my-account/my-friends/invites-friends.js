@@ -1,4 +1,4 @@
-import { createElement } from "../../../common/createElement.js";
+import { createElement } from "../../../common/create-element.js";
 import { ApiService } from "../../../services/api-call.service.js";
 
 const loadMoreInvitesBtn = document.querySelector(".load-more-invites");

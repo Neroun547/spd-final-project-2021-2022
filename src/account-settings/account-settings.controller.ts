@@ -1,4 +1,16 @@
-import {Body, Controller, Get, Post, Put, Req, Res, UploadedFile, UseGuards, UseInterceptors} from "@nestjs/common";
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    Post,
+    Put,
+    Req,
+    Res,
+    UploadedFile,
+    UseGuards,
+    UseInterceptors
+} from "@nestjs/common";
 import { Request, Response } from "express";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { AccountSettingsService } from "./service/account-settings.service";
@@ -22,9 +34,19 @@ export class AccountSettingsController {
             username: req.user["username"],
             email: req.user["email"],
             idAvatar: req.user["idAvatar"],
-            style: "/css/account-settings.css"
+            style: "/css/account-settings.css",
+            script: ["/js/modules/my-account/account-settings/account-settings.js"]
         });
     };
+
+    @UseGuards(JwtAuthGuard)
+    @Delete()
+    async deleteAccount(@Req() req: Request, @Res() res: Response) {
+        await this.service.deleteAccount(req.user["_id"]);
+
+        res.clearCookie("token");
+        res.sendStatus(204);
+    }
 
     @UseGuards(JwtAuthGuard)
     @Post("upload-avatar")

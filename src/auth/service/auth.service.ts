@@ -14,15 +14,12 @@ export class AuthService {
         if(!userInDb) {
             throw new BadRequestException(["Invalid username"]);
         }
-
         const verify = await bcrypt.compare(user.password, userInDb.password);
 
         if(!verify) {
             throw new BadRequestException(["Invalid password"]);
         }
-
         const token = this.jwtService.sign({...userInDb});
-        
         return token;
     }
 }

@@ -11,6 +11,7 @@ import * as bcrypt from "bcrypt";
 import * as nodemailer from "nodemailer";
 import { email, passwordEmail } from "config.json";
 import { host, appPort, protocol } from "config.json";
+import {UserInterface} from "../../../db/user/interfaces/user.interface";
 
 /* Don't good service ... maybe TODO -_-*/
 
@@ -30,6 +31,10 @@ export class AccountSettingsService {
         await this.userServiceDb.updateAvatar(idAvatar, avatar, user.email);
 
         return jwt.sign({ ...user, idAvatar: idAvatar }, secretJwt);
+    }
+
+    async deleteAccount(id) {
+        await this.userServiceDb.deleteUserById(id);
     }
 
     async getAvatar(id: string, req: Request, res: Response): Promise<void> {
