@@ -33,7 +33,7 @@ if(loadMoreMusics) {
             deleteMusic.addEventListener("click", async function () {
                 const element = this.parentElement.parentElement;
         
-                await apiService.apiCall(`/my-musics/delete/${element.getAttribute("id")}`, "DELETE");
+                await apiService.apiCall(`/my-music/delete/${element.getAttribute("id")}`, "DELETE");
                 element.remove();
         
                 countTrack.innerHTML = String(Number(countTrack.textContent) - 1);
@@ -53,7 +53,7 @@ for (let i = 0; i < deleteMusic.length; i++) {
     deleteMusic[i].addEventListener("click", async function () {
         const element = this.parentElement.parentElement;
 
-        await apiService.apiCall(`/my-musics/delete/${element.getAttribute("id")}`, "DELETE");
+        await apiService.apiCall(`/my-music/delete/${element.getAttribute("id")}`, "DELETE");
         element.remove();
 
         countTrack.innerHTML = String(Number(countTrack.textContent) - 1);
