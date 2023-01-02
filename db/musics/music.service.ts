@@ -31,7 +31,15 @@ export class MusicServiceDb {
         return deleteItem;
     }
 
-    async getMusicsById(idMusic: string) {
+    async getMusicById(idMusic: string) {
         return await this.musicsRepository.findOne({ idMusic: idMusic });
+    }
+
+    async getAllMusicByPublicateUser(publicateUser: number) {
+        return await this.musicsRepository.find({ publicateUser: publicateUser });
+    }
+
+    async deleteAllMusicByPublicateUser(publicateUser: number) {
+        await this.musicsRepository.delete({ publicateUser: publicateUser });
     }
 }

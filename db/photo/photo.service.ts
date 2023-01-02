@@ -29,4 +29,12 @@ export class PhotoServiceDb {
     async getCountPhoto(publicateUser: number) {
         return await this.photoRepository.count({ author: publicateUser });
     }
+
+    async getAllPhotoByAuthor(author: number) {
+        return await this.photoRepository.find({ author: author });
+    }
+
+    async deleteAllPhotoByAuthor(author: number) {
+        await this.photoRepository.delete({ author: author });
+    }
 }

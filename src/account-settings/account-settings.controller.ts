@@ -42,9 +42,9 @@ export class AccountSettingsController {
     @UseGuards(JwtAuthGuard)
     @Delete()
     async deleteAccount(@Req() req: Request, @Res() res: Response) {
-        await this.service.deleteAccount(req.user["_id"]);
+        await this.service.deleteAccount(req.user);
 
-        res.clearCookie("token");
+        res.cookie("token", "");
         res.sendStatus(204);
     }
 

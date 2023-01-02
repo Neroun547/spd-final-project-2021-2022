@@ -2,6 +2,7 @@ import { ExtractJwt, Strategy } from "passport-jwt";
 import { PassportStrategy } from "@nestjs/passport";
 import { Injectable } from "@nestjs/common";
 import { secretJwt } from "config.json";
+import {UserInterface} from "../../db/user/interfaces/user.interface";
 
 function cookieExtractor(req) {
     let token = null;
@@ -22,7 +23,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         });
     }
 
-    async validate(payload: any) {
+    async validate(payload: any): Promise<UserInterface> {
         return {
             username: payload.username,
             idAvatar: payload.idAvatar,

@@ -33,4 +33,12 @@ export class VideoServiceDb {
     async updateParamsVideo(publicateUser: number, name: string, description: string, idVideo: string) {
         await this.videoRepository.update({ idVideo, publicateUser }, { name, description });
     }
+
+    async getAllVideoByPublicateUser(publicateUser: number) {
+        return await this.videoRepository.find({ publicateUser });
+    }
+
+    async deleteAllVideoByPublicateUser(publicateUser: number) {
+        await this.videoRepository.delete({ publicateUser: publicateUser });
+    }
 }

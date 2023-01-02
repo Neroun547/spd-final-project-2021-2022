@@ -65,7 +65,7 @@ export class UserMusicsService {
     }
 
     async getMusic(id: string, req: Request, res: Response) {
-        const filename = await this.musicsServiceDb.getMusicsById(id);
+        const filename = await this.musicsServiceDb.getMusicById(id);
 
         if(!existsSync(resolve(`musics/${filename.music}`))) {
             res.sendStatus(404);

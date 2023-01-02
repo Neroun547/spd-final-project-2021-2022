@@ -34,4 +34,12 @@ export class ArticlesServiceDb {
         .take(take)
         .getMany()
     }
+
+    async getAllArticlesByPublicateUser(publicateUser: number) {
+        return await this.repository.find({ publicateUser: publicateUser });
+    }
+
+    async deleteAllArticlesByPublicateUser(publicateUser: number) {
+        await this.repository.delete({  publicateUser: publicateUser });
+    }
 }
