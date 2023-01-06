@@ -62,16 +62,18 @@ export class MyArticlesController {
             auth: true,
             username: req.user["username"],
             idAvatar: req.user["idAvatar"],
-            style: "/css/write-article-with-html.css"
+            style: "/css/write-article-with-html.css",
+            headScript: "/js/modules/my-account/my-articles/article-editor.js",
+            script: "/js/modules/my-account/my-articles/upload-article-with-html.js"
         });
     }
 
     @UseGuards(JwtAuthGuard)
     @Post("write-article-with-html")
-    async writeArticleWithHtml(@Req() req: Request, @Body() article: UploadArticleWithHtmlDto, @Res() res: Response) { 
+    async writeArticleWithHtml(@Req() req: Request, @Body() article: UploadArticleWithHtmlDto, @Res() res: Response) {
         await this.myArticlesService.writeArticleWithHtml(article, req.user["_id"]);
 
-        res.redirect(`/user/articles/${req.user["username"]}`);
+        res.send({ message: `/user/articles/${req.user["username"]}` });
     }
 
     @UseGuards(JwtAuthGuard)
