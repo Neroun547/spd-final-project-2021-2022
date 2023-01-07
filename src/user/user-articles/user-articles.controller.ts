@@ -11,6 +11,11 @@ export class UserArticlesController {
         private jwtService: JwtService
     ) {}
 
+    @Get("back/:idArticle")
+    async goBackToArticles(@Param("idArticle") idArticle: string, @Res() res: Response) {
+        const username = await this.service.getAuthorUsernameByArticleId(idArticle);
+        res.redirect("/user/articles/" + username);
+    }
 
     @Get("load-articles-by-theme")
     async loadArticleByTheme(@Query("theme") theme: string, @Query("username") username: string) {
@@ -97,12 +102,14 @@ export class UserArticlesController {
                 auth: true,
                 username: user.username,
                 idAvatar: user.idAvatar,
-                style: "/css/article.css"
+                style: "/css/article.css",
+                script: "/js/modules/another-user/another-user-articles/another-user-article.js"
             });
         } catch {
             res.render(`articles/${article.article}`, {
                 auth: false,
-                style: "/css/article.css"
+                style: "/css/article.css",
+                script: "/js/modules/another-user/another-user-articles/another-user-article.js"
             });
         }
     }

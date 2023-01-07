@@ -72,4 +72,10 @@ export class UserArticlesService {
         
         return articles.map(el => ({ idArticle: el.idArticle, title: el.title, theme: el.theme, date: el.date }));
     }
+
+    async getAuthorUsernameByArticleId(articleId: string) {
+        const articleAuthor = (await this.articlesServiceDb.getArticleById(articleId)).publicateUser;
+
+        return (await this.userServiceDb.findUserById(articleAuthor)).username;
+    }
 }
