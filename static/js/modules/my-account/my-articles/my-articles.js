@@ -117,3 +117,11 @@ for(let i = 0; i < deleteBtn.length; i++) {
         skipArticles-=1;
     });
 }
+
+window.addEventListener("click", function (e) {
+   for(let i = 0; i < wrapperArticleDecorationMenu.length; i++) {
+       if(![...e.target.classList].find(el => el === "wrapper__article-item-decoration-menu")) {
+           wrapperArticleDecorationMenu[i].nextElementSibling.classList.remove("wrapper__article-item-menu-show");
+       }
+   }
+});

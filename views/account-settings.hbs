@@ -7,7 +7,7 @@
         {{/if}}
     </div> 
     <form action="/account-settings/upload-avatar" method="POST" enctype="multipart/form-data" class="account__settings-form">
-        <input type="file" name="file" data-role="file" data-button-title="<span class='mif-folder'></span>">
+        <input type="file" name="file" data-role="file" data-button-title="<span class='mif-folder'></span>" required>
         <button type="submit" class="account__settings-upload-avatar-btn">Upload avatar</button>
     </form>
     <div class="account__settings-block">
