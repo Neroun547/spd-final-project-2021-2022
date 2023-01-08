@@ -15,12 +15,22 @@
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/nav.css">
     <link rel="stylesheet" href="/css/footer.css">
-    <link rel="stylesheet" href="{{style}}">
+    {{#if styles}}
+        {{#each styles}}
+            <link rel="stylesheet" href="{{this}}">
+        {{/each}}
+    {{/if}}
     <!-- TinyMCE CDN -->
     <script src="https://cdn.tiny.cloud/1/fqqboid3jj5dviefd7qko96da2nnz3run5y6af5t891srayh/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-
+    <!-- Socket script -->
     <script src="{{socketScript}}" integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs" crossorigin="anonymous"></script>
-    <script src="{{headScript}}" type="module"></script>
+
+    {{#if headScripts}}
+        {{#each headScripts}}
+            <script src="{{this}}" type="module"></script>
+        {{/each}}
+    {{/if}}
+
     {{#if auth}}
         <script src="/js/main.js" type="module"></script>
     {{/if}}

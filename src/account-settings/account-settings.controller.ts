@@ -34,8 +34,8 @@ export class AccountSettingsController {
             username: req.user["username"],
             email: req.user["email"],
             idAvatar: req.user["idAvatar"],
-            style: "/css/account-settings.css",
-            script: ["/js/modules/my-account/account-settings/account-settings.js"]
+            styles: ["/css/account-settings.css"],
+            scripts: ["/js/modules/my-account/account-settings/account-settings.js"]
         });
     };
 
@@ -91,8 +91,8 @@ export class AccountSettingsController {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
-            style: "/css/signInForm.css",
-            script: ["/js/modules/my-account/account-settings/new-name/new-name.js"]
+            styles: ["/css/signInForm.css"],
+            scripts: ["/js/modules/my-account/account-settings/new-name/new-name.js"]
         });
     }
 
@@ -113,8 +113,8 @@ export class AccountSettingsController {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
-            style: "/css/signInForm.css",
-            script: ["/js/modules/my-account/account-settings/new-username/new-username.js"]
+            styles: ["/css/signInForm.css"],
+            scripts: ["/js/modules/my-account/account-settings/new-username/new-username.js"]
         });
     }
 
@@ -135,7 +135,7 @@ export class AccountSettingsController {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
-            style: "/css/signInForm.css"
+            styles: ["/css/signInForm.css"]
         });
     }
 
@@ -154,8 +154,8 @@ export class AccountSettingsController {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
-            style: "/css/signInForm.css",
-            script: ["/js/modules/my-account/account-settings/new-password/new-password.js"]
+            styles: ["/css/signInForm.css"],
+            scripts: ["/js/modules/my-account/account-settings/new-password/new-password.js"]
         });
     }
 
@@ -176,8 +176,8 @@ export class AccountSettingsController {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
-            style: "/css/signInForm.css",
-            script: ["/js/modules/my-account/account-settings/new-email/new-email.js"]
+            styles: ["/css/signInForm.css"],
+            scripts: ["/js/modules/my-account/account-settings/new-email/new-email.js"]
         });
     }
 

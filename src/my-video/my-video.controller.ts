@@ -30,8 +30,8 @@ export class MyVideoController {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
-            style: "/css/signInForm.css",
-            script: "/js/modules/my-account/my-video/upload-video.js"
+            styles: ["/css/signInForm.css"],
+            scripts: ["/js/modules/my-account/my-video/upload-video.js"]
         });
     }
 
@@ -112,10 +112,10 @@ export class MyVideoController {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
-            style: "/css/my-video.css",
+            styles: ["/css/my-video.css"],
             video: video,
             loadMore: countVideo > 2 ? true : false,
-            script: "/js/modules/my-account/my-video/my-video.js"
+            scripts: ["/js/modules/my-account/my-video/my-video.js"]
         });
     }
 
@@ -164,9 +164,9 @@ export class MyVideoController {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
-            style: "/css/signInForm.css",
+            styles: ["/css/signInForm.css"],
             idVideo: req.params["id"],
-            script: "/js/modules/my-account/my-video/change-params-video.js"
+            scripts: ["/js/modules/my-account/my-video/change-params-video.js"]
         });
     }
 
@@ -177,9 +177,9 @@ export class MyVideoController {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
-            style: "/css/signInForm.css",
+            styles: ["/css/signInForm.css"],
             idVideo: req.params["id"],
-            script: "/js/modules/my-account/my-video/change-params-private-video.js"
+            scripts: ["/js/modules/my-account/my-video/change-params-private-video.js"]
         });
     }
 
@@ -196,8 +196,8 @@ export class MyVideoController {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
-            script: "/js/modules/my-account/my-video/upload-video-from-web-camera.js",
-            style: "/css/upload-new-video-from-web-camera.css"
+            scripts: ["/js/modules/my-account/my-video/upload-video-from-web-camera.js"],
+            styles: ["/css/upload-new-video-from-web-camera.css"]
         });
     }
 }

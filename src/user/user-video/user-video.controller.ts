@@ -29,8 +29,8 @@ export class UserVideoController {
                 activeUser: username,
                 avatarAnotherUser: idAvatar,
                 loadMore: countVideo > 2 ? true : false,
-                script: "/js/modules/another-user/another-user-video/another-user-video.js",
-                style: "/css/another-user.css"
+                scripts: ["/js/modules/another-user/another-user-video/another-user-video.js"],
+                styles: ["/css/another-user.css"]
             });
 
             return;
@@ -47,8 +47,8 @@ export class UserVideoController {
                 idAvatar: user.idAvatar,
                 avatarAnotherUser: idAvatar,
                 loadMore: countVideo > 2 ? true : false,
-                script: "/js/modules/my-account/my-video/my-video.js",
-                style: "/css/another-user.css"
+                scripts: ["/js/modules/my-account/my-video/my-video.js"],
+                styles: ["/css/another-user.css"]
             });
         
             return;
@@ -68,8 +68,8 @@ export class UserVideoController {
                 activeUser: req.params["username"],
                 avatarAnotherUser: idAvatar,
                 loadMore: countVideo > 2 ? true : false,
-                script: "/js/modules/another-user/another-user-video/another-user-video.js",
-                style: "/css/another-user.css"
+                scripts: ["/js/modules/another-user/another-user-video/another-user-video.js"],
+                styles: ["/css/another-user.css"]
             });
 
             return;

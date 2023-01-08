@@ -19,8 +19,8 @@ export class FriendsController {
             idAvatar: req.user["idAvatar"],
             friends: friends,
             countFriends: countFriends,
-            script:"/js/modules/my-account/my-friends/friends.js",
-            style: "/css/friends.css",
+            scripts: ["/js/modules/my-account/my-friends/friends.js"],
+            styles: ["/css/friends.css"],
             loadMoreFriends: countFriends > 4 ? true : false
         });
     }

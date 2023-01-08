@@ -28,8 +28,8 @@ export class UserMusicsController {
                 activeUser: username,
                 avatarAnotherUser: idAvatar,
                 loadMoreMusic: countMusic > 5 ? true : false,
-                script: "/js/modules/another-user/another-user-music/another-user-music.js",
-                style: "/css/another-user.css"
+                scripts: ["/js/modules/another-user/another-user-music/another-user-music.js"],
+                style: ["/css/another-user.css"]
             });
 
             return;
@@ -46,8 +46,8 @@ export class UserMusicsController {
                 musics: dataMusic,
                 loadMore: countMusic > 5 ? true : false,
                 countMusic: countMusic,
-                script:"/js/modules/my-account/my-music/my-music.js",
-                style: "/css/my-music.css"
+                script: ["/js/modules/my-account/my-music/my-music.js"],
+                styles: ["/css/my-music.css"]
             });
 
             return;
@@ -65,8 +65,8 @@ export class UserMusicsController {
                 alreadyFriend: alreadyFriend.accept,
                 pendingFriend: alreadyFriend.pending,
                 loadMoreMusic: countMusic > 5 ? true : false,
-                script: "/js/modules/another-user/another-user-music/another-user-music.js",
-                style: "/css/another-user.css"
+                scripts: ["/js/modules/another-user/another-user-music/another-user-music.js"],
+                styles: ["/css/another-user.css"]
             });
 
             return;

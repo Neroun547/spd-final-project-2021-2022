@@ -19,8 +19,8 @@ export class AddFriendController {
             idAvatar: req.user["idAvatar"],
             invites: inviteFriends,
             loadMoreInvites: countInvites > 5 ? true : false,
-            script: "/js/modules/my-account/my-friends/invites-friends.js",
-            style: "/css/add-friends.css"
+            scripts: ["/js/modules/my-account/my-friends/invites-friends.js"],
+            styles: ["/css/add-friends.css"]
         });
     }
 

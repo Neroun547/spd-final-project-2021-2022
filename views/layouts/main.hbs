@@ -1,27 +1,28 @@
 {{>head}}
 <body>
-    <div class="nav__block">
-        {{>nav}}
-    </div>
-    <div class="content__block">
-         {{{body}}}
-    </div>
-    <div class="footer__block">
-        {{>footer}}
-    </div>
+<div class="nav__block">
+    {{>nav}}
+</div>
+<div class="content__block">
+    {{{body}}}
+</div>
+<div class="footer__block">
+    {{>footer}}
+</div>
 
-    <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
-    {{!-- <script src="/js/config/config.js" type="module"></script> --}}
+<!-- Metro cdn -->
+<script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
+<!-- jQuery first, then Popper.js -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.6.0/umd/popper.min.js" integrity="sha512-BmM0/BQlqh02wuK5Gz9yrbe7VyIVwOzD1o40yi1IsTjriX/NGF37NyXHfmFzIlMmoSIBXgqDiG1VNU6kB5dBbA==" crossorigin="anonymous"></script>
 
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.6.0/umd/popper.min.js" integrity="sha512-BmM0/BQlqh02wuK5Gz9yrbe7VyIVwOzD1o40yi1IsTjriX/NGF37NyXHfmFzIlMmoSIBXgqDiG1VNU6kB5dBbA==" crossorigin="anonymous"></script>
-
-    <script src="/js/views/burger-menu.js" type="module"></script>
-    <script src="/js/common/createElement.js" type="module"></script>
-    <script src="/js/services/api-call.service.js" type="module"></script>
-    <script src="{{script}}" type="module"></script>
+<script src="/js/views/burger-menu.js" type="module"></script>
+<script src="/js/common/createElement.js" type="module"></script>
+<script src="/js/services/api-call.service.js" type="module"></script>
+{{#if scripts}}
+    {{#each scripts}}
+        <script src="{{this}}" type="module"></script>
+    {{/each}}
+{{/if}}
 </body>
 </html>

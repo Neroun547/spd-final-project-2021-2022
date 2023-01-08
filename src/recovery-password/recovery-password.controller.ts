@@ -24,8 +24,8 @@ export class RecoveryPasswordController {
     @Get("check-email-form")
     checkEmailForm(@Req() req: Request, @Res() res: Response) {
         res.render("check-email-form.hbs", {
-            style: "/css/signInForm.css",
-            script: "/js/modules/recovery-password/recovery-password.js"
+            styles: ["/css/signInForm.css"],
+            scripts: ["/js/modules/recovery-password/recovery-password.js"]
         });
     }
 
@@ -66,7 +66,7 @@ export class RecoveryPasswordController {
 
             res.render("recovery-password-form.hbs", {
                 email: user["email"],
-                style: "/css/signInForm.css"
+                styles: ["/css/signInForm.css"]
             });
         } catch {
             throw new BadRequestException([ "Bad Request" ]);

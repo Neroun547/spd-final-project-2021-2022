@@ -18,7 +18,7 @@ export class MyArticlesController {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
-            style: "/css/signInForm.css"
+            styles: ["/css/signInForm.css"]
         });
     }
 
@@ -62,9 +62,9 @@ export class MyArticlesController {
             auth: true,
             username: req.user["username"],
             idAvatar: req.user["idAvatar"],
-            style: "/css/write-article-with-html.css",
-            headScript: "/js/modules/my-account/my-articles/article-editor.js",
-            script: "/js/modules/my-account/my-articles/upload-article-with-html.js"
+            styles: ["/css/write-article-with-html.css"],
+            headScripts: ["/js/modules/my-account/my-articles/article-editor.js"],
+            scripts: ["/js/modules/my-account/my-articles/upload-article-with-html.js"]
         });
     }
 

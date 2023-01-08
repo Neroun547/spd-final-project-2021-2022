@@ -9,8 +9,8 @@ export class SignUpController {
     @Get()
     signUpPage(@Res() res:Response){
         res.render("signup", {
-            style: "/css/signInForm.css",
-            script: "/js/modules/signup/signup.js"
+            styles: ["/css/signInForm.css"],
+            scripts: ["/js/modules/signup/signup.js"]
         });
     }
 

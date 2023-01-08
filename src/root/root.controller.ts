@@ -20,7 +20,7 @@ export class RootController {
     if(!req.cookies["token"]) {
       res.render("info", {
         auth: false,
-        script: "/js/modules/search-user/search-user-form.js"
+        scripts: ["/js/modules/search-user/search-user-form.js"]
       });
 
       return;
@@ -32,7 +32,7 @@ export class RootController {
     } catch {
       res.render("info", {
         auth: false,
-        script: "/js/modules/search-user/search-user-form.js"
+        scripts: ["/js/modules/search-user/search-user-form.js"]
       });
 
       return;
@@ -41,7 +41,7 @@ export class RootController {
       username: userFromToken["username"],
       auth: true,
       idAvatar: userFromToken["idAvatar"],
-      script: "/js/modules/search-user/search-user-form.js"
+      scripts: ["/js/modules/search-user/search-user-form.js"]
     });
   }
 

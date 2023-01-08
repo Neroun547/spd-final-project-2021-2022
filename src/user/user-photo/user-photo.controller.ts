@@ -29,8 +29,8 @@ export class UserPhotoController {
                 photo: photo,
                 activeUser: req.params["username"],
                 loadMore: countPhoto > 4 ? true : false,
-                script: "/js/modules/another-user/another-user-photo/another-user-photo.js",
-                style: "/css/another-user.css"
+                scripts: ["/js/modules/another-user/another-user-photo/another-user-photo.js"],
+                styles: ["/css/another-user.css"]
             });
 
             return;
@@ -47,8 +47,8 @@ export class UserPhotoController {
                 photo: photo,
                 activeUser: req.params["username"],
                 loadMore: countPhoto > 4 ? true : false,
-                script: "/js/modules/my-account/my-photo/my-photo.js",
-                style: "/css/another-user.css"
+                scripts: ["/js/modules/my-account/my-photo/my-photo.js"],
+                styles: ["/css/another-user.css"]
             });
             return;
         }
@@ -67,8 +67,8 @@ export class UserPhotoController {
                 pendingFriend: alreadyFriend.pending,
                 activeUser: req.params["username"],
                 loadMore: countPhoto > 4 ? true : false,
-                script: "/js/modules/another-user/another-user-photo/another-user-photo.js",
-                style: "/css/another-user.css"
+                scripts: ["/js/modules/another-user/another-user-photo/another-user-photo.js"],
+                styles: ["/css/another-user.css"]
             });
 
             return;

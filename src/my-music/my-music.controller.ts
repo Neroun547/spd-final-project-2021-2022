@@ -19,7 +19,7 @@ export class MyMusicController {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
-            style: "/css/signInForm.css"
+            styles: ["/css/signInForm.css"]
         });
     }
 
