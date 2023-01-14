@@ -1,10 +1,22 @@
-import {Body, Controller, Delete, Get, Param, Post, Req, Res, UseGuards, UseInterceptors} from "@nestjs/common";
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    Param,
+    Patch,
+    Post,
+    Req,
+    Res,
+    UseGuards,
+    UseInterceptors
+} from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { Request, Response } from "express";
 import { diskStorage } from "multer";
-import { MyArticlesDto } from "./dto/myArticles.dto";
-import { UploadArticleWithHtmlDto } from "./dto/uploadArticleWithHtml.dto";
-import { MyArticlesService } from "./service/myArticles.service";
+import { UploadArticleDto } from "./dto/upload-article.dto";
+import { UploadArticleWithHtmlDto } from "./dto/upload-article-with-html.dto";
+import { MyArticlesService } from "./service/my-articles.service";
 import {JwtAuthGuard} from "../auth/guard/jwt-auth.guard";
 
 @Controller()
@@ -44,7 +56,7 @@ export class MyArticlesController {
             }
         })
     }))
-    async uploadNewArticle(@Req() req: Request, @Body() body: MyArticlesDto, @Res() res: Response) {
+    async uploadNewArticle(@Req() req: Request, @Body() body: UploadArticleDto, @Res() res: Response) {
         await this.myArticlesService.convertDocxToHtmlAndDeleteDocx({ 
             filename: req.file.filename,
             theme: body.theme,
@@ -82,5 +94,26 @@ export class MyArticlesController {
         await this.myArticlesService.deleteArticle(idArticle, req.user["_id"]);
 
         res.sendStatus(200);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get("change-params-form/:idArticle")
+    changeParamsArticleForm(@Param("idArticle") idArticle: string, @Req() req: Request, @Res() res: Response) {
+        res.render("change-article-param-form", {
+            idArticle: idArticle,
+            auth: true,
+            idAvatar: req.user["idAvatar"],
+            username: req.user["username"],
+            scripts: ["/js/modules/my-account/my-articles/change-params-article.js"],
+            styles: ["/css/signInForm.css"]
+        });
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Patch(":idArticle")
+    async changeParamsArticle(@Body() newParams: UploadArticleDto, @Param("idArticle") idArticle: string, @Req() req: Request) {
+        await this.myArticlesService.changeParamsArticle(newParams, req.user["_id"], idArticle);
+
+        return { message: "Params changed success" };
     }
 }

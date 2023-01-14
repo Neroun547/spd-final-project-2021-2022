@@ -5,6 +5,7 @@
 .wrapper__article {
     background-color: #fafafa;
     padding: 10px 20px;
+    hyphens: auto;
 }
 
 .load-more-articles-btn {

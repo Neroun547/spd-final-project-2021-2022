@@ -42,4 +42,8 @@ export class ArticlesServiceDb {
     async deleteAllArticlesByPublicateUser(publicateUser: number) {
         await this.repository.delete({  publicateUser: publicateUser });
     }
+
+    async changeParamsArticle(publicateUser: number, idArticle: string, theme: string, title: string) {
+        await this.repository.update({ publicateUser: publicateUser, idArticle: idArticle }, { theme: theme, title: title });
+    }
 }

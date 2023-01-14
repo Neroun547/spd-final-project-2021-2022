@@ -3,7 +3,7 @@ import { ApiService } from "../../../services/api-call.service.js";
 
 const wrapperArticles = document.querySelector(".wrapper__articles");
 const loadMoreArticles = document.querySelector(".load-more-articles-btn");
-const wrapperArticleDecorationMenu = document.querySelectorAll(".wrapper__article-item-decoration-menu");
+let wrapperArticleDecorationMenuElements = document.querySelectorAll(".wrapper__article-item-decoration-menu");
 const deleteBtn = document.querySelectorAll(".delete-article-btn");
 const wrapperSearchArticleInput = document.querySelector(".wrapper__search-article-input");
 const wrapperAbout = document.querySelector(".wrapper__about");
@@ -30,8 +30,9 @@ function makeNewArticles(el) {
     createElement(wrapperArticleDecorationMenu, "div", { class: "wrapper__article-item-decoration-menu-decoration" });
 
     const articleMenuList = createElement(wrapperItemArticleLogo, "ul", { class: "wrapper__article-item-menu-hide" });
-    const itemMenuList = createElement(articleMenuList, "li");
-    const deleteBtn = createElement(itemMenuList, "button", { class: "delete-article-btn", id: el.idArticle });
+    /* Create delete article btn ... */
+    const itemMenuListForDeleteBtn = createElement(articleMenuList, "li");
+    const deleteBtn = createElement(itemMenuListForDeleteBtn, "button", { class: "delete-article-btn", id: el.idArticle });
 
     deleteBtn.addEventListener("click", async function () {
         await apiService.apiCall(`/my-articles/${this.getAttribute("id")}`, "DELETE");
@@ -39,6 +40,10 @@ function makeNewArticles(el) {
         skipArticles-=1;
     });
     deleteBtn.innerHTML = "Delete article";
+    /* Create change params article btn */
+    const itemMenuListForChangeParamsBtn = createElement(articleMenuList, "li");
+    const changeParamsBtnLink = createElement(itemMenuListForChangeParamsBtn, "a", { href: `/my-articles/change-params-form/${el.idArticle}` });
+    createElement(changeParamsBtnLink, "button").innerHTML = "Change params";
 
     const logoTheme = createElement(wrapperItemArticle, "h4", { class: "wrapper__article-theme" });
     logoTheme.innerHTML = `<strong>Theme: </strong> ${el.theme}`;
@@ -48,6 +53,8 @@ function makeNewArticles(el) {
 
     const link = createElement(wrapperItemArticle, "a", { href: `/user/articles/article/${el.idArticle}`, class: "read-article-link" });
     link.innerHTML = "Read";
+
+    wrapperArticleDecorationMenuElements = document.querySelectorAll(".wrapper__article-item-decoration-menu");
 }
 
 wrapperSearchArticleInput.addEventListener("input", function (e) {
@@ -102,10 +109,10 @@ if(loadMoreArticles) {
             makeNewArticles(el);
         });
     });
-};
+}
 
-for(let i = 0; i < wrapperArticleDecorationMenu.length; i++) {
-    wrapperArticleDecorationMenu[i].addEventListener("click", function () {
+for(let i = 0; i < wrapperArticleDecorationMenuElements.length; i++) {
+    wrapperArticleDecorationMenuElements[i].addEventListener("click", function () {
         this.nextElementSibling.classList.toggle("wrapper__article-item-menu-show");
     });
 }
@@ -119,9 +126,10 @@ for(let i = 0; i < deleteBtn.length; i++) {
 }
 
 window.addEventListener("click", function (e) {
-   for(let i = 0; i < wrapperArticleDecorationMenu.length; i++) {
-       if(![...e.target.classList].find(el => el === "wrapper__article-item-decoration-menu")) {
-           wrapperArticleDecorationMenu[i].nextElementSibling.classList.remove("wrapper__article-item-menu-show");
+   for(let i = 0; i < wrapperArticleDecorationMenuElements.length; i++) {
+       if(![...e.target.classList].find(el => el === "wrapper__article-item-decoration-menu")
+           && ![...e.target.classList].find(el => el === "wrapper__article-item-decoration-menu-decoration")) {
+           wrapperArticleDecorationMenuElements[i].nextElementSibling.classList.remove("wrapper__article-item-menu-show");
        }
    }
 });
