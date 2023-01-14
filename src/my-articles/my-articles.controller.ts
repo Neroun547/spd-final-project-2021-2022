@@ -76,7 +76,7 @@ export class MyArticlesController {
             idAvatar: req.user["idAvatar"],
             styles: ["/css/write-article-with-html.css"],
             headScripts: ["/js/modules/my-account/my-articles/article-editor.js"],
-            scripts: ["/js/modules/my-account/my-articles/upload-article-with-html.js"]
+            scripts: ["/js/modules/my-account/my-articles/upload-article-with-redactor.js"]
         });
     }
 
