@@ -23,14 +23,14 @@ export class UserPhotoController {
             const countPhoto = await this.service.getCountPhotoByUsername(username);
             const photo = await this.service.getPhotoByUsername(username, 0, 4);
 
-            res.render("user", {
+            res.render("modules/photo/user-photo", {
                 auth: false,
                 avatarAnotherUser: idAvatar,
                 photo: photo,
                 activeUser: req.params["username"],
                 loadMore: countPhoto > 4 ? true : false,
-                script: "/js/modules/another-user/another-user-photo/another-user-photo.js",
-                style: "/css/another-user.css"
+                scripts: ["/js/modules/another-user/another-user-photo/another-user-photo.js"],
+                styles: ["/css/user/another-user.css"]
             });
 
             return;
@@ -39,7 +39,7 @@ export class UserPhotoController {
             const countPhoto = await this.service.getCountPhotoById(user["_id"]);
             const photo = await this.service.getPhotoIdByIdUser(user["_id"], 0, 4);
 
-            res.render("my-photo", {
+            res.render("modules/photo/my-photo", {
                 username: user["username"],
                 idAvatar: user["idAvatar"],
                 auth: true,
@@ -47,8 +47,8 @@ export class UserPhotoController {
                 photo: photo,
                 activeUser: req.params["username"],
                 loadMore: countPhoto > 4 ? true : false,
-                script: "/js/modules/my-account/my-photo/my-photo.js",
-                style: "/css/another-user.css"
+                scripts: ["/js/modules/my-account/my-photo/my-photo.js"],
+                styles: ["/css/user/another-user.css"]
             });
             return;
         }
@@ -57,7 +57,7 @@ export class UserPhotoController {
             const photo = await this.service.getPhotoByUsername(username, 0, 4);
             const alreadyFriend = await this.service.alreadyFriend(username, user._id);
 
-            res.render("user", {
+            res.render("modules/photo/user-photo", {
                 username: user["username"],
                 idAvatar: user["idAvatar"],
                 auth: true,
@@ -67,8 +67,8 @@ export class UserPhotoController {
                 pendingFriend: alreadyFriend.pending,
                 activeUser: req.params["username"],
                 loadMore: countPhoto > 4 ? true : false,
-                script: "/js/modules/another-user/another-user-photo/another-user-photo.js",
-                style: "/css/another-user.css"
+                scripts: ["/js/modules/another-user/another-user-photo/another-user-photo.js"],
+                styles: ["/css/user/another-user.css"]
             });
 
             return;
@@ -95,7 +95,7 @@ export class UserPhotoController {
     }
 
     @Get("item/:id")
-    getPhoto(@Req() req:Request, @Res() res:Response){
+    getPhoto(@Req() req: Request, @Res() res: Response){
         this.service.getPhoto(req.params["id"], res);
     }   
 }

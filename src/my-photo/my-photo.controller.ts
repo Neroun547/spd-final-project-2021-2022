@@ -48,11 +48,11 @@ export class MyPhotoController {
     @UseGuards(JwtAuthGuard)
     @Get("upload-new-photo-form")
     uploadNewPhotoForm(@Req() req:Request, @Res() res:Response){
-        res.render("upload-photo-form", {
+        res.render("modules/photo/upload-photo-form", {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
-            style: "/css/signInForm.css"
+            styles: ["/css/signInForm.css"]
         });
     }
 

@@ -5,7 +5,7 @@
 /avatars
 /video
 /photo
-/views/articles
+/views/modules/articles
 
 # Logs
 logs

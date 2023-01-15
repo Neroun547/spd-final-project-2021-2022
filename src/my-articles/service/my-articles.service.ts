@@ -4,9 +4,10 @@ import { createWriteStream, existsSync } from "fs";
 import { resolve } from "path";
 import { convertToHtml } from "mammoth";
 import { ArticlesServiceDb } from "db/articles/articles.service";
-import { IMyArticles } from "../interfaces/myArticles.interface";
+import { IMyArticles } from "../interfaces/my-articles.interface";
 import { v4 as uuidv4 } from 'uuid';
-import { UploadArticleWithHtmlDto } from "../dto/uploadArticleWithHtml.dto";
+import { UploadArticleWithHtmlDto } from "../dto/upload-article-with-html.dto";
+import {UploadArticleDto} from "../dto/upload-article.dto";
 
 @Injectable()
 export class MyArticlesService {
@@ -64,5 +65,9 @@ export class MyArticlesService {
             idArticle: uuidv4(),
             date: new Date()
         });
+    }
+
+    async changeParamsArticle(params: UploadArticleDto, publicateUser: number, idArticle: string) {
+        await this.articlesServiceDb.changeParamsArticle(publicateUser, idArticle, params.theme, params.title);
     }
 }

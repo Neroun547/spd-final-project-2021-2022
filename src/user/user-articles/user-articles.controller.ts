@@ -42,14 +42,14 @@ export class UserArticlesController {
         } catch {
             const articles = await this.service.getArticlesByUsername(req.params["username"], 0, 5);
 
-            res.render("user-articles", {
+            res.render("modules/articles/user-articles", {
                 auth: false,
                 articles: articles,
                 activeUser: req.params["username"],
                 avatarAnotherUser: idAvatar,
                 loadMore: countArticles > 5 ? true : false,
-                style: "/css/another-user.css",
-                script: "/js/modules/another-user/another-user-articles/another-user-articles.js",
+                styles: ["/css/user/another-user.css"],
+                scripts: ["/js/modules/another-user/another-user-articles/another-user-articles.js"],
             });
 
             return;
@@ -57,15 +57,15 @@ export class UserArticlesController {
 
         if(user.username === req.params["username"]) {
             const articles = await this.service.getArticlesByUserId(user["_id"], 0, 5);
-        
-            res.render("my-articles", {
+
+            res.render("modules/articles/my-articles", {
                 username: user.username,
                 auth: true,
                 idAvatar: user.idAvatar,
-                style: "/css/my-articles.css",
+                styles: ["/css/articles/my-articles.css"],
                 articles,
                 loadMore: countArticles > 5 ? true : false,
-                script: "/js/modules/my-account/my-articles/my-articles.js"
+                scripts: ["/js/modules/my-account/my-articles/my-articles.js"]
             });
 
             return;
@@ -74,7 +74,7 @@ export class UserArticlesController {
             const alreadyFriend = await this.service.alreadyFriend(req.params["username"], user._id);
             const articles = await this.service.getArticlesByUsername(req.params["username"], 0, 5);
 
-            res.render("user-articles", {
+            res.render("modules/articles/user-articles", {
                 auth: true,
                 username: user.username,
                 idAvatar: user.idAvatar,
@@ -82,8 +82,8 @@ export class UserArticlesController {
                 activeUser: req.params["username"],
                 avatarAnotherUser: idAvatar,
                 loadMore: countArticles > 5 ? true : false,
-                style: "/css/another-user.css",
-                script: "/js/modules/another-user/another-user-articles/another-user-articles.js",
+                styles: ["/css/user/another-user.css"],
+                scripts: ["/js/modules/another-user/another-user-articles/another-user-articles.js"],
                 alreadyFriend: alreadyFriend.accept,
                 pendingFriend: alreadyFriend.pending
             });
@@ -102,14 +102,14 @@ export class UserArticlesController {
                 auth: true,
                 username: user.username,
                 idAvatar: user.idAvatar,
-                style: "/css/article.css",
-                script: "/js/modules/another-user/another-user-articles/another-user-article.js"
+                styles: ["/css/articles/article.css"],
+                scripts: ["/js/modules/another-user/another-user-articles/another-user-article.js"]
             });
         } catch {
             res.render(`articles/${article.article}`, {
                 auth: false,
-                style: "/css/article.css",
-                script: "/js/modules/another-user/another-user-articles/another-user-article.js"
+                styles: ["/css/articles/article.css"],
+                scripts: ["/js/modules/another-user/another-user-articles/another-user-article.js"]
             });
         }
     }
@@ -118,5 +118,4 @@ export class UserArticlesController {
     async loadMoreArticles(@Param("skip", new ParseIntPipe()) skip: number, @Query("user") username: string) {
         return await this.service.getArticlesByUsername(username, skip, 5);
     }
-};
-
+}

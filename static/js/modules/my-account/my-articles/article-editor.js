@@ -9,7 +9,7 @@ tinymce.init({
         const theme = document.getElementById("article-theme-input").value;
         const content = e.contentDocument.body.innerHTML;
 
-        const api = await fetch("/my-articles/write-article-with-html", {
+        const api = await fetch("/my-articles/write-article-with-redactor", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

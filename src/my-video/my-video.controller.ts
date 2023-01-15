@@ -30,8 +30,8 @@ export class MyVideoController {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
-            style: "/css/signInForm.css",
-            script: "/js/modules/my-account/my-video/upload-video.js"
+            styles: ["/css/signInForm.css"],
+            scripts: ["/js/modules/my-account/my-video/upload-video.js"]
         });
     }
 
@@ -108,14 +108,14 @@ export class MyVideoController {
         const video = await this.myVideoService.getPrivateVideoId(req.user["_id"], 2, 0);
         const countVideo = await this.myVideoService.getCountPrivateVideo(req.user["_id"]);
 
-        res.render("my-private-video", {
+        res.render("modules/video/my-private-video", {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
-            style: "/css/my-video.css",
+            styles: ["/css/video/my-video.css"],
             video: video,
             loadMore: countVideo > 2 ? true : false,
-            script: "/js/modules/my-account/my-video/my-video.js"
+            scripts: ["/js/modules/my-account/my-video/my-video.js"]
         });
     }
 
@@ -160,26 +160,26 @@ export class MyVideoController {
     @UseGuards(JwtAuthGuard)
     @Get("change-params-video/:id")
     async changeParamsVideoForm(@Req() req: Request, @Res() res: Response) { 
-        res.render("change-params-video", {
+        res.render("modules/video/change-params-video", {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
-            style: "/css/signInForm.css",
+            styles: ["/css/signInForm.css"],
             idVideo: req.params["id"],
-            script: "/js/modules/my-account/my-video/change-params-video.js"
+            scripts: ["/js/modules/my-account/my-video/change-params-video.js"]
         });
     }
 
     @UseGuards(JwtAuthGuard)
     @Get("change-params-private-video/:id")
     async changeParamsPrivateVideoForm(@Req() req: Request, @Res() res: Response) {
-        res.render("change-params-private-video", {
+        res.render("modules/video/change-params-private-video", {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
-            style: "/css/signInForm.css",
+            styles: ["/css/signInForm.css"],
             idVideo: req.params["id"],
-            script: "/js/modules/my-account/my-video/change-params-private-video.js"
+            scripts: ["/js/modules/my-account/my-video/change-params-private-video.js"]
         });
     }
 
@@ -192,12 +192,12 @@ export class MyVideoController {
     @UseGuards(JwtAuthGuard)
     @Get("upload-new-video-from-web-camera")
     uploadNewVideoFromWebCameraPage(@Req() req: Request, @Res() res: Response) {
-        res.render("upload-new-video-from-web-camera", {
+        res.render("modules/video/upload-new-video-from-web-camera", {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
-            script: "/js/modules/my-account/my-video/upload-video-from-web-camera.js",
-            style: "/css/upload-new-video-from-web-camera.css"
+            scripts: ["/js/modules/my-account/my-video/upload-video-from-web-camera.js"],
+            styles: ["/css/video/upload-new-video-from-web-camera.css"]
         });
     }
 }

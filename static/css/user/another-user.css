@@ -1,7 +1,7 @@
-@import url("/css/my-photo.css");
-@import url("/css/my-video.css");
-@import url("/css/my-music.css");
-@import url("/css/my-articles.css");
+@import url("/css/photo/my-photo.css");
+@import url("/css/video/my-video.css");
+@import url("/css/music/my-music.css");
+@import url("/css/articles/my-articles.css");
 
 .wrapper__another-user-avatar {
     display: flex;

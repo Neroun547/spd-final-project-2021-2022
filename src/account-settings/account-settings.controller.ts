@@ -28,14 +28,14 @@ export class AccountSettingsController {
     @UseGuards(JwtAuthGuard)
     @Get()
     settingsPage(@Req() req: Request, @Res() res: Response){
-        res.render("account-settings", {
+        res.render("modules/account-settings/account-settings", {
             auth: true,
             name: req.user["name"],
             username: req.user["username"],
             email: req.user["email"],
             idAvatar: req.user["idAvatar"],
-            style: "/css/account-settings.css",
-            script: ["/js/modules/my-account/account-settings/account-settings.js"]
+            styles: ["/css/account-settings/account-settings.css"],
+            scripts: ["/js/modules/my-account/account-settings/account-settings.js"]
         });
     };
 
@@ -87,12 +87,12 @@ export class AccountSettingsController {
     @UseGuards(JwtAuthGuard)
     @Get("change-name")
     changeNameForm(@Req() req:Request, @Res() res:Response) {
-        res.render("change-name-form", {
+        res.render("modules/account-settings/change-name-form", {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
-            style: "/css/signInForm.css",
-            script: ["/js/modules/my-account/account-settings/new-name/new-name.js"]
+            styles: ["/css/signInForm.css"],
+            scripts: ["/js/modules/my-account/account-settings/new-name/new-name.js"]
         });
     }
 
@@ -109,12 +109,12 @@ export class AccountSettingsController {
     @UseGuards(JwtAuthGuard)
     @Get("change-username")
     changeUserNameForm(@Req() req:Request, @Res() res:Response) {
-        res.render("change-username-form", {
+        res.render("modules/account-settings/change-username-form", {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
-            style: "/css/signInForm.css",
-            script: ["/js/modules/my-account/account-settings/new-username/new-username.js"]
+            styles: ["/css/signInForm.css"],
+            scripts: ["/js/modules/my-account/account-settings/new-username/new-username.js"]
         });
     }
 
@@ -131,11 +131,11 @@ export class AccountSettingsController {
     @UseGuards(JwtAuthGuard)
     @Get("change-password")
     changePasswordCheckOldPassword(@Req() req:Request, @Res() res:Response) {
-        res.render("change-password-check-old-pass", {
+        res.render("modules/account-settings/change-password-check-old-pass", {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
-            style: "/css/signInForm.css"
+            styles: ["/css/signInForm.css"]
         });
     }
 
@@ -150,12 +150,12 @@ export class AccountSettingsController {
     @UseGuards(JwtAuthGuard)
     @Get("new-password")
     newPasswordForm(@Req() req: Request, @Res() res: Response) {
-        res.render("change-password-form", {
+        res.render("modules/account-settings/change-password-form", {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
-            style: "/css/signInForm.css",
-            script: ["/js/modules/my-account/account-settings/new-password/new-password.js"]
+            styles: ["/css/signInForm.css"],
+            scripts: ["/js/modules/my-account/account-settings/new-password/new-password.js"]
         });
     }
 
@@ -172,12 +172,12 @@ export class AccountSettingsController {
     @UseGuards(JwtAuthGuard)
     @Get("change-email")
     async changeEmail(@Req() req:Request, @Res() res:Response) {
-        res.render("change-email-form", {
+        res.render("modules/account-settings/change-email-form", {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
-            style: "/css/signInForm.css",
-            script: ["/js/modules/my-account/account-settings/new-email/new-email.js"]
+            styles: ["/css/signInForm.css"],
+            scripts: ["/js/modules/my-account/account-settings/new-email/new-email.js"]
         });
     }
 

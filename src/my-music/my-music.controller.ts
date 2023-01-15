@@ -15,18 +15,18 @@ export class MyMusicController {
     @UseGuards(JwtAuthGuard)
     @Get("upload-new-musics-form")
     uploadNewMusicForm(@Req() req:Request, @Res() res:Response) {
-        res.render("upload-musics-form", {
+        res.render("modules/music/upload-musics-form", {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
-            style: "/css/signInForm.css"
+            styles: ["/css/signInForm.css"]
         });
     }
 
     @UseGuards(JwtAuthGuard)
     @Post("upload-new-music")
     @UseInterceptors(FileInterceptor('file', {
-        fileFilter:(req, file, cb) => {
+        fileFilter: (req, file, cb) => {
             if(file.mimetype !== "audio/mpeg") {
                 cb(null, false);
                 return;
@@ -37,7 +37,7 @@ export class MyMusicController {
                 cb(null, true);
             }
         },
-        storage:diskStorage({
+        storage: diskStorage({
             destination: './musics',
             filename:(req, file, cb) => {
                 const name = Date.now();

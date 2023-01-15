@@ -51,6 +51,7 @@ if(loadMoreMusics) {
 }
 for (let i = 0; i < deleteMusic.length; i++) {
     deleteMusic[i].addEventListener("click", async function () {
+        console.log("Click")
         const element = this.parentElement.parentElement;
 
         await apiService.apiCall(`/my-music/delete/${element.getAttribute("id")}`, "DELETE");
