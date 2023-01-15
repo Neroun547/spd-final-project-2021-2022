@@ -1,0 +1,46 @@
+<div class="wrapper__about" id="{{username}}">
+    <div class="wrapper__add-photo">
+        <a href="/my-articles/upload-new-article">
+            <button class="button upload-video-btn"><img src="/img/upload.png"></button>
+        </a>
+    </div>
+    {{#if articles}}
+        <div class="wrapper__search-article">
+            <input type="text" placeholder="Order by theme:" name="theme" class="wrapper__search-article-input">
+        </div>
+    {{/if}}
+    <div class="wrapper__articles mt-10">
+        {{#if articles}}
+        {{#each articles}}
+            <div class="wrapper__article mt-5 mb-5">
+                <div class="wrapper__article-logo">
+                    <h2 class="wrapper__article-logo"><strong>Title: </strong>{{this.title}}</h2>
+                    <div class="wrapper__article-item-decoration-menu">
+                        <div class="wrapper__article-item-decoration-menu-decoration"></div>
+                        <div class="wrapper__article-item-decoration-menu-decoration"></div>
+                        <div class="wrapper__article-item-decoration-menu-decoration"></div>
+                    </div>
+                    <ul class="wrapper__article-item-menu-hide">
+                        <li>
+                            <button class="delete-article-btn" id="{{this.idArticle}}">Delete article</button>
+                        </li>
+                        <li>
+                            <a href="/my-articles/change-params-form/{{this.idArticle}}">
+                                <button class="change-article-params-btn">Change params</button>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <h4 class="wrapper__article-theme"><strong>Theme: </strong>{{this.theme}}</h4>
+                <h6 class="wrapper__article-date pt-10">{{this.date}}</h6>
+                <a href="/user/articles/article/{{this.idArticle}}" class="read-article-link">Read</a>
+            </div>
+        {{/each}}
+        {{else}}
+            <h2 class="mt-10">You don't have articles :(</h2>
+        {{/if}}
+    </div>  
+    {{#if loadMore}}
+        <button class="load-more-articles-btn button dark">Load more articles</button>
+    {{/if}}
+</div>
