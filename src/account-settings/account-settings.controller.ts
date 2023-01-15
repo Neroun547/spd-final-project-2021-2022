@@ -28,13 +28,13 @@ export class AccountSettingsController {
     @UseGuards(JwtAuthGuard)
     @Get()
     settingsPage(@Req() req: Request, @Res() res: Response){
-        res.render("account-settings", {
+        res.render("modules/account-settings/account-settings", {
             auth: true,
             name: req.user["name"],
             username: req.user["username"],
             email: req.user["email"],
             idAvatar: req.user["idAvatar"],
-            styles: ["/css/account-settings.css"],
+            styles: ["/css/account-settings/account-settings.css"],
             scripts: ["/js/modules/my-account/account-settings/account-settings.js"]
         });
     };
@@ -87,7 +87,7 @@ export class AccountSettingsController {
     @UseGuards(JwtAuthGuard)
     @Get("change-name")
     changeNameForm(@Req() req:Request, @Res() res:Response) {
-        res.render("change-name-form", {
+        res.render("modules/account-settings/change-name-form", {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
@@ -109,7 +109,7 @@ export class AccountSettingsController {
     @UseGuards(JwtAuthGuard)
     @Get("change-username")
     changeUserNameForm(@Req() req:Request, @Res() res:Response) {
-        res.render("change-username-form", {
+        res.render("modules/account-settings/change-username-form", {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
@@ -131,7 +131,7 @@ export class AccountSettingsController {
     @UseGuards(JwtAuthGuard)
     @Get("change-password")
     changePasswordCheckOldPassword(@Req() req:Request, @Res() res:Response) {
-        res.render("change-password-check-old-pass", {
+        res.render("modules/account-settings/change-password-check-old-pass", {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
@@ -150,7 +150,7 @@ export class AccountSettingsController {
     @UseGuards(JwtAuthGuard)
     @Get("new-password")
     newPasswordForm(@Req() req: Request, @Res() res: Response) {
-        res.render("change-password-form", {
+        res.render("modules/account-settings/change-password-form", {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
@@ -172,7 +172,7 @@ export class AccountSettingsController {
     @UseGuards(JwtAuthGuard)
     @Get("change-email")
     async changeEmail(@Req() req:Request, @Res() res:Response) {
-        res.render("change-email-form", {
+        res.render("modules/account-settings/change-email-form", {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],

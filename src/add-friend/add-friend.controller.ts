@@ -13,14 +13,14 @@ export class AddFriendController {
         const inviteFriends = await this.service.getFriendInvites(req.user["_id"], 5, 0);
         const countInvites = await this.service.countInvites(req.user["_id"]);
 
-        res.render("add-friend", {
+        res.render("modules/friends/add-friend", {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
             invites: inviteFriends,
             loadMoreInvites: countInvites > 5 ? true : false,
             scripts: ["/js/modules/my-account/my-friends/invites-friends.js"],
-            styles: ["/css/add-friends.css"]
+            styles: ["/css/friends/add-friends.css"]
         });
     }
 

@@ -21,7 +21,7 @@ export class UserMusicsController {
         try {
             user = this.jwtService.verify(req.cookies["token"], {secret: secretJwt});
         } catch {
-            res.render("user-music", {
+            res.render("modules/music/user-music", {
                 music: dataMusic,
                 auth: false,
                 idAvatar: false,
@@ -29,7 +29,7 @@ export class UserMusicsController {
                 avatarAnotherUser: idAvatar,
                 loadMoreMusic: countMusic > 5 ? true : false,
                 scripts: ["/js/modules/another-user/another-user-music/another-user-music.js"],
-                style: ["/css/another-user.css"]
+                styles: ["/css/user/another-user.css"]
             });
 
             return;
@@ -39,15 +39,15 @@ export class UserMusicsController {
             const dataMusic = await this.service.getMusicIdById(0, 5, user["_id"]);
             const countMusic = await this.service.getCountMusicById(user["_id"]);
 
-            res.render("my-music", {
+            res.render("modules/music/my-music", {
                 username: user["username"],
                 auth: true,
                 idAvatar: user["idAvatar"],
                 musics: dataMusic,
                 loadMore: countMusic > 5 ? true : false,
                 countMusic: countMusic,
-                script: ["/js/modules/my-account/my-music/my-music.js"],
-                styles: ["/css/my-music.css"]
+                scripts: ["/js/modules/my-account/my-music/my-music.js"],
+                styles: ["/css/music/my-music.css"]
             });
 
             return;
@@ -55,7 +55,7 @@ export class UserMusicsController {
         if(user.username !== username) {
             const alreadyFriend = await this.service.alreadyFriend(username, user["_id"]);
 
-            res.render("user-music", {
+            res.render("modules/music/user-music", {
                 username: user["username"],
                 music: dataMusic,
                 auth: true,
@@ -66,7 +66,7 @@ export class UserMusicsController {
                 pendingFriend: alreadyFriend.pending,
                 loadMoreMusic: countMusic > 5 ? true : false,
                 scripts: ["/js/modules/another-user/another-user-music/another-user-music.js"],
-                styles: ["/css/another-user.css"]
+                styles: ["/css/user/another-user.css"]
             });
 
             return;

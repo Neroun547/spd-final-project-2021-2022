@@ -42,13 +42,13 @@ export class UserArticlesController {
         } catch {
             const articles = await this.service.getArticlesByUsername(req.params["username"], 0, 5);
 
-            res.render("user-articles", {
+            res.render("modules/articles/user-articles", {
                 auth: false,
                 articles: articles,
                 activeUser: req.params["username"],
                 avatarAnotherUser: idAvatar,
                 loadMore: countArticles > 5 ? true : false,
-                styles: ["/css/another-user.css"],
+                styles: ["/css/user/another-user.css"],
                 scripts: ["/js/modules/another-user/another-user-articles/another-user-articles.js"],
             });
 
@@ -57,12 +57,12 @@ export class UserArticlesController {
 
         if(user.username === req.params["username"]) {
             const articles = await this.service.getArticlesByUserId(user["_id"], 0, 5);
-        
-            res.render("my-articles", {
+
+            res.render("modules/articles/my-articles", {
                 username: user.username,
                 auth: true,
                 idAvatar: user.idAvatar,
-                styles: ["/css/my-articles.css"],
+                styles: ["/css/articles/my-articles.css"],
                 articles,
                 loadMore: countArticles > 5 ? true : false,
                 scripts: ["/js/modules/my-account/my-articles/my-articles.js"]
@@ -74,7 +74,7 @@ export class UserArticlesController {
             const alreadyFriend = await this.service.alreadyFriend(req.params["username"], user._id);
             const articles = await this.service.getArticlesByUsername(req.params["username"], 0, 5);
 
-            res.render("user-articles", {
+            res.render("modules/articles/user-articles", {
                 auth: true,
                 username: user.username,
                 idAvatar: user.idAvatar,
@@ -82,7 +82,7 @@ export class UserArticlesController {
                 activeUser: req.params["username"],
                 avatarAnotherUser: idAvatar,
                 loadMore: countArticles > 5 ? true : false,
-                styles: ["/css/another-user.css"],
+                styles: ["/css/user/another-user.css"],
                 scripts: ["/js/modules/another-user/another-user-articles/another-user-articles.js"],
                 alreadyFriend: alreadyFriend.accept,
                 pendingFriend: alreadyFriend.pending
@@ -102,13 +102,13 @@ export class UserArticlesController {
                 auth: true,
                 username: user.username,
                 idAvatar: user.idAvatar,
-                styles: ["/css/article.css"],
+                styles: ["/css/articles/article.css"],
                 scripts: ["/js/modules/another-user/another-user-articles/another-user-article.js"]
             });
         } catch {
             res.render(`articles/${article.article}`, {
                 auth: false,
-                styles: ["/css/article.css"],
+                styles: ["/css/articles/article.css"],
                 scripts: ["/js/modules/another-user/another-user-articles/another-user-article.js"]
             });
         }

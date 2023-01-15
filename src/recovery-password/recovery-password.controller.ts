@@ -23,7 +23,7 @@ export class RecoveryPasswordController {
 
     @Get("check-email-form")
     checkEmailForm(@Req() req: Request, @Res() res: Response) {
-        res.render("check-email-form.hbs", {
+        res.render("modules/account-settings/check-email-form", {
             styles: ["/css/signInForm.css"],
             scripts: ["/js/modules/recovery-password/recovery-password.js"]
         });
@@ -64,7 +64,7 @@ export class RecoveryPasswordController {
         try {
             const user = await jwt.verify(token, secretJwt);
 
-            res.render("recovery-password-form.hbs", {
+            res.render("modules/account-settings/recovery-password-form.hbs", {
                 email: user["email"],
                 styles: ["/css/signInForm.css"]
             });

@@ -2,7 +2,6 @@ import {Controller, ForbiddenException, Get, Post, Req, Res, UseGuards} from '@n
 import { Request, Response } from 'express';
 import { RootService } from './root.service';
 import {JwtService} from "@nestjs/jwt";
-import {UserServiceDb} from "../../db/user/user.service";
 import { secretJwt } from "config.json";
 import {JwtAuthGuard} from "../auth/guard/jwt-auth.guard";
 
@@ -10,8 +9,7 @@ import {JwtAuthGuard} from "../auth/guard/jwt-auth.guard";
 export class RootController {
   constructor(
       private service: RootService,
-      private jwtService: JwtService,
-      private userServiceDb: UserServiceDb
+      private jwtService: JwtService
   ) {}
 
   @Get()

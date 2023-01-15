@@ -26,7 +26,7 @@ export class MyArticlesController {
     @UseGuards(JwtAuthGuard)
     @Get("upload-new-article")
     uploadArticleForm(@Req() req: Request, @Res() res: Response) {
-        res.render("upload-article-form", {
+        res.render("modules/articles/upload-article-form", {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
@@ -68,20 +68,20 @@ export class MyArticlesController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Get("write-article-with-html")
+    @Get("write-article-with-redactor")
     writeArticleWithHtmlPage(@Req() req: Request, @Res() res: Response) {
-        res.render("write-article-with-html", {
+        res.render("modules/articles/write-article-with-redactor", {
             auth: true,
             username: req.user["username"],
             idAvatar: req.user["idAvatar"],
-            styles: ["/css/write-article-with-html.css"],
+            styles: ["/css/articles/write-article-with-redactor.css"],
             headScripts: ["/js/modules/my-account/my-articles/article-editor.js"],
             scripts: ["/js/modules/my-account/my-articles/upload-article-with-redactor.js"]
         });
     }
 
     @UseGuards(JwtAuthGuard)
-    @Post("write-article-with-html")
+    @Post("write-article-with-redactor")
     async writeArticleWithHtml(@Req() req: Request, @Body() article: UploadArticleWithHtmlDto, @Res() res: Response) {
         await this.myArticlesService.writeArticleWithHtml(article, req.user["_id"]);
 
@@ -99,7 +99,7 @@ export class MyArticlesController {
     @UseGuards(JwtAuthGuard)
     @Get("change-params-form/:idArticle")
     changeParamsArticleForm(@Param("idArticle") idArticle: string, @Req() req: Request, @Res() res: Response) {
-        res.render("change-article-param-form", {
+        res.render("modules/articles/change-article-param-form", {
             idArticle: idArticle,
             auth: true,
             idAvatar: req.user["idAvatar"],

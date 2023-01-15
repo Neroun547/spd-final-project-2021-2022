@@ -8,7 +8,7 @@ export class AuthController {
     constructor(private readonly service:AuthService){}
     @Get()
     signInPage(@Req() req: Request, @Res() res: Response) {
-        res.render("auth", {
+        res.render("modules/auth/auth", {
             styles: ["/css/signInForm.css"],
             scripts: ["/js/modules/auth/auth.js"]
         });

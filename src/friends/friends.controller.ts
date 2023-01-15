@@ -13,14 +13,14 @@ export class FriendsController {
         const friends = await this.service.getFriends(req.user["_id"], 5, 0);
         const countFriends = await this.service.getCountFriends(req.user["_id"]);
     
-        res.render("friends", {
+        res.render("modules/friends/friends", {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
             friends: friends,
             countFriends: countFriends,
             scripts: ["/js/modules/my-account/my-friends/friends.js"],
-            styles: ["/css/friends.css"],
+            styles: ["/css/friends/friends.css"],
             loadMoreFriends: countFriends > 4 ? true : false
         });
     }

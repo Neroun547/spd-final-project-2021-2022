@@ -13,12 +13,12 @@ export class ChatController {
     async chatsPage(@Req() req: Request, @Res() res: Response) {
         const chats = await this.service.getAllChats(req.user["_id"]);
     
-        res.render("chat", {
+        res.render("modules/chat/chat", {
             username: req.user["username"],
             idAvatar: req.user["idAvatar"],
             auth: true,
             headScripts: ["/js/modules/chat/socketConnect.js"],
-            styles: ["/css/chat.css"],
+            styles: ["/css/chat/chat.css"],
             chats: chats,
             socketScript: "https://cdn.socket.io/4.3.2/socket.io.min.js"
         });
@@ -30,13 +30,13 @@ export class ChatController {
         const messages = await this.service.createChatOrGetData(req.user["_id"], req.params["username"]);
         const countMessages = await this.service.countMessage(req.user["_id"], req.params["username"]);
     
-        res.render("single-messages", {
+        res.render("modules/chat/single-messages", {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
             headScripts: ["/js/modules/chat/socketConnect.js"],
             scripts: ["/js/modules/chat/chat.js"],
-            styles: ["/css/chat.css"],
+            styles: ["/css/chat/chat.css"],
             activeUser: req.params["username"],
             messages: messages ? messages.reverse() : false,
             loadMoreMessages: countMessages > 10 ? true : false,
@@ -51,13 +51,13 @@ export class ChatController {
         const countMessages = await this.service.countMessage(req.user["_id"], req.params["username"]);
         const chats = await this.service.getAllChats(req.user["_id"]);
  
-        res.render("chat", {
+        res.render("modules/chat/chat", {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
             headScripts: ["/js/modules/chat/socketConnect.js"],
             scripts: ["/js/modules/chat/chat.js"],
-            styles: ["/css/chat.css"],
+            styles: ["/css/chat/chat.css"],
             activeUser: req.params["username"],
             messages:  messages ? messages.reverse() : false,
             selectChat: req.params["username"],

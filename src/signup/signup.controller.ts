@@ -8,7 +8,7 @@ export class SignUpController {
     constructor(private readonly service:SignUpService){}
     @Get()
     signUpPage(@Res() res:Response){
-        res.render("signup", {
+        res.render("modules/signup/signup", {
             styles: ["/css/signInForm.css"],
             scripts: ["/js/modules/signup/signup.js"]
         });

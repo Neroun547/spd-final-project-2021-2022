@@ -22,17 +22,18 @@ export class SignUpService {
         }
 
         user.password = await bcrypt.hash(createUserDto.password, 10);
-        // So.. token may use 5 minutes    
-        const token = jwt.sign({...user}, secretJwt, { expiresIn: 60*5 });
+        try {
+            // So.. token may use 5 minutes
+            const token = jwt.sign({...user}, secretJwt, {expiresIn: 60 * 5});
 
-        const transporter = nodemailer.createTransport({
-            service: "gmail",
-            secure: true,
-            auth: {
-                user: email,
-                pass: passwordEmail
-            }
-        });
+            const transporter = nodemailer.createTransport({
+                service: "gmail",
+                secure: true,
+                auth: {
+                    user: email,
+                    pass: passwordEmail
+                }
+            });
 
             await transporter.sendMail({
                 from: email,
@@ -43,8 +44,12 @@ export class SignUpService {
             <a href="${protocol}://${host}:${appPort}/signup/confirm-account/${token}">Click for confirm your account</a>`
             });
 
-        
-        res.send({message: "Message send in your email"})
+
+            res.send({message: "Message send in your email"})
+        } catch(e) {
+            console.log(e);
+            res.sendStatus(500);
+        }
     }
 
     async confirmAccount(token: string) {

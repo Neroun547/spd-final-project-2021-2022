@@ -23,14 +23,14 @@ export class UserVideoController {
             const dataVideo = await this.service.getVideoIdByUsername(username, 0, 2);
             const countVideo = await this.service.getCountVideoByUsername(username);
 
-            res.render("user-video", {
+            res.render("modules/video/user-video", {
                 video: dataVideo,
                 auth: false,
                 activeUser: username,
                 avatarAnotherUser: idAvatar,
                 loadMore: countVideo > 2 ? true : false,
                 scripts: ["/js/modules/another-user/another-user-video/another-user-video.js"],
-                styles: ["/css/another-user.css"]
+                styles: ["/css/user/another-user.css"]
             });
 
             return;
@@ -40,7 +40,7 @@ export class UserVideoController {
             const dataVideo = await this.service.getVideoIdByUserId(user._id, 0, 2);
             const countVideo = await this.service.getCountVideoByIdUser(user._id);
 
-            res.render("my-video", {
+            res.render("modules/video/my-video", {
                 username: user.username,
                 video: dataVideo,
                 auth: true,
@@ -48,7 +48,7 @@ export class UserVideoController {
                 avatarAnotherUser: idAvatar,
                 loadMore: countVideo > 2 ? true : false,
                 scripts: ["/js/modules/my-account/my-video/my-video.js"],
-                styles: ["/css/another-user.css"]
+                styles: ["/css/user/another-user.css"]
             });
         
             return;
@@ -58,7 +58,7 @@ export class UserVideoController {
             const countVideo = await this.service.getCountVideoByUsername(username);
             const alreadyFriend = await this.service.alreadyFriend(username, user._id);
 
-            res.render("user-video", {
+            res.render("modules/video/user-video", {
                 username: user.username,
                 video: dataVideo,
                 auth: true,
@@ -69,7 +69,7 @@ export class UserVideoController {
                 avatarAnotherUser: idAvatar,
                 loadMore: countVideo > 2 ? true : false,
                 scripts: ["/js/modules/another-user/another-user-video/another-user-video.js"],
-                styles: ["/css/another-user.css"]
+                styles: ["/css/user/another-user.css"]
             });
 
             return;
