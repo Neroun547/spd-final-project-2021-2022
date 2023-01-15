@@ -14,7 +14,7 @@ export class UserServiceDb {
         await this.userRepository.save(user);
     }    
 
-    async existsUser(username:string, email:string) {
+    async existsUser(username: string, email: string) {
         return await this.userRepository.
             createQueryBuilder()
             .where("username = :username OR email = :email", {
