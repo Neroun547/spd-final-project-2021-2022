@@ -26,7 +26,7 @@ export class MyVideoController {
     @UseGuards(JwtAuthGuard)
     @Get("upload-new-video-form")
     async myVideoForm(@Req() req: Request, @Res() res: Response) {
-        res.render("upload-video-form", {
+        res.render("modules/video/upload-video-form", {
             username: req.user["username"],
             auth: true,
             idAvatar: req.user["idAvatar"],
