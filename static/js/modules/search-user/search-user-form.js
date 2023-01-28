@@ -12,7 +12,7 @@ searchUserForm.addEventListener("submit", async function (e) {
     findUserContainer.innerHTML = "";
     const apiService = new ApiService();
 
-    const api = await apiService.apiCall("/search-user", "POST", JSON.stringify({username:e.target[0].value}));
+    const api = await apiService.apiCall(`/search-user/${e.target[0].value}`, "GET");
     const data = await api.json();
     
     if(!data.users.length){

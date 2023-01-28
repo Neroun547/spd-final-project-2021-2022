@@ -1,4 +1,4 @@
-import {Controller, ForbiddenException, Get, Post, Req, Res, UseGuards} from '@nestjs/common';
+import {Controller, ForbiddenException, Get, Param, Post, Req, Res, UseGuards} from '@nestjs/common';
 import { Request, Response } from 'express';
 import { RootService } from './root.service';
 import {JwtService} from "@nestjs/jwt";
@@ -49,9 +49,9 @@ export class RootController {
     res.redirect("/auth");
   }
 
-  @Post("search-user")
-  async searchUser(@Req() req:Request) {
-    const data = await this.service.searchUser(req.body.username, 5, 0);
+  @Get("search-user/:username")
+  async searchUser(@Param("username") username: string) {
+    const data = await this.service.searchUser(username, 5, 0);
 
     return {...data};
   }
