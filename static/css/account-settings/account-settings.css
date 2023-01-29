@@ -89,6 +89,11 @@
     margin-top: 50px;
 }
 
+.link-change-password {
+    display: block;
+    margin: 0 auto;
+}
+
 @media screen and (max-width: 1060px) {
     .account__settings-avatar {
         width: 200px;
