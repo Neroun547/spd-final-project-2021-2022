@@ -6,6 +6,13 @@ const apiService = new ApiService();
 newUsernameForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    if(e.target[0].value.match(/[a-z]/i) === null) {
+        wrapperMessage.style.display = "block";
+        wrapperMessage.style.borderColor = "red";
+        wrapperMessage.innerHTML = "Username should contains only latin letters";
+
+        return;
+    }
     try {
         const res = await apiService.apiCall("/account-settings/new-username", "PUT", JSON.stringify({
             username: e.target[0].value
