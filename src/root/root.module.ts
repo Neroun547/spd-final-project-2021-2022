@@ -24,6 +24,8 @@ import { UserPhotoModule } from "src/user/user-photo/user-photo.module";
 import { UserVideoModule } from "src/user/user-video/user-video.module";
 import { RecoveryPasswordModule } from "src/recovery-password/recovery-password.module";
 import {JwtModule} from "@nestjs/jwt";
+import {MailerModule} from "@nestjs-modules/mailer";
+import {email, passwordEmail} from "../../config.json";
 
 @Module({
     imports:[
@@ -42,6 +44,16 @@ import {JwtModule} from "@nestjs/jwt";
         RecoveryPasswordModule,
         UserModule,
         JwtModule,
+        MailerModule.forRoot({
+            transport: {
+                service: "gmail",
+                secure: true,
+                auth: {
+                    user: email,
+                    pass: passwordEmail
+                }
+            }
+        }),
         RouterModule.register([
             {
                 path: "/account-settings",
@@ -58,7 +70,7 @@ import {JwtModule} from "@nestjs/jwt";
             {
                 path: "/signup",
                 module: SignupModule
-            }, 
+            },
             {
                 path: "/my-music",
                 module: MyMusicModule
@@ -71,10 +83,10 @@ import {JwtModule} from "@nestjs/jwt";
                 path: "/user",
                 module: UserModule,
                 children: [
-                    { 
+                    {
                         path: "articles",
                         module: UserArticlesModule
-                    }, 
+                    },
                     {
                         path: "music",
                         module: UserMusicModule
@@ -110,7 +122,7 @@ import {JwtModule} from "@nestjs/jwt";
                 module: RecoveryPasswordModule
             }
         ]),
-        
+
         TypeOrmModule.forRoot({
             type: "mysql",
             host: hostDB,

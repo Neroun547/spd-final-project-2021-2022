@@ -12,14 +12,17 @@ import {
 import { Request, Response } from "express";
 import { RecoveryPasswordService } from "./service/recovery-password.service";
 import { CheckEmailDto } from "./dto/check-email.dto";
-import { email, passwordEmail, protocol, host, appPort, secretJwt } from "config.json";
+import { email, protocol, host, appPort, secretJwt } from "config.json";
 import * as jwt from "jsonwebtoken";
-import * as nodemailer from "nodemailer";
 import { NewPasswordDto } from "src/account-settings/dto/new-password.dto";
+import { MailerService } from "@nestjs-modules/mailer";
 
 @Controller()
 export class RecoveryPasswordController {
-    constructor(private service: RecoveryPasswordService) {}
+    constructor(
+        private service: RecoveryPasswordService,
+        private mailerService: MailerService
+        ) {}
 
     @Get("check-email-form")
     checkEmailForm(@Req() req: Request, @Res() res: Response) {
@@ -36,18 +39,9 @@ export class RecoveryPasswordController {
         if(!checkEmail) {
             throw new NotFoundException(["User with this email not found"]);
         }
-        const transporter = nodemailer.createTransport({
-            service: "gmail",
-            secure: true,
-            auth: {
-                user: email,
-                pass: passwordEmail
-            }
-        });
-
         const token = await jwt.sign({ email: checkEmail.email }, secretJwt, { expiresIn: 60*5  });
 
-        await transporter.sendMail({
+        await this.mailerService.sendMail({
             from: email,
             to: body.email,
             subject: "New password",

@@ -8,8 +8,7 @@ import { unlink } from "fs/promises";
 import { resolve } from "path";
 import { UserServiceDb } from "db/user/user.service";
 import * as bcrypt from "bcrypt";
-import * as nodemailer from "nodemailer";
-import { email, passwordEmail } from "config.json";
+import { email } from "config.json";
 import { host, appPort, protocol } from "config.json";
 import { MusicServiceDb } from "../../../db/musics/music.service";
 import {VideoServiceDb} from "../../../db/video/video.service";
@@ -17,6 +16,7 @@ import {ArticlesServiceDb} from "../../../db/articles/articles.service";
 import {PhotoServiceDb} from "../../../db/photo/photo.service";
 import {CommonService} from "../../../common/service/common.service";
 import {PrivateVideoServiceDb} from "../../../db/private-video/private-video.service";
+import {MailerService} from "@nestjs-modules/mailer";
 
 /* Don't good service ... maybe TODO -_-*/
 
@@ -29,7 +29,8 @@ export class AccountSettingsService {
         private readonly privateVideoServiceDb: PrivateVideoServiceDb,
         private readonly articlesServiceDb: ArticlesServiceDb,
         private readonly photoServiceDb: PhotoServiceDb,
-        private readonly commonService: CommonService
+        private readonly commonService: CommonService,
+        private readonly mailerService: MailerService
     ) { };
 
     async uploadAvatar(file: Express.Multer.File, user, avatar: string): Promise<string> {
@@ -73,7 +74,7 @@ export class AccountSettingsService {
 
     async getAvatar(id: string, req: Request, res: Response): Promise<void> {
         const user = await this.userServiceDb.findUserByIdAvatar(id);
-        
+
         if (existsSync(resolve(`avatars/${user.avatar}`))) {
             createReadStream(resolve(`avatars/${user.avatar}`)).pipe(res);
 
@@ -129,32 +130,22 @@ export class AccountSettingsService {
         if(checkUserSameEmail) {
             throw new BadRequestException(["User the same email already exists ..."]);
         }
-
         const token = await jwt.sign({ ...user, newEmail: emailUser, exp: Math.floor(Date.now() / 1000) + 60*5 }, secretJwt);
 
-        const transporter = nodemailer.createTransport({
-            service: "gmail",
-            secure: true,
-            auth: {
-                user: email,
-                pass: passwordEmail
-            }
-        });
-
-        await transporter.sendMail({
+        await this.mailerService.sendMail({
             from: email,
             to: emailUser,
             subject: "Confirm your new email",
             html: `
         <h2>Hello ${user.name} ! Confirm your new email by click this link</h2>
         <a href="${protocol}://${host}:${appPort}/account-settings/confirm-new-email/${token}">Click for confirm your new email</a>`
-        }); 
+        });
     }
 
     async confirmNewEmail(token: string) {
         const user = await jwt.verify(token, secretJwt);
         await this.userServiceDb.updateEmailByEmail(user["email"], user["newEmail"]);
-        
+
         // @ts-ignore
         const newToken = jwt.sign({ ...user, email: user.newEmail }, secretJwt);
 

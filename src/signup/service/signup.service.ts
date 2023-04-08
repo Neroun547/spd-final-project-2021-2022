@@ -1,17 +1,20 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
-import * as nodemailer from "nodemailer";
 import * as jwt from "jsonwebtoken";
 import { secretJwt } from "config.json";
 import { UserDto } from "../dto/user.dto";
 import * as bcrypt from "bcrypt";
 import { UserServiceDb } from "db/user/user.service";
 import { Response } from "express";
-import { passwordEmail, email } from "config.json";
+import { email } from "config.json";
 import { host, appPort, protocol } from "config.json";
+import { MailerService } from "@nestjs-modules/mailer";
 
 @Injectable()
 export class SignUpService {
-    constructor(private userServiceDb: UserServiceDb) { }
+    constructor(
+        private userServiceDb: UserServiceDb,
+        private mailerService: MailerService
+        ) { }
 
     async signUp(createUserDto: UserDto, res: Response) {
         const user = {...createUserDto};
@@ -25,16 +28,7 @@ export class SignUpService {
         // So.. token may use 5 minutes
         const token = jwt.sign({...user}, secretJwt, {expiresIn: 60 * 5});
 
-        const transporter = nodemailer.createTransport({
-            service: "gmail",
-            secure: true,
-            auth: {
-                user: email,
-                pass: passwordEmail
-            }
-        });
-
-        await transporter.sendMail({
+        await this.mailerService.sendMail({
             from: email,
             to: createUserDto.email.trim(),
             subject: "Confirm account",
