@@ -1,0 +1,27 @@
+<strong class="username-active-user">{{activeUser}}</strong>
+<div class="wrapper__about" id="{{activeUser}}">
+    {{#if articles}}
+        <div class="wrapper__search-article">
+            <input type="text" placeholder="Order by theme:" name="theme" class="wrapper__search-article-input">
+        </div>
+    {{/if}}
+    <div class="wrapper__articles">
+        {{#if articles}}
+            {{#each articles}}
+                <div class="wrapper__article mt-5 mb-5">
+                    <div class="wrapper__article-logo">
+                        <h2 class="wrapper__article-logo"><strong>Title: </strong>{{this.title}}</h2>
+                    </div>
+                    <h4 class="wrapper__article-theme"><strong>Theme: </strong>{{this.theme}}</h4>
+                    <h6 class="wrapper__article-date pt-10">{{this.date}}</h6>
+                    <a href="/user/articles/article/{{this.idArticle}}/?arrow=false" class="read-article-link">Read</a>
+                </div>
+            {{/each}}
+        {{else}}
+            <h2 class="mt-10">No articles :(</h2>
+        {{/if}}
+    </div>
+    {{#if loadMore}}
+        <button class="load-more-articles-btn button dark" id="{{activeUser}}">Load more articles</button>
+    {{/if}}
+</div>

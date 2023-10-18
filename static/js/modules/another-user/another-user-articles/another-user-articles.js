@@ -31,10 +31,10 @@ function makeNewArticles(el) {
 
 if(loadMoreArticles) {
     loadMoreArticles.addEventListener("click", async function () {
-        
+
         if(!activeThemeArticles.trim()) {
             skipArticles += 5;
-            const api = await apiService.apiCall(`/user/articles/load-more-articles/${skipArticles}/?&user=${wrapperAbout.getAttribute("id")}`, "GET");
+            const api = await apiService.apiCall(`/user/articles/load-more-articles/?username=${wrapperAbout.getAttribute("id")}&skip=${skipArticles}&theme=`, "GET");
             const data = await api.json();
 
             if(data.length < 5) {
@@ -47,9 +47,9 @@ if(loadMoreArticles) {
             return;
         }
         skipArticles += 5;
-        const api = await apiService.apiCall(`/user/articles/load-more-articles-by-theme/?theme=${activeThemeArticles}&username=${wrapperAbout.getAttribute("id")}&skip=${skipArticles}`, "GET");
+        const api = await apiService.apiCall(`/user/articles/load-more-articles/?theme=${activeThemeArticles}&username=${wrapperAbout.getAttribute("id")}&skip=${skipArticles}`, "GET");
         const data = await api.json();
-        
+
         if(data.length < 5) {
             loadMoreArticles.style.display = "none";
         }
@@ -57,14 +57,14 @@ if(loadMoreArticles) {
             makeNewArticles(el);
         });
     });
-};
+}
 
 wrapperSearchArticleInput.addEventListener("input", function (e) {
     setTimeout(async () => {
         activeThemeArticles = this.value;
         skipArticles = 0;
-        
-        const api = await apiService.apiCall(`/user/articles/load-articles-by-theme/?theme=${this.value}&username=${wrapperAbout.getAttribute("id")}`, "GET");
+
+        const api = await apiService.apiCall(`/user/articles/load-more-articles/?theme=${this.value}&username=${wrapperAbout.getAttribute("id")}&skip=0`, "GET");
         const data = await api.json();
 
         if(data.length > 4) {
@@ -72,9 +72,9 @@ wrapperSearchArticleInput.addEventListener("input", function (e) {
         } else {
             loadMoreArticles.style.display = "none";
         }
-        
+
         wrapperArticles.innerHTML = "";
-        
+
         data.forEach((el) => {
             makeNewArticles(el);
         });

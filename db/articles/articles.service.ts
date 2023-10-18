@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common"; 
+import { Injectable } from "@nestjs/common";
 import { ArticlesRepository } from "./articles.repository";
 import { ArticlesInterface } from "./interfaces/articles.interface";
 
@@ -10,7 +10,7 @@ export class ArticlesServiceDb {
         await this.repository.save({ ...article });
     }
 
-    async getArticles(publicateUser: number, skip: number, take: number) {
+    async getArticlesByPublicateUser(publicateUser: number, skip: number, take: number) {
         return await this.repository.find({ where: { publicateUser }, skip, take, order: {  _id: "DESC"}});
     }
 
@@ -45,5 +45,13 @@ export class ArticlesServiceDb {
 
     async changeParamsArticle(publicateUser: number, idArticle: string, theme: string, title: string) {
         await this.repository.update({ publicateUser: publicateUser, idArticle: idArticle }, { theme: theme, title: title });
+    }
+
+    async getArticlesDesc(take: number, skip: number) {
+        return await this.repository.find({where: {}, skip: skip, take: take, order: { _id: "DESC" }})
+    }
+
+    async getArticlesByThemeDesc(take: number, skip: number, theme: string) {
+        return await this.repository.find({ where: { theme: theme }, take: take, skip: skip, order: { _id: "DESC" } });
     }
 }

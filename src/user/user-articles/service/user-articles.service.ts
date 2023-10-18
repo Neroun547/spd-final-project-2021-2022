@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";  
+import { Injectable } from "@nestjs/common";
 import { ArticlesServiceDb } from "db/articles/articles.service";
 import { FriendsServiceDb } from "db/friends/friends.service";
 import { FriendPendingServiceDb } from "db/friends-panding/friend-panding.service";
@@ -45,14 +45,14 @@ export class UserArticlesService {
     }
 
     async getArticlesByUserId(publicateUser: number, skip: number, take: number): Promise<IArticle []> {
-        const articles = await this.articlesServiceDb.getArticles(publicateUser, skip, take);
+        const articles = await this.articlesServiceDb.getArticlesByPublicateUser(publicateUser, skip, take);
 
         return articles.map(el => ({ idArticle: el.idArticle, title: el.title, theme: el.theme, date: el.date }));
     }
 
     async getArticlesByUsername(username: string, skip: number, take: number): Promise<IArticle[]> {
-        const user = await this.userServiceDb.findUserByUsername(username); 
-        const articles = await this.articlesServiceDb.getArticles(user._id, skip, take);
+        const user = await this.userServiceDb.findUserByUsername(username);
+        const articles = await this.articlesServiceDb.getArticlesByPublicateUser(user._id, skip, take);
 
         return articles.map(el => ({ idArticle: el.idArticle, title: el.title, theme: el.theme, date: el.date }));
     }
@@ -68,9 +68,17 @@ export class UserArticlesService {
 
     async getArticlesByUsernameAndTheme(username: string, theme: string, skip: number, take: number): Promise<IArticle[]> {
         const userId = await this.userServiceDb.getIdUserByUsername(username);
-        const articles = await this.articlesServiceDb.getArticlesByUsernameAndTheme(userId, theme, skip, take); 
-        
+        const articles = await this.articlesServiceDb.getArticlesByUsernameAndTheme(userId, theme, skip, take);
+
         return articles.map(el => ({ idArticle: el.idArticle, title: el.title, theme: el.theme, date: el.date }));
+    }
+
+    async getArticles(take: number, skip: number) {
+        return await this.articlesServiceDb.getArticlesDesc(take, skip);
+    }
+
+    async getArticlesByTheme(take: number, skip: number, theme: string) {
+        return await this.articlesServiceDb.getArticlesByThemeDesc(take, skip, theme);
     }
 
     async getAuthorUsernameByArticleId(articleId: string) {
