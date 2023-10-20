@@ -29,7 +29,7 @@ export class UserArticlesController {
             return await this.userArticlesService.getArticles(5, skip);
         }
         if(theme) {
-            return await this.userArticlesService.getArticlesByTheme(5, skip, theme);
+            return await this.userArticlesService.getArticlesLikeTheme(theme, skip, 5);
         }
         if(theme && username) {
             return await this.userArticlesService.getArticlesByUsernameAndTheme(username, theme, skip, 5);

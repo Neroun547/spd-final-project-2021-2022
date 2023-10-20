@@ -68,9 +68,13 @@ export class UserArticlesService {
 
     async getArticlesByUsernameAndTheme(username: string, theme: string, skip: number, take: number): Promise<IArticle[]> {
         const userId = await this.userServiceDb.getIdUserByUsername(username);
-        const articles = await this.articlesServiceDb.getArticlesByUsernameAndTheme(userId, theme, skip, take);
+        const articles = await this.articlesServiceDb.getArticlesByUsernameAndLikeTheme(userId, theme, skip, take);
 
         return articles.map(el => ({ idArticle: el.idArticle, title: el.title, theme: el.theme, date: el.date }));
+    }
+
+    async getArticlesLikeTheme(theme: string, skip: number, take: number) {
+        return await this.articlesServiceDb.getArticlesLikeTheme(theme, skip, take);
     }
 
     async getArticles(take: number, skip: number) {
