@@ -1,4 +1,4 @@
-import { FriendPending } from "./friend-panding.entity";
+import { FriendPending } from "./friend-pending.entity";
 import { EntityRepository, Repository } from "typeorm";
 
 @EntityRepository(FriendPending)

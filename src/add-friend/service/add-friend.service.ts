@@ -1,5 +1,5 @@
-import { BadRequestException, Injectable } from "@nestjs/common";  
-import { FriendPendingServiceDb } from "db/friends-panding/friend-panding.service";
+import { BadRequestException, Injectable } from "@nestjs/common";
+import { FriendPendingServiceDb } from "db/friends-pending/friend-pending.service";
 import { FriendsServiceDb } from "../../../db/friends/friends.service";
 import { UserServiceDb } from "../../../db/user/user.service";
 
@@ -27,7 +27,7 @@ export class AddFriendService {
         }
 
         await this.friendPendingService.deletePending(idGetter, idSender);
-        await this.friendService.acceptInvite(idGetter, idSender);        
+        await this.friendService.acceptInvite(idGetter, idSender);
     }
 
     async countInvites(idGetter: number) {

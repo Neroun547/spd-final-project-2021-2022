@@ -1,51 +1,20 @@
-import { Injectable } from "@nestjs/common";  
-import { FriendsServiceDb } from "db/friends/friends.service";
-import { FriendPendingServiceDb } from "db/friends-panding/friend-panding.service";
+import { Injectable } from "@nestjs/common";
 import { Request, Response } from "express";
 import { UserServiceDb } from "db/user/user.service";
 import { VideoServiceDb } from "db/video/video.service";
 import { createReadStream, existsSync, statSync } from "fs";
 import { resolve } from "path";
+import {GetVideoInfoInterface} from "../interfaces/get-video-info.interface";
 
 @Injectable()
 export class UserVideoService {
     constructor(
         private userServiceDb: UserServiceDb,
-        private friendsServiceDb: FriendsServiceDb,
-        private friendPendingServiceDb: FriendPendingServiceDb,
         private videoServiceDb: VideoServiceDb
     ) {}
 
-    async getIdAvatar(username: string){
-        const user = await this.userServiceDb.findUserByUsername(username);
-        return user.idAvatar;
-    }
-
-    async alreadyFriend(friendUsername: string, idUser: number) {
-        const friendId = await this.userServiceDb.getIdUserByUsername(friendUsername);
-        const alreadyFriend = await this.friendsServiceDb.alreadyFriends(idUser, friendId);
-        const pendingFriend = await this.friendPendingServiceDb.findFriend(friendId, idUser);
-
-        if(alreadyFriend) {
-            return {
-                accept: true,
-                pending: false
-            }
-        }
-        if(pendingFriend) {
-            return {
-                accept: false,
-                pending: true
-            }
-        }
-        return {
-            accept: false,
-            pending: false
-        }
-    }
-
     async getVideoIdByUsername(username: string, skip: number, take: number) {
-        const user = await this.userServiceDb.findUserByUsername(username); 
+        const user = await this.userServiceDb.findUserByUsername(username);
         const dataUserVideo = await this.videoServiceDb.getVideo(user._id, take, skip);
 
         return dataUserVideo.map((el) => ({
@@ -55,7 +24,7 @@ export class UserVideoService {
         }));
     }
 
-    async getVideoIdByUserId(author: number, skip: number, take: number) {
+    async getVideoInfoByUserId(author: number, skip: number, take: number): Promise<Array<GetVideoInfoInterface>> {
         const dataUserVideo = await this.videoServiceDb.getVideo(author, take, skip);
 
         return dataUserVideo.map((el) => ({
@@ -70,7 +39,7 @@ export class UserVideoService {
     }
 
     async getCountVideoByUsername(username: string) {
-        const user = await this.userServiceDb.findUserByUsername(username); 
+        const user = await this.userServiceDb.findUserByUsername(username);
         return await this.videoServiceDb.getCountVideo(user._id);
     }
 
@@ -84,21 +53,21 @@ export class UserVideoService {
 
         const stat = statSync(`video/${filename.video}`);
         const total = stat.size;
-      
+
         if (req.headers.range) {
             const range = req.headers.range;
             const parts = range.replace(/bytes=/, "").split("-");
             const partialstart = parts[0];
             const partialend = parts[1];
-      
+
             const start = parseInt(partialstart, 10);
             const end = partialend ? parseInt(partialend, 10) : total-1;
             const chunksize = (end-start)+1;
-      
+
             const videoFile = createReadStream(`video/${filename.video}`, {start: start, end: end});
             res.writeHead(206, { 'Content-Range': 'bytes ' + start + '-' + end + '/' + total, 'Accept-Ranges': 'bytes', 'Content-Length': chunksize, 'Content-Type': 'video/mp4' });
             videoFile.pipe(res);
-            
+
             return;
         }
         res.writeHead(200, { 'Content-Length': total, 'Content-Type': 'video/mp4' });

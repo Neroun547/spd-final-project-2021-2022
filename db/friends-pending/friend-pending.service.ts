@@ -1,10 +1,9 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { FriendPendingRepository } from "./friend-panding.repository";
+import { FriendPendingRepository } from "./friend-pending.repository";
 
 Injectable()
 export class FriendPendingServiceDb {
-    constructor(@InjectRepository(FriendPendingRepository) private readonly friendRepository: FriendPendingRepository) {};
+    constructor(private readonly friendRepository: FriendPendingRepository) {};
 
     async addFriend(idGetter: number, idSender: number) {
         const sameFriend = await this.friendRepository.findOne({ idGetter, idSender });

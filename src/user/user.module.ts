@@ -1,9 +1,8 @@
-import { Module } from "@nestjs/common"; 
+import { Module } from "@nestjs/common";
 import { UserModuleDb } from "../../db/user/user.module";
 import { PhotoModuleDb } from "../../db/photo/photo.module";
 import { MusicsModuleDb } from "../../db/musics/music.module";
 import { VideoModuleDb } from "../../db/video/video.module";
-import { FriendPandingEntityModule } from "../../db/friends-panding/friend-panding.module";
 import { FriendsModuleDb } from "db/friends/friends.module";
 import { ArticlesModuleDb } from "db/articles/articles.module";
 import { UserArticlesModule } from "./user-articles/user-articles.modules";
@@ -17,7 +16,6 @@ import { UserVideoModule } from "./user-video/user-video.module";
         PhotoModuleDb,
         MusicsModuleDb,
         VideoModuleDb,
-        FriendPandingEntityModule,
         FriendsModuleDb,
         ArticlesModuleDb,
         UserArticlesModule,

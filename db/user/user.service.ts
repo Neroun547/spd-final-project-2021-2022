@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { UserRepository } from "./user.repository";
 import { User } from "./user.entity";
-import { FriendPending } from "../friends-panding/friend-panding.entity";
+import { FriendPending } from "../friends-pending/friend-pending.entity";
 import { Friends } from "../friends/friends.entity";
 import { Chats } from "../chats/chats.entity";
 
@@ -12,7 +12,7 @@ export class UserServiceDb {
 
     async saveUser(user) {
         await this.userRepository.save(user);
-    }    
+    }
 
     async existsUser(username: string, email: string) {
         return await this.userRepository.
@@ -69,7 +69,7 @@ export class UserServiceDb {
         .where("user.username LIKE :username", { username:`%${username.trim()}%` })
         .take(count)
         .skip(skip)
-        .getMany();        
+        .getMany();
     }
 
     async getIdUserByUsername(username: string) {

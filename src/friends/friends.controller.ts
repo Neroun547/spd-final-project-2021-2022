@@ -1,18 +1,18 @@
 import {Controller, Delete, Get, Req, Res, Post, UseGuards} from "@nestjs/common";
 import { Request, Response } from "express";
-import { MyFriendsService } from "./service/friends.service";
+import { FriendsService } from "./service/friends.service";
 import {JwtAuthGuard} from "../auth/guard/jwt-auth.guard";
- 
+
 @Controller()
 export class FriendsController {
-    constructor(private readonly service: MyFriendsService){}
+    constructor(private readonly service: FriendsService){}
 
     @UseGuards(JwtAuthGuard)
     @Get()
     async friendsPage(@Req() req: Request, @Res() res: Response){
         const friends = await this.service.getFriends(req.user["_id"], 5, 0);
         const countFriends = await this.service.getCountFriends(req.user["_id"]);
-    
+
         res.render("modules/friends/friends", {
             username: req.user["username"],
             auth: true,
@@ -37,7 +37,7 @@ export class FriendsController {
     @Post("load-more-friends")
     async loadMoreFriends(@Req() req: Request, @Res() res: Response) {
         const friends = await this.service.getFriends(req.user["_id"], 5, req.body.skip);
-        
+
         res.send(friends);
     }
 }

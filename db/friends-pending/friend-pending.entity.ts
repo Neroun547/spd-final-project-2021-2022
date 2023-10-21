@@ -1,5 +1,5 @@
 import { Column, Entity,  PrimaryGeneratedColumn } from "typeorm";
-import { FriendPendingInterface } from "./interfaces/friend-panding.interface";
+import { FriendPendingInterface } from "./interfaces/friend-pending.interface";
 
 @Entity()
 export class FriendPending implements FriendPendingInterface {
@@ -11,4 +11,4 @@ export class FriendPending implements FriendPendingInterface {
 
     @Column()
     idGetter: number;
-} 
+}

@@ -4,13 +4,15 @@ import { UserArticlesService } from "./service/user-articles.service";
 import {JwtService} from "@nestjs/jwt";
 import {secretJwt} from "../../../config.json";
 import {CommonService} from "../../../common/service/common.service";
+import {FriendsService} from "../../friends/service/friends.service";
 
 @Controller()
 export class UserArticlesController {
     constructor(
         private userArticlesService: UserArticlesService,
         private jwtService: JwtService,
-        private commonService: CommonService
+        private commonService: CommonService,
+        private friendsService: FriendsService
     ) {}
 
     @Get("back/:idArticle")
@@ -87,7 +89,7 @@ export class UserArticlesController {
                 scripts: ["/js/modules/my-account/my-articles/my-articles.js"]
             });
         } else if(authUser && authUser["username"] !== username) {
-            const alreadyFriend = await this.userArticlesService.alreadyFriend(req.params["username"], authUser["_id"]);
+            const alreadyFriend = await this.friendsService.alreadyFriend(req.params["username"], authUser["_id"]);
             const articles = await this.userArticlesService.getArticlesByUsername(req.params["username"], 0, 5);
 
             res.render("modules/articles/user-articles", {
@@ -120,17 +122,17 @@ export class UserArticlesController {
     @Get("article/:idArticle")
     async loadArticle(@Param("idArticle") idArticle: string, @Query("arrow") arrow: string, @Req() req: Request, @Res() res: Response) {
         const article = await this.userArticlesService.getArticle(idArticle);
+        const authUser = await this.commonService.getAuthUserFromRequest(req);
 
-        try {
-            const user = this.jwtService.verify(req.cookies["token"], {secret: secretJwt});
+        if(authUser) {
             res.render(`articles/${article.article}`, {
                 auth: true,
-                username: user.username,
-                idAvatar: user.idAvatar,
+                username: authUser["username"],
+                idAvatar: authUser["idAvatar"],
                 styles: ["/css/articles/article.css"],
                 scripts: arrow && arrow === "true" ? ["/js/modules/another-user/another-user-articles/another-user-article.js"] : []
             });
-        } catch {
+        } else {
             res.render(`articles/${article.article}`, {
                 auth: false,
                 styles: ["/css/articles/article.css"],

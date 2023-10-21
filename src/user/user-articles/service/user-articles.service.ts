@@ -1,7 +1,5 @@
 import { Injectable } from "@nestjs/common";
 import { ArticlesServiceDb } from "db/articles/articles.service";
-import { FriendsServiceDb } from "db/friends/friends.service";
-import { FriendPendingServiceDb } from "db/friends-panding/friend-panding.service";
 import { UserServiceDb } from "db/user/user.service";
 import { IArticle } from "../interface/article.interface";
 
@@ -9,39 +7,12 @@ import { IArticle } from "../interface/article.interface";
 export class UserArticlesService {
     constructor(
         private articlesServiceDb: ArticlesServiceDb,
-        private userServiceDb: UserServiceDb,
-        private friendsServiceDb: FriendsServiceDb,
-        private friendPendingServiceDb: FriendPendingServiceDb
+        private userServiceDb: UserServiceDb
     ) {}
 
     async getIdAvatar(username: string){
         const user = await this.userServiceDb.findUserByUsername(username);
         return user.idAvatar;
-    }
-
-    async alreadyFriend(friendUsername: string, idUser: number) {
-        const friendId = await this.userServiceDb.getIdUserByUsername(friendUsername);
-        const alreadyFriend = await this.friendsServiceDb.alreadyFriends(idUser, friendId);
-        const pendingFriend = await this.friendPendingServiceDb.findFriend(friendId, idUser);
-
-        if(alreadyFriend) {
-            return {
-                accept: true,
-                pending: false
-            }
-        }
-
-        if(pendingFriend) {
-            return {
-                accept: false,
-                pending: true
-            }
-        }
-
-        return {
-            accept: false,
-            pending: false
-        }
     }
 
     async getArticlesByUserId(publicateUser: number, skip: number, take: number): Promise<IArticle []> {

@@ -1,18 +1,14 @@
 import { Injectable } from "@nestjs/common";
-import { FriendsServiceDb } from "db/friends/friends.service";
-import { FriendPendingServiceDb } from "db/friends-panding/friend-panding.service";
 import { MusicServiceDb } from "db/musics/music.service";
 import { UserServiceDb } from "db/user/user.service";
 import { createReadStream, existsSync, statSync } from "fs";
-import { Request, Response } from "express";  
+import { Request, Response } from "express";
 import { resolve } from "path";
 
 @Injectable()
 export class UserMusicsService {
     constructor(
         private userServiceDb: UserServiceDb,
-        private friendsServiceDb: FriendsServiceDb,
-        private friendPendingServiceDb: FriendPendingServiceDb,
         private musicsServiceDb: MusicServiceDb
     ) {}
 
@@ -21,30 +17,8 @@ export class UserMusicsService {
         return user.idAvatar;
     }
 
-    async alreadyFriend(friendUsername: string, idUser: number) {
-        const friendId = await this.userServiceDb.getIdUserByUsername(friendUsername);
-        const alreadyFriend = await this.friendsServiceDb.alreadyFriends(idUser, friendId);
-        const pendingFriend = await this.friendPendingServiceDb.findFriend(friendId, idUser);
-
-        if(alreadyFriend) {
-            return {
-                accept: true,
-                pending: false
-            }
-        }
-        if(pendingFriend) {
-            return {
-                accept: false,
-                pending: true
-            }
-        }
-        return {
-            accept: false,
-            pending: false
-        }
-    }
     async getMusicIdByUsername(skip: number, countMusic: number, username: string) {
-        const user = await this.userServiceDb.findUserByUsername(username); 
+        const user = await this.userServiceDb.findUserByUsername(username);
         const dataUserMusic = await this.musicsServiceDb.getMusics(skip, countMusic, user._id);
 
         return dataUserMusic.map((el) => ({
@@ -56,7 +30,7 @@ export class UserMusicsService {
 
     async getMusicIdById(skip: number, countMusic: number, publicateUser: number) {
         const musics = await this.musicsServiceDb.getMusics(skip, countMusic, publicateUser);
-        
+
         return musics.map((el) => ({
             idMusic: el.idMusic,
             author: el.author,
@@ -73,24 +47,24 @@ export class UserMusicsService {
 
         const stat = statSync(`musics/${filename.music}`);
         const total = stat.size;
-      
+
         if (req.headers.range) {
             const range = req.headers.range;
             const parts = range.replace(/bytes=/, "").split("-");
             const partialstart = parts[0];
             const partialend = parts[1];
-      
+
             const start = parseInt(partialstart, 10);
             const end = partialend ? parseInt(partialend, 10) : total-1;
             const chunksize = (end-start)+1;
-      
+
             const videoFile = createReadStream(`musics/${filename.music}`, {start: start, end: end});
-            res.writeHead(206, { 
-                'Content-Range': 'bytes ' + start + '-' + end + '/' + total, 'Accept-Ranges': 'bytes', 'Content-Length': chunksize, 'Content-Type': 'audio/mpeg' 
+            res.writeHead(206, {
+                'Content-Range': 'bytes ' + start + '-' + end + '/' + total, 'Accept-Ranges': 'bytes', 'Content-Length': chunksize, 'Content-Type': 'audio/mpeg'
             });
 
             videoFile.pipe(res);
-            
+
             return;
         }
         res.writeHead(200, { 'Content-Length': total, 'Content-Type': 'audio/mpeg' });
@@ -102,8 +76,8 @@ export class UserMusicsService {
     }
 
     async getCountMusicByUsername(username: string) {
-        const user = await this.userServiceDb.findUserByUsername(username); 
-        
-        return await this.musicsServiceDb.getCountMusics(user._id); 
+        const user = await this.userServiceDb.findUserByUsername(username);
+
+        return await this.musicsServiceDb.getCountMusics(user._id);
     }
 }
