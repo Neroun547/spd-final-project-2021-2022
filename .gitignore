@@ -40,3 +40,5 @@ lerna-debug.log*
 
 feature.txt
 /views/articles/
+
+config.json
