@@ -45,6 +45,9 @@ function makeNewArticles(el) {
     const changeParamsBtnLink = createElement(itemMenuListForChangeParamsBtn, "a", { href: `/my-articles/change-params-form/${el.idArticle}` });
     createElement(changeParamsBtnLink, "button").innerHTML = "Change params";
 
+    const editArticleBtnLink = createElement(itemMenuListForChangeParamsBtn, "a", { href: `/my-articles/edit-article/${el.idArticle}` });
+    createElement(editArticleBtnLink, "button").innerHTML = "Edit article";
+
     const logoTheme = createElement(wrapperItemArticle, "h4", { class: "wrapper__article-theme" });
     logoTheme.innerHTML = `<strong>Theme: </strong> ${el.theme}`;
 

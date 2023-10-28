@@ -1,6 +1,6 @@
 <div class="wrapper__about" id="{{username}}">
     <div class="wrapper__add-photo">
-        <a href="/my-articles/upload-new-article">
+        <a href="/my-articles/write-article-with-redactor">
             <button class="button upload-video-btn"><img src="/img/upload.png"></button>
         </a>
     </div>
@@ -29,6 +29,11 @@
                                 <button class="change-article-params-btn">Change params</button>
                             </a>
                         </li>
+                        <li>
+                            <a href="/my-articles/edit-article/{{this.idArticle}}">
+                                <button class="edit-article-btn">Edit article</button>
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <h4 class="wrapper__article-theme"><strong>Theme: </strong>{{this.theme}}</h4>
@@ -39,7 +44,7 @@
         {{else}}
             <h2 class="mt-10">You don't have articles :(</h2>
         {{/if}}
-    </div>  
+    </div>
     {{#if loadMore}}
         <button class="load-more-articles-btn button dark">Load more articles</button>
     {{/if}}

@@ -77,7 +77,7 @@
         height: 100vh;
         left: -100%;
         top: 0;
-        z-index: 2;
+        z-index: 3;
         background-color: #fafafa;
     }
 

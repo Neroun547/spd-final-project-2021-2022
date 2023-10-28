@@ -10,11 +10,11 @@
     border-radius: 5px;
 }
 
-.wrappper__editor {
+.wrapper__editor {
     margin: 0 auto;
 }
 
-.wrappper__editor-input {
+.wrapper__editor-input {
     border: none;
     border-bottom: 1px solid #000;
     width: 100%;
