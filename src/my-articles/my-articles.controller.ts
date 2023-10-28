@@ -62,7 +62,7 @@ export class MyArticlesController {
     @UseGuards(JwtAuthGuard)
     @Patch("edit-article/:idArticle")
     async editArticle(@Body() body: EditArticleDto, @Req() req: Request, @Param("idArticle") idArticle: string) {
-        await this.myArticlesService.editArticleByArticleId(body.content, idArticle);
+        await this.myArticlesService.editArticleByArticleId(body.content, idArticle, req.user["_id"]);
 
         return { message: "/user/articles/" + req.user["username"] };
     }

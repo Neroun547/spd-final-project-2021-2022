@@ -44,8 +44,8 @@ export class MyArticlesService {
         });
     }
 
-    async editArticleByArticleId(content: string, idArticle: string) {
-        const articleInDb = await this.articlesServiceDb.getArticleById(idArticle);
+    async editArticleByArticleId(content: string, idArticle: string, authorId: number) {
+        const articleInDb = await this.articlesServiceDb.getArticleByArticleIdAndAuthorId(idArticle, authorId);
 
         if(articleInDb) {
             const writeStream = createWriteStream(resolve(`views/articles/${articleInDb.article}`));

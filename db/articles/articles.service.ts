@@ -63,4 +63,8 @@ export class ArticlesServiceDb {
     async getArticlesByThemeDesc(take: number, skip: number, theme: string) {
         return await this.repository.find({ where: { theme: theme }, take: take, skip: skip, order: { _id: "DESC" } });
     }
+
+    async getArticleByArticleIdAndAuthorId(idArticle: string, authorId: number) {
+        return await this.repository.findOne({ idArticle: idArticle, publicateUser: authorId });
+    }
 }
