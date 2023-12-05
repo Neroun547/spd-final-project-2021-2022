@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { FriendPendingRepository } from "./friend-pending.repository";
 
-Injectable()
+@Injectable()
 export class FriendPendingServiceDb {
     constructor(private readonly friendRepository: FriendPendingRepository) {};
 
