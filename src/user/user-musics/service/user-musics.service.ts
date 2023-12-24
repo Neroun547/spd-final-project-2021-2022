@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
-import { MusicServiceDb } from "db/musics/music.service";
-import { UserServiceDb } from "db/user/user.service";
+import { MusicServiceDb } from "../../../../db/musics/music.service";
+import { UserServiceDb } from "../../../../db/user/user.service";
 import { createReadStream, existsSync, statSync } from "fs";
 import { Request, Response } from "express";
 import { resolve } from "path";

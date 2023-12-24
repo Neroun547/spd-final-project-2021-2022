@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
-import { PhotoServiceDb } from "db/photo/photo.service";
-import { UserServiceDb } from "db/user/user.service";
+import { PhotoServiceDb } from "../../../../db/photo/photo.service";
+import { UserServiceDb } from "../../../../db/user/user.service";
 import { createReadStream, existsSync } from "fs";
 import { Response } from "express";
 import { resolve } from "path";

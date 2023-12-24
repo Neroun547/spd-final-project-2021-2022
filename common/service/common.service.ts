@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { unlink, access } from "fs/promises";
 import {JwtService} from "@nestjs/jwt";
-import { secretJwt } from "config.json";
+import { secretJwt } from "../../config.json";
 import {UserInterface} from "../../db/user/interfaces/user.interface";
 import { Request } from "express";
 

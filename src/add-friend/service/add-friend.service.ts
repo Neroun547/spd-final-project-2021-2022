@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
-import { FriendPendingServiceDb } from "db/friends-pending/friend-pending.service";
+import { FriendPendingServiceDb } from "../../../db/friends-pending/friend-pending.service";
 import { FriendsServiceDb } from "../../../db/friends/friends.service";
 import { UserServiceDb } from "../../../db/user/user.service";
 

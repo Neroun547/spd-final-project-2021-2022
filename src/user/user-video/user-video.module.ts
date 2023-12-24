@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
-import { UserModuleDb } from "db/user/user.module";
-import { VideoModuleDb } from "db/video/video.module";
+import { UserModuleDb } from "../../../db/user/user.module";
+import { VideoModuleDb } from "../../../db/video/video.module";
 import { UserVideoService } from "./service/user-video.service";
 import { UserVideoController } from "./user-video.controller";
 import {CommonModule} from "../../../common/common.module";

@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
 import * as jwt from "jsonwebtoken";
-import { secretJwt } from "config.json";
+import { secretJwt } from "../../../config.json";
 import { Request, Response } from "express";
 import { v4 as uuidv4 } from 'uuid';
 import { existsSync, createReadStream } from "fs";
@@ -8,7 +8,7 @@ import { unlink } from "fs/promises";
 import { resolve } from "path";
 import { UserServiceDb } from "db/user/user.service";
 import * as bcrypt from "bcrypt";
-import { email } from "config.json";
+import { email } from "../../../config.json";
 import { host, appPort, protocol } from "config.json";
 import { MusicServiceDb } from "../../../db/musics/music.service";
 import {VideoServiceDb} from "../../../db/video/video.service";

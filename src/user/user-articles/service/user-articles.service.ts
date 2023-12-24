@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
-import { ArticlesServiceDb } from "db/articles/articles.service";
-import { UserServiceDb } from "db/user/user.service";
+import { ArticlesServiceDb } from "../../../../db/articles/articles.service";
+import { UserServiceDb } from "../../../../db/user/user.service";
 import { IArticle } from "../interface/article.interface";
 
 @Injectable()

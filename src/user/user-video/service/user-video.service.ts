@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { Request, Response } from "express";
-import { UserServiceDb } from "db/user/user.service";
-import { VideoServiceDb } from "db/video/video.service";
+import { UserServiceDb } from "../../../../db/user/user.service";
+import { VideoServiceDb } from "../../../../db/video/video.service";
 import { createReadStream, existsSync, statSync } from "fs";
 import { resolve } from "path";
 import {GetVideoInfoInterface} from "../interfaces/get-video-info.interface";

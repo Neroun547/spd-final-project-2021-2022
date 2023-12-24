@@ -1,6 +1,6 @@
 import { SubscribeMessage, WebSocketGateway, WebSocketServer, MessageBody, ConnectedSocket } from "@nestjs/websockets";
 import { Server, Socket } from "socket.io";
-import { secretJwt } from "config.json";
+import { secretJwt } from "../../../config.json";
 import * as cookie from "cookie";
 import * as jwt from "jsonwebtoken";
 import { UserServiceDb } from "db/user/user.service";
@@ -31,7 +31,7 @@ export class ChatSocketService {
       const getterId = await this.userService.getIdUserByUsername(getterUsername.replace("messages-user/", ""));
 
       const chatId = await this.chatsService.getChatIdBySenderAndGetter(senderId, getterId);
-      
+
       const prevRoom = [...socket.rooms].find(el => el.includes("activeRoom="));
       socket.leave(prevRoom);
       socket.join("activeRoom="+chatId);
@@ -41,10 +41,10 @@ export class ChatSocketService {
     async messageEvenet(@ConnectedSocket() socket: Socket, @MessageBody() data: Message) {
       const getterUsername = socket.request.headers.referer.replace(`${protocol}://${host}:${appPort}/chat/`, "");
       const token = await jwt.verify(cookie.parse(socket.request.headers.cookie).token, secretJwt);
-     
+
       const senderId = token["_id"];
       const getterId = await this.userService.getIdUserByUsername(getterUsername.replace("messages-user/", ""));
-      
+
       const activeRoom = [...socket.rooms].find(el => el.includes("activeRoom="));
       // If chat exist in two users - send message else create chat for second user
       const exists = await this.chatsService.existChat(getterId, senderId);

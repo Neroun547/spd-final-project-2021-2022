@@ -1,7 +1,7 @@
 import { ExtractJwt, Strategy } from "passport-jwt";
 import { PassportStrategy } from "@nestjs/passport";
 import { Injectable } from "@nestjs/common";
-import { secretJwt } from "config.json";
+import { secretJwt } from "../../config.json";
 import {UserInterface} from "../../db/user/interfaces/user.interface";
 
 function cookieExtractor(req) {

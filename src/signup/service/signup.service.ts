@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
 import * as jwt from "jsonwebtoken";
-import { secretJwt } from "config.json";
+import { secretJwt } from "../../../config.json";
 import { UserDto } from "../dto/user.dto";
 import * as bcrypt from "bcrypt";
 import { UserServiceDb } from "db/user/user.service";

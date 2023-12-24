@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
-import { MusicsModuleDb } from "db/musics/music.module";
-import { UserModuleDb } from "db/user/user.module";
+import { MusicsModuleDb } from "../../../db/musics/music.module";
+import { UserModuleDb } from "../../../db/user/user.module";
 import { UserMusicsService } from "./service/user-musics.service";
 import { UserMusicsController } from "./user-musics.controller";
 import {JwtModule} from "@nestjs/jwt";

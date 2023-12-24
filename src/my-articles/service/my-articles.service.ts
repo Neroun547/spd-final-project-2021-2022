@@ -3,7 +3,7 @@ import { unlink } from "fs/promises";
 import { createWriteStream, existsSync } from "fs";
 import { readFile } from "fs/promises";
 import { resolve } from "path";
-import { ArticlesServiceDb } from "db/articles/articles.service";
+import { ArticlesServiceDb } from "../../../db/articles/articles.service";
 import { v4 as uuidv4 } from 'uuid';
 import {UploadArticleDto} from "../dto/upload-article.dto";
 import {ChangeParamsDto} from "../dto/change-params.dto";

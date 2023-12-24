@@ -2,7 +2,7 @@ import {Controller, ForbiddenException, Get, Param, Post, Req, Res, UseGuards} f
 import { Request, Response } from 'express';
 import { RootService } from './root.service';
 import {JwtService} from "@nestjs/jwt";
-import { secretJwt } from "config.json";
+import { secretJwt } from "../../config.json";
 import {JwtAuthGuard} from "../auth/guard/jwt-auth.guard";
 
 @Controller()
