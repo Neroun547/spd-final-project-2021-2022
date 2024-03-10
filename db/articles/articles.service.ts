@@ -10,25 +10,25 @@ export class ArticlesServiceDb {
         await this.repository.save({ ...article });
     }
 
-    async getArticlesByPublicateUser(publicateUser: number, skip: number, take: number) {
-        return await this.repository.find({ where: { publicateUser }, skip, take, order: {  _id: "DESC"}});
+    async getArticlesByUserId(userId: number, skip: number, take: number) {
+        return await this.repository.find({ where: { user_id: userId }, skip, take, order: {  _id: "DESC"}});
     }
 
-    async getCountArticles(publicateUser: number) {
-        return await this.repository.count({ where: { publicateUser } });
+    async getCountArticles(userId: number) {
+        return await this.repository.count({ where: { user_id: userId } });
     }
 
     async getArticleById(idArticle: string) {
         return await this.repository.findOne({ idArticle });
     }
 
-    async deleteArticleById(idArticle: string, publicateUser: number) {
-        await this.repository.delete({ idArticle, publicateUser });
+    async deleteArticleById(idArticle: string, userId: number) {
+        await this.repository.delete({ idArticle: idArticle, user_id: userId });
     }
 
-    async getArticlesByUsernameAndLikeTheme(publicateUser: number, theme: string, skip: number, take: number) {
+    async getArticlesByUsernameAndLikeTheme(userId: number, theme: string, skip: number, take: number) {
         return await this.repository.createQueryBuilder("articles")
-        .where("articles.publicateUser = :publicateUser AND articles.theme LIKE :theme", { publicateUser: publicateUser, theme: `%${theme}%` })
+        .where("articles.user_id = :author AND articles.theme LIKE :theme", { user_id: userId, theme: `%${theme}%` })
         .orderBy({  _id: "DESC"})
         .skip(skip)
         .take(take)
@@ -44,27 +44,27 @@ export class ArticlesServiceDb {
             .getMany()
     }
 
-    async getAllArticlesByPublicateUser(publicateUser: number) {
-        return await this.repository.find({ publicateUser: publicateUser });
+    async getAllArticlesByUserId(userId: number) {
+        return await this.repository.find({ user_id: userId });
     }
 
-    async deleteAllArticlesByPublicateUser(publicateUser: number) {
-        await this.repository.delete({  publicateUser: publicateUser });
+    async deleteAllArticlesByUserId(userId: number) {
+        await this.repository.delete({  user_id: userId });
     }
 
-    async changeParamsArticle(publicateUser: number, idArticle: string, theme: string, title: string) {
-        await this.repository.update({ publicateUser: publicateUser, idArticle: idArticle }, { theme: theme, title: title });
+    async changeParamsArticle(userId: number, idArticle: string, theme: string, title: string) {
+        await this.repository.update({ user_id: userId, idArticle: idArticle }, { theme: theme, title: title });
     }
 
-    async getArticlesDesc(take: number, skip: number) {
-        return await this.repository.find({where: {}, skip: skip, take: take, order: { _id: "DESC" }})
+    async getArticlesAndAuthorsDesc(take: number, skip: number) {
+        return await this.repository.find({ where: {}, skip: skip, take: take, order: { _id: "DESC" }, relations: ["user"] });
     }
 
     async getArticlesByThemeDesc(take: number, skip: number, theme: string) {
         return await this.repository.find({ where: { theme: theme }, take: take, skip: skip, order: { _id: "DESC" } });
     }
 
-    async getArticleByArticleIdAndAuthorId(idArticle: string, authorId: number) {
-        return await this.repository.findOne({ idArticle: idArticle, publicateUser: authorId });
+    async getArticleByArticleIdAndUserId(idArticle: string, userId: number) {
+        return await this.repository.findOne({ idArticle: idArticle, user_id: userId });
     }
 }

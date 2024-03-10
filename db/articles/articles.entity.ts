@@ -1,5 +1,6 @@
 import { ArticlesInterface } from "./interfaces/articles.interface";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"; 
+import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {User} from "../user/user.entity";
 
 @Entity()
 export class Articles implements ArticlesInterface {
@@ -19,8 +20,12 @@ export class Articles implements ArticlesInterface {
     title: string;
 
     @Column({ nullable: false })
-    publicateUser: number;
+    user_id: number;
 
     @Column({ nullable: false })
     date: Date;
+
+
+    @ManyToOne(() => User,  (user) => user.articles)
+    user: User;
 }

@@ -15,6 +15,7 @@
                     <h4 class="wrapper__article-theme"><strong>Theme: </strong>{{this.theme}}</h4>
                     <h6 class="wrapper__article-date pt-10">{{this.date}}</h6>
                     <a href="/user/articles/article/{{this.idArticle}}/?arrow=false" class="read-article-link">Read</a>
+                    <span>Author: <a href="/user/photo/{{this.author}}">{{this.author}}</a></span>
                 </div>
             {{/each}}
         {{else}}

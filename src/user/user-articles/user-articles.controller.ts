@@ -52,7 +52,7 @@ export class UserArticlesController {
                 idAvatar: user["idAvatar"],
                 username: user["username"],
                 styles: ["/css/user/another-user.css"],
-                scripts: ["/js/modules/another-user/another-user-articles/another-user-articles.js"]
+                scripts: ["/js/modules/another-user/another-user-articles/articles.js"]
             });
         } else {
             res.render("modules/articles/articles", {
@@ -60,7 +60,7 @@ export class UserArticlesController {
                 loadMore: articles.length === 5,
                 articles: articles,
                 styles: ["/css/user/another-user.css"],
-                scripts: ["/js/modules/another-user/another-user-articles/another-user-articles.js"]
+                scripts: ["/js/modules/another-user/another-user-articles/articles.js"]
             });
         }
     }

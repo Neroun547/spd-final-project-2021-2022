@@ -4,6 +4,6 @@ export interface ArticlesInterface {
     idArticle: string;
     theme: string;
     title: string;
-    publicateUser: number;
+    user_id: number;
     date: Date;
 }

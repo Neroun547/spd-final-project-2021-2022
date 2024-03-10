@@ -64,8 +64,8 @@ export class AccountSettingsService {
             const photos = (await this.photoServiceDb.getAllPhotoByAuthor(user._id)).map(el => el.photo);
             await this.photoServiceDb.deleteAllPhotoByAuthor(user._id);
 
-            const articles = (await this.articlesServiceDb.getAllArticlesByPublicateUser(user._id)).map(el => el.article);
-            await this.articlesServiceDb.deleteAllArticlesByPublicateUser(user._id);
+            const articles = (await this.articlesServiceDb.getAllArticlesByUserId(user._id)).map(el => el.article);
+            await this.articlesServiceDb.deleteAllArticlesByUserId(user._id);
 
             await this.commonService.deleteFiles([...videos, ...privateVideos, ...music, ...photos, ...articles]);
 

@@ -16,14 +16,14 @@ export class UserArticlesService {
     }
 
     async getArticlesByUserId(publicateUser: number, skip: number, take: number): Promise<IArticle []> {
-        const articles = await this.articlesServiceDb.getArticlesByPublicateUser(publicateUser, skip, take);
+        const articles = await this.articlesServiceDb.getArticlesByUserId(publicateUser, skip, take);
 
         return articles.map(el => ({ idArticle: el.idArticle, title: el.title, theme: el.theme, date: el.date }));
     }
 
     async getArticlesByUsername(username: string, skip: number, take: number): Promise<IArticle[]> {
         const user = await this.userServiceDb.findUserByUsername(username);
-        const articles = await this.articlesServiceDb.getArticlesByPublicateUser(user._id, skip, take);
+        const articles = await this.articlesServiceDb.getArticlesByUserId(user._id, skip, take);
 
         return articles.map(el => ({ idArticle: el.idArticle, title: el.title, theme: el.theme, date: el.date }));
     }
@@ -49,7 +49,9 @@ export class UserArticlesService {
     }
 
     async getArticles(take: number, skip: number) {
-        return await this.articlesServiceDb.getArticlesDesc(take, skip);
+        return (await this.articlesServiceDb.getArticlesAndAuthorsDesc(take, skip)).map(el => {
+            return { ...el, author: el.user.username }
+        });
     }
 
     async getArticlesByTheme(take: number, skip: number, theme: string) {
@@ -57,7 +59,7 @@ export class UserArticlesService {
     }
 
     async getAuthorUsernameByArticleId(articleId: string) {
-        const articleAuthor = (await this.articlesServiceDb.getArticleById(articleId)).publicateUser;
+        const articleAuthor = (await this.articlesServiceDb.getArticleById(articleId)).user_id;
 
         return (await this.userServiceDb.findUserById(articleAuthor)).username;
     }

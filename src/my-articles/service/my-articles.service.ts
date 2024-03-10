@@ -35,7 +35,7 @@ export class MyArticlesService {
         writeStream.end();
 
         await this.articlesServiceDb.saveArticle({
-            publicateUser: idUser,
+            user_id: idUser,
             theme: article.theme,
             title: article.title,
             article: `${nameArticle}.hbs`,
@@ -45,7 +45,7 @@ export class MyArticlesService {
     }
 
     async editArticleByArticleId(content: string, idArticle: string, authorId: number) {
-        const articleInDb = await this.articlesServiceDb.getArticleByArticleIdAndAuthorId(idArticle, authorId);
+        const articleInDb = await this.articlesServiceDb.getArticleByArticleIdAndUserId(idArticle, authorId);
 
         if(articleInDb) {
             const writeStream = createWriteStream(resolve(`views/articles/${articleInDb.article}`));
