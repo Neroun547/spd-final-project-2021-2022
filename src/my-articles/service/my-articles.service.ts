@@ -39,7 +39,7 @@ export class MyArticlesService {
             theme: article.theme,
             title: article.title,
             article: `${nameArticle}.hbs`,
-            idArticle: uuidv4(),
+            id_article: uuidv4(),
             date: new Date()
         });
     }

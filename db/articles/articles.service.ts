@@ -19,11 +19,11 @@ export class ArticlesServiceDb {
     }
 
     async getArticleById(idArticle: string) {
-        return await this.repository.findOne({ idArticle });
+        return await this.repository.findOne({ id_article: idArticle });
     }
 
     async deleteArticleById(idArticle: string, userId: number) {
-        await this.repository.delete({ idArticle: idArticle, user_id: userId });
+        await this.repository.delete({ id_article: idArticle, user_id: userId });
     }
 
     async getArticlesByUsernameAndLikeTheme(userId: number, theme: string, skip: number, take: number) {
@@ -53,7 +53,7 @@ export class ArticlesServiceDb {
     }
 
     async changeParamsArticle(userId: number, idArticle: string, theme: string, title: string) {
-        await this.repository.update({ user_id: userId, idArticle: idArticle }, { theme: theme, title: title });
+        await this.repository.update({ user_id: userId, id_article: idArticle }, { theme: theme, title: title });
     }
 
     async getArticlesAndAuthorsDesc(take: number, skip: number) {
@@ -65,6 +65,6 @@ export class ArticlesServiceDb {
     }
 
     async getArticleByArticleIdAndUserId(idArticle: string, userId: number) {
-        return await this.repository.findOne({ idArticle: idArticle, user_id: userId });
+        return await this.repository.findOne({ id_article: idArticle, user_id: userId });
     }
 }

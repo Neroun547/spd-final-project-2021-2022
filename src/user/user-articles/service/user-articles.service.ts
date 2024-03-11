@@ -18,14 +18,14 @@ export class UserArticlesService {
     async getArticlesByUserId(publicateUser: number, skip: number, take: number): Promise<IArticle []> {
         const articles = await this.articlesServiceDb.getArticlesByUserId(publicateUser, skip, take);
 
-        return articles.map(el => ({ idArticle: el.idArticle, title: el.title, theme: el.theme, date: el.date }));
+        return articles.map(el => ({ idArticle: el.id_article, title: el.title, theme: el.theme, date: el.date }));
     }
 
     async getArticlesByUsername(username: string, skip: number, take: number): Promise<IArticle[]> {
         const user = await this.userServiceDb.findUserByUsername(username);
         const articles = await this.articlesServiceDb.getArticlesByUserId(user._id, skip, take);
 
-        return articles.map(el => ({ idArticle: el.idArticle, title: el.title, theme: el.theme, date: el.date }));
+        return articles.map(el => ({ idArticle: el.id_article, title: el.title, theme: el.theme, date: el.date }));
     }
 
     async getCountArticles(username: string) {
@@ -41,7 +41,7 @@ export class UserArticlesService {
         const userId = await this.userServiceDb.getIdUserByUsername(username);
         const articles = await this.articlesServiceDb.getArticlesByUsernameAndLikeTheme(userId, theme, skip, take);
 
-        return articles.map(el => ({ idArticle: el.idArticle, title: el.title, theme: el.theme, date: el.date }));
+        return articles.map(el => ({ idArticle: el.id_article, title: el.title, theme: el.theme, date: el.date }));
     }
 
     async getArticlesLikeTheme(theme: string, skip: number, take: number) {
@@ -50,7 +50,7 @@ export class UserArticlesService {
 
     async getArticles(take: number, skip: number) {
         return (await this.articlesServiceDb.getArticlesAndAuthorsDesc(take, skip)).map(el => {
-            return { ...el, author: el.user.username }
+            return { ...el, idArticle: el.id_article, author: el.user.username }
         });
     }
 

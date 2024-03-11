@@ -11,7 +11,7 @@ export class Articles implements ArticlesInterface {
     article: string
 
     @Column({ nullable: false })
-    idArticle: string;
+    id_article: string;
 
     @Column({ nullable: false })
     theme: string;

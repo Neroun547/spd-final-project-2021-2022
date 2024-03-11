@@ -12,7 +12,7 @@ let activeThemeArticles = "";
 
 
 function makeNewArticles(el) {
-    const wrapperItemArticle = createElement(wrapperArticles, "div", { class: "wrapper__article" });
+    const wrapperItemArticle = createElement(wrapperArticles, "div", { class: "wrapper__article mt-5 mb-5" });
 
     const wrapperItemArticleLogo = createElement(wrapperItemArticle, "div", { class: "wrapper__article-logo" });
 
